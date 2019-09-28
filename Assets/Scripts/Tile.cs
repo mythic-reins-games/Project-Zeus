@@ -11,21 +11,21 @@ public class Tile : MonoBehaviour
 
     public Entity CurrentEntity { get => currentEntity; set => currentEntity = value; }
 
-    private void Update ()
+    private void Update()
     {
-        if (Vector3.Distance (transform.position, PlayerUnit.Instance.transform.position)
-            < PlayerUnit.Instance.GetComponent<PlayerMovement> ().MinDistance)
+        if (Vector3.Distance(transform.position, PlayerUnit.Instance.transform.position)
+            < PlayerUnit.Instance.GetComponent<PlayerMovement>().MinDistance)
         {
-            GetComponent<Renderer> ().material = redish;
+            GetComponent<Renderer>().material = redish;
         }
         else
         {
-            GetComponent<Renderer> ().material = def;
+            GetComponent<Renderer>().material = def;
         }
     }
 
-    private void OnMouseDown ()
+    private void OnMouseDown()
     {
-        GameEvents.TileSelected (this);
+        GameEvents.TileSelected(this);
     }
 }
