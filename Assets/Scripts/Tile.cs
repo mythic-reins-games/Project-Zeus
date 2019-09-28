@@ -41,6 +41,16 @@ public class Tile : MonoBehaviour
         }
     }
 
+    public void FindNeighbors()
+    {
+        Reset();
+
+        CheckTile(Vector3.forward);
+        CheckTile(Vector3.back);
+        CheckTile(Vector3.right);
+        CheckTile(Vector3.left);
+    }
+
     public void Reset()
     {
         isCurrent = false;
@@ -54,16 +64,6 @@ public class Tile : MonoBehaviour
         distance = 0;
     }
 
-    public void FindNeighbors()
-    {
-        Reset();
-
-        CheckTile(Vector3.forward);
-        CheckTile(-Vector3.forward);
-        CheckTile(Vector3.right);
-        CheckTile(-Vector3.right);
-    }
-
     public void CheckTile(Vector3 direction)
     {
         Vector3 halfExtents = new Vector3(0.25f, 0.25f, 0.25f);
@@ -72,16 +72,14 @@ public class Tile : MonoBehaviour
         foreach (Collider item in colliders)
         {
             Tile tile = item.GetComponent<Tile>();
-            
-            if (tile != null && tile.isWalkable)
-            {
-                RaycastHit raycastHit;
 
-                if (!Physics.Raycast(tile.transform.position, Vector3.up, out raycastHit, 1))
-                {
-                    adjacentTileList.Add(tile);
-                }
-            }
+            if (tile == null || !tile.isWalkable) continue;
+            
+            RaycastHit hit;
+            // If there is an obstacle on the tile, ignore it
+            if (Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1)) continue;
+
+            adjacentTileList.Add(tile);
         }
     }
 }
