@@ -19,11 +19,11 @@ public class Tool_GridGenerator : MonoBehaviour
 
             for (int j = 0; j < 12; j++)
             {
-                Vector3 position = new Vector3(i, 0, j);
+                Vector3 position = new Vector3(j, 0, i);
                 Quaternion rotation = new Quaternion();
                 GameObject tile = Instantiate(tilePrefab, position, rotation);
                 tile.transform.parent = row.transform;
-                tile.name = "Tile";
+                tile.name = "Tile" + j;
             }
         }
 

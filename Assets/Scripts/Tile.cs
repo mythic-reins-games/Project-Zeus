@@ -1,31 +1,87 @@
-﻿#pragma warning disable 0649
-
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    private Entity currentEntity;
+    public bool isWalkable = true;
+    public bool isCurrent = false;
+    public bool isTarget = false;
+    public bool isSelectable = false;
 
-    [SerializeField] private Material def;
-    [SerializeField] private Material redish;
+    public List<Tile> adjacentTileList = new List<Tile>();
 
-    public Entity CurrentEntity { get => currentEntity; set => currentEntity = value; }
+    // Needed for breadth-first search
+    public bool wasVisited = false;
+    public Tile parent = null;
+    public int distance = 0;
 
-    private void Update()
+    void Start()
     {
-        if (Vector3.Distance(transform.position, PlayerUnit.Instance.transform.position)
-            < PlayerUnit.Instance.GetComponent<PlayerMovement>().MinDistance)
+        
+    }
+
+    void Update()
+    {
+        if (isCurrent)
         {
-            GetComponent<Renderer>().material = redish;
+            GetComponent<Renderer>().material.color = Color.magenta;
+        }
+        else if (isTarget)
+        {
+            GetComponent<Renderer>().material.color = Color.green;
+        }
+        else if (isSelectable)
+        {
+            GetComponent<Renderer>().material.color = Color.red;
         }
         else
         {
-            GetComponent<Renderer>().material = def;
+            GetComponent<Renderer>().material.color = Color.white;
         }
     }
 
-    private void OnMouseDown()
+    public void Reset()
     {
-        GameEvents.TileSelected(this);
+        isCurrent = false;
+        isTarget = false;
+        isSelectable = false;
+
+        adjacentTileList.Clear();
+
+        wasVisited = false;
+        parent = null;
+        distance = 0;
+    }
+
+    public void FindNeighbors()
+    {
+        Reset();
+
+        CheckTile(Vector3.forward);
+        CheckTile(-Vector3.forward);
+        CheckTile(Vector3.right);
+        CheckTile(-Vector3.right);
+    }
+
+    public void CheckTile(Vector3 direction)
+    {
+        Vector3 halfExtents = new Vector3(0.25f, 0.25f, 0.25f);
+        Collider[] colliders = Physics.OverlapBox(transform.position + direction, halfExtents);
+
+        foreach (Collider item in colliders)
+        {
+            Tile tile = item.GetComponent<Tile>();
+            
+            if (tile != null && tile.isWalkable)
+            {
+                RaycastHit raycastHit;
+
+                if (!Physics.Raycast(tile.transform.position, Vector3.up, out raycastHit, 1))
+                {
+                    adjacentTileList.Add(tile);
+                }
+            }
+        }
     }
 }
