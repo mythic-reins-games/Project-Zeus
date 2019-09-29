@@ -7,7 +7,7 @@ public class CombatMovement : MonoBehaviour
     private GameObject[] tiles;
 
     private Stack<Tile> path = new Stack<Tile>();
-    private Tile currentTile;
+    [SerializeField] private Tile currentTile;
 
     protected bool isMoving = false;
     [SerializeField] private int move = 5;
@@ -64,7 +64,7 @@ public class CombatMovement : MonoBehaviour
 
     private void AssignCurrentTile()
     {
-        currentTile = GetTargetTile(gameObject);
+        // currentTile = GetTargetTile(gameObject);
         currentTile.isCurrent = true;
     }
 
@@ -114,6 +114,12 @@ public class CombatMovement : MonoBehaviour
             {
                 // Center of tile reached
                 transform.position = target;
+                if (path.Count == 1)
+                {
+                    currentTile.isCurrent = false;
+                    currentTile = path.Peek();
+                    currentTile.isCurrent = true;
+                }
                 path.Pop();
             }
         }
@@ -137,11 +143,6 @@ public class CombatMovement : MonoBehaviour
 
     private void RemoveSelectableTiles()
     {
-        if (currentTile != null)
-        {
-            currentTile.isCurrent = false;
-            currentTile = null;
-        }
 
         foreach (Tile tile in selectableTiles)
         {
