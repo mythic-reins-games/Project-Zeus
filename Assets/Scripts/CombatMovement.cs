@@ -1,32 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatMovement : MonoBehaviour
 {
-    List<Tile> selectableTiles = new List<Tile>();
-    GameObject[] tiles;
+    private List<Tile> selectableTiles = new List<Tile>();
+    private GameObject[] tiles;
 
-    Stack<Tile> path = new Stack<Tile>();
-    Tile currentTile;
+    private Stack<Tile> path = new Stack<Tile>();
+    private Tile currentTile;
 
-    public bool isMoving = false;
-    public int move = 5;
-    public float moveSpeed = 2;
+    protected bool isMoving = false;
+    [SerializeField] private int move = 5;
+    [SerializeField] private float moveSpeed = 2;
 
-    Vector3 velocity = new Vector3();
-    Vector3 direction = new Vector3();
-
-    float halfHeight = 0;
+    private float unitHalfHeight = 0;
 
     protected void Init()
     {
         tiles = GameObject.FindGameObjectsWithTag("Tile");
 
-        halfHeight = GetComponent<CharacterController>().bounds.extents.y;
+        unitHalfHeight = GetComponent<CharacterController>().bounds.extents.y;
     }
 
-    public void FindSelectableTiles()
+    protected void FindSelectableTiles()
     {
         FindAdjacentTiles();
         AssignCurrentTile();
@@ -57,23 +53,23 @@ public class CombatMovement : MonoBehaviour
         }
     }
 
-    public void FindAdjacentTiles()
+    private void FindAdjacentTiles()
     {
-        foreach (GameObject tile in tiles)
+        foreach (GameObject tileObject in tiles)
         {
-            Tile tileScript = tile.GetComponent<Tile>();
-            tileScript.FindNeighbors();
+            Tile tile = tileObject.GetComponent<Tile>();
+            tile.FindNeighbors();
         }
     }
 
-    public void AssignCurrentTile()
+    private void AssignCurrentTile()
     {
         currentTile = GetTargetTile(gameObject);
         currentTile.isCurrent = true;
     }
 
     // Will need adjustment once there are objects that units can stand on, e.g., crates
-    public Tile GetTargetTile(GameObject target)
+    private Tile GetTargetTile(GameObject target)
     {
         RaycastHit hit;
         // Return null if there is nothing below the target
@@ -82,17 +78,76 @@ public class CombatMovement : MonoBehaviour
         return hit.collider.GetComponent<Tile>();
     }
 
-    public void MoveToTile(Tile tile)
+    protected void CalculatePath(Tile targetTile)
     {
         path.Clear();
-        tile.isTarget = true;
+        targetTile.isTarget = true;
         isMoving = true;
 
-        Tile next = tile;
+        Tile next = targetTile;
         while (next != null)
         {
             path.Push(next);
             next = next.parent;
         }
+    }
+
+    protected void Move()
+    {
+        if (path.Count > 0)
+        {
+            Tile tile = path.Peek();
+            Vector3 target = tile.transform.position;
+
+            // Calculating the unit's position on the target tile, assuming the top of the tile is at y = 0
+            target.y = unitHalfHeight;
+
+            if (Vector3.Distance(transform.position, target) >= 0.05f)
+            {
+                Vector3 direction = CalculateDirection(target);
+                Vector3 velocity = SetHorizontalVelocity(direction);
+
+                transform.forward = direction;
+                transform.position += velocity * Time.deltaTime;
+            }
+            else
+            {
+                // Center of tile reached
+                transform.position = target;
+                path.Pop();
+            }
+        }
+        else
+        {
+            RemoveSelectableTiles();
+            isMoving = false;
+        }
+    }
+
+    private Vector3 CalculateDirection(Vector3 target)
+    {
+        Vector3 direction = target - transform.position;
+        return direction.normalized;
+    }
+
+    private Vector3 SetHorizontalVelocity(Vector3 direction)
+    {
+        return direction * moveSpeed;
+    }
+
+    private void RemoveSelectableTiles()
+    {
+        if (currentTile != null)
+        {
+            currentTile.isCurrent = false;
+            currentTile = null;
+        }
+
+        foreach (Tile tile in selectableTiles)
+        {
+            tile.Reset();
+        }
+
+        selectableTiles.Clear();
     }
 }

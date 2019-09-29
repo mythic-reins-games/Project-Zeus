@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovement : CombatMovement
 {
@@ -18,11 +16,11 @@ public class PlayerMovement : CombatMovement
         }
         else
         {
-            // TODO Move();
+            Move();
         }
     }
 
-    void CheckMouseClick()
+    private void CheckMouseClick()
     {
         if (Input.GetMouseButtonUp(0))
         {
@@ -34,11 +32,11 @@ public class PlayerMovement : CombatMovement
             
             if (hit.collider.tag == "Tile")
             {
-                Tile tile = hit.collider.GetComponent<Tile>();
+                Tile clickedTile = hit.collider.GetComponent<Tile>();
 
-                if (!tile.isSelectable) return;
+                if (!clickedTile.isSelectable) return;
 
-                MoveToTile(tile);
+                CalculatePath(clickedTile);
             }
         }
     }
