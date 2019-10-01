@@ -9,6 +9,10 @@ public class PlayerMovement : CombatMovement
 
     void Update()
     {
+        if (!isTurn)
+        {
+            return;
+        }
         if (!isMoving)
         {
             FindSelectableTiles();

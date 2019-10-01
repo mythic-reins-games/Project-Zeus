@@ -5,6 +5,7 @@ public class Tile : MonoBehaviour
 {
     public bool isWalkable = true;
     public bool isCurrent = false;
+    public bool isBlocked = false;
     public bool isTarget = false;
     public bool isSelectable = false;
 
@@ -28,9 +29,13 @@ public class Tile : MonoBehaviour
         }
         else if (isTarget)
         {
-            GetComponent<Renderer>().material.color = Color.green;
+            GetComponent<Renderer>().material.color = Color.blue;
         }
         else if (isSelectable)
+        {
+            GetComponent<Renderer>().material.color = Color.green;
+        }
+        else if (isBlocked)
         {
             GetComponent<Renderer>().material.color = Color.red;
         }

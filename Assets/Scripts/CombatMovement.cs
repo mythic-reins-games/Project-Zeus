@@ -9,8 +9,10 @@ public class CombatMovement : MonoBehaviour
     private Stack<Tile> path = new Stack<Tile>();
     [SerializeField] private Tile currentTile;
 
+    public bool isTurn = false;
     protected bool isMoving = false;
     [SerializeField] private int move = 5;
+    [SerializeField] private int actionPoints = 0;
     [SerializeField] private float moveSpeed = 2;
 
     private float unitHalfHeight = 0;
@@ -20,6 +22,21 @@ public class CombatMovement : MonoBehaviour
         tiles = GameObject.FindGameObjectsWithTag("Tile");
 
         unitHalfHeight = GetComponent<CharacterController>().bounds.extents.y;
+    }
+
+    public void BeginTurn()
+    {
+        isTurn = true;
+        actionPoints = move;
+    }
+
+    protected void EndAction()
+    {
+        isMoving = false;
+        if (actionPoints == 0)
+        {
+            isTurn = false;
+        }
     }
 
     protected void FindSelectableTiles()
@@ -39,11 +56,12 @@ public class CombatMovement : MonoBehaviour
             selectableTiles.Add(tile);
             tile.isSelectable = true;
 
-            if (tile.distance >= move) continue;
+            if (tile.distance >= actionPoints) continue;
 
             foreach (Tile adjacentTile in tile.adjacentTileList)
             {
                 if (adjacentTile.wasVisited) continue;
+                if (adjacentTile.isBlocked) continue;
 
                 adjacentTile.parent = tile;
                 adjacentTile.wasVisited = true;
@@ -64,7 +82,8 @@ public class CombatMovement : MonoBehaviour
 
     private void AssignCurrentTile()
     {
-        // currentTile = GetTargetTile(gameObject);
+        currentTile = GetTargetTile(gameObject);
+        currentTile.isBlocked = true;
         currentTile.isCurrent = true;
     }
 
@@ -73,7 +92,10 @@ public class CombatMovement : MonoBehaviour
     {
         RaycastHit hit;
         // Return null if there is nothing below the target
-        if (!Physics.Raycast(target.transform.position, Vector3.down, out hit, 1)) return null;
+        if (!Physics.Raycast(target.transform.position, Vector3.down, out hit, Mathf.Infinity, Physics.AllLayers))
+        {
+            return null;
+        }
         
         return hit.collider.GetComponent<Tile>();
     }
@@ -116,9 +138,15 @@ public class CombatMovement : MonoBehaviour
                 transform.position = target;
                 if (path.Count == 1)
                 {
+                    currentTile.isBlocked = false;
                     currentTile.isCurrent = false;
                     currentTile = path.Peek();
                     currentTile.isCurrent = true;
+                    currentTile.isBlocked = true;
+                }
+                else
+                {
+                    actionPoints -= 1;
                 }
                 path.Pop();
             }
@@ -126,7 +154,7 @@ public class CombatMovement : MonoBehaviour
         else
         {
             RemoveSelectableTiles();
-            isMoving = false;
+            EndAction();
         }
     }
 
