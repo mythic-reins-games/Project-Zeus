@@ -133,8 +133,7 @@ public class CombatMovement : MonoBehaviour
                 Vector3 velocity = SetHorizontalVelocity(direction);
 
                 transform.forward = direction;
-                // transform.position += velocity * Time.deltaTime;
-                characterController.Move(direction * Time.deltaTime);
+                characterController.Move(velocity * Time.deltaTime);
             }
             else
             {
