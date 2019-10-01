@@ -7,12 +7,12 @@ public class CombatMovement : MonoBehaviour
     private GameObject[] tiles;
 
     private Stack<Tile> path = new Stack<Tile>();
-    [SerializeField] private Tile currentTile;
+    private Tile currentTile;
 
     public bool isTurn = false;
     protected bool isMoving = false;
     [SerializeField] private int move = 5;
-    [SerializeField] private int actionPoints = 0;
+     private int actionPoints = 0;
     [SerializeField] private float moveSpeed = 2;
 
     private float unitHalfHeight = 0;
@@ -20,8 +20,8 @@ public class CombatMovement : MonoBehaviour
     protected void Init()
     {
         tiles = GameObject.FindGameObjectsWithTag("Tile");
-
         unitHalfHeight = GetComponent<CharacterController>().bounds.extents.y;
+        AssignCurrentTile();
     }
 
     public void BeginTurn()
