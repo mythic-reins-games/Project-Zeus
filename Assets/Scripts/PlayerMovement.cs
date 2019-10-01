@@ -7,7 +7,7 @@ public class PlayerMovement : CombatMovement
         Init();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!isTurn)
         {

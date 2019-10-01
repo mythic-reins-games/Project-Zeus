@@ -90,13 +90,14 @@ public class CombatMovement : MonoBehaviour
     // Will need adjustment once there are objects that units can stand on, e.g., crates
     private Tile GetTargetTile(GameObject target)
     {
+
         RaycastHit hit;
         // Return null if there is nothing below the target
         if (!Physics.Raycast(target.transform.position, Vector3.down, out hit, Mathf.Infinity, Physics.AllLayers))
         {
             return null;
         }
-        
+
         return hit.collider.GetComponent<Tile>();
     }
 
@@ -123,14 +124,17 @@ public class CombatMovement : MonoBehaviour
 
             // Calculating the unit's position on the target tile, assuming the top of the tile is at y = 0
             target.y = unitHalfHeight;
+            target.y = 0.08f;
 
-            if (Vector3.Distance(transform.position, target) >= 0.05f)
+            if (Vector3.Distance(transform.position, target) >= 0.1f)
             {
+                CharacterController characterController = GetComponent<CharacterController>();
                 Vector3 direction = CalculateDirection(target);
                 Vector3 velocity = SetHorizontalVelocity(direction);
 
                 transform.forward = direction;
-                transform.position += velocity * Time.deltaTime;
+                // transform.position += velocity * Time.deltaTime;
+                characterController.Move(direction * Time.deltaTime);
             }
             else
             {
