@@ -3,14 +3,16 @@ using UnityEngine;
 
 public class CombatMovement : MonoBehaviour
 {
-    private List<Tile> selectableTiles = new List<Tile>();
+    protected List<Tile> selectableTiles = new List<Tile>();
     private GameObject[] tiles;
 
     private Stack<Tile> path = new Stack<Tile>();
-    [SerializeField] private Tile currentTile;
+    private Tile currentTile;
 
+    public bool isTurn = false;
     protected bool isMoving = false;
     [SerializeField] private int move = 5;
+     private int actionPoints = 0;
     [SerializeField] private float moveSpeed = 2;
 
     private float unitHalfHeight = 0;
@@ -18,19 +20,36 @@ public class CombatMovement : MonoBehaviour
     protected void Init()
     {
         tiles = GameObject.FindGameObjectsWithTag("Tile");
-
         unitHalfHeight = GetComponent<CharacterController>().bounds.extents.y;
+        AssignCurrentTile();
+    }
+
+    public void BeginTurn()
+    {
+        isTurn = true;
+        actionPoints = move;
+    }
+
+    protected void EndAction()
+    {
+        isMoving = false;
+        if (actionPoints == 0)
+        {
+            isTurn = false;
+        }
     }
 
     protected void FindSelectableTiles()
     {
-        FindAdjacentTiles();
+        if (actionPoints == 0)
+        {
+            return;
+        }
         AssignCurrentTile();
 
         Queue<Tile> queue = new Queue<Tile>();
-
-        queue.Enqueue(currentTile);
         currentTile.wasVisited = true;
+        queue.Enqueue(currentTile);
 
         while (queue.Count > 0)
         {
@@ -38,43 +57,45 @@ public class CombatMovement : MonoBehaviour
 
             selectableTiles.Add(tile);
             tile.isSelectable = true;
-
-            if (tile.distance >= move) continue;
+            if (tile.distance >= actionPoints) continue;
 
             foreach (Tile adjacentTile in tile.adjacentTileList)
             {
                 if (adjacentTile.wasVisited) continue;
-
-                adjacentTile.parent = tile;
-                adjacentTile.wasVisited = true;
+                if (adjacentTile.isBlocked) continue;
                 adjacentTile.distance = 1 + tile.distance;
+                adjacentTile.wasVisited = true;
+                if (tile == currentTile)
+                {
+                    adjacentTile.parent = null;
+                }
+                else
+                {
+                    adjacentTile.parent = tile;
+                }
                 queue.Enqueue(adjacentTile);
             }
         }
     }
 
-    private void FindAdjacentTiles()
-    {
-        foreach (GameObject tileObject in tiles)
-        {
-            Tile tile = tileObject.GetComponent<Tile>();
-            tile.FindNeighbors();
-        }
-    }
-
     private void AssignCurrentTile()
     {
-        // currentTile = GetTargetTile(gameObject);
+        currentTile = GetTargetTile(gameObject);
+        currentTile.isBlocked = true;
         currentTile.isCurrent = true;
     }
 
     // Will need adjustment once there are objects that units can stand on, e.g., crates
     private Tile GetTargetTile(GameObject target)
     {
+
         RaycastHit hit;
         // Return null if there is nothing below the target
-        if (!Physics.Raycast(target.transform.position, Vector3.down, out hit, 1)) return null;
-        
+        if (!Physics.Raycast(target.transform.position, Vector3.down, out hit, Mathf.Infinity, Physics.AllLayers))
+        {
+            return null;
+        }
+
         return hit.collider.GetComponent<Tile>();
     }
 
@@ -101,14 +122,16 @@ public class CombatMovement : MonoBehaviour
 
             // Calculating the unit's position on the target tile, assuming the top of the tile is at y = 0
             target.y = unitHalfHeight;
+            target.y = 0.08f;
 
-            if (Vector3.Distance(transform.position, target) >= 0.05f)
+            if (Vector3.Distance(transform.position, target) >= 0.1f)
             {
+                CharacterController characterController = GetComponent<CharacterController>();
                 Vector3 direction = CalculateDirection(target);
                 Vector3 velocity = SetHorizontalVelocity(direction);
 
                 transform.forward = direction;
-                transform.position += velocity * Time.deltaTime;
+                characterController.Move(velocity * Time.deltaTime);
             }
             else
             {
@@ -116,17 +139,21 @@ public class CombatMovement : MonoBehaviour
                 transform.position = target;
                 if (path.Count == 1)
                 {
+                    currentTile.isBlocked = false;
                     currentTile.isCurrent = false;
+                    Debug.Log(currentTile);
                     currentTile = path.Peek();
                     currentTile.isCurrent = true;
+                    currentTile.isBlocked = true;
                 }
+                actionPoints -= 1;
                 path.Pop();
             }
         }
         else
         {
             RemoveSelectableTiles();
-            isMoving = false;
+            EndAction();
         }
     }
 
@@ -146,7 +173,7 @@ public class CombatMovement : MonoBehaviour
 
         foreach (Tile tile in selectableTiles)
         {
-            tile.Reset();
+            tile.ClearMovementVariables();
         }
 
         selectableTiles.Clear();

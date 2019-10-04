@@ -7,11 +7,19 @@ public class PlayerMovement : CombatMovement
         Init();
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        if (!isTurn)
+        {
+            return;
+        }
         if (!isMoving)
         {
-            FindSelectableTiles();
+            // Only need to recalculate selectable tiles after action is concluded.
+            if (selectableTiles.Count == 0)
+            {
+                FindSelectableTiles();
+            }
             CheckMouseClick();
         }
         else

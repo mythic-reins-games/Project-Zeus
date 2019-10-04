@@ -5,6 +5,7 @@ public class Tile : MonoBehaviour
 {
     public bool isWalkable = true;
     public bool isCurrent = false;
+    public bool isBlocked = false;
     public bool isTarget = false;
     public bool isSelectable = false;
 
@@ -17,7 +18,7 @@ public class Tile : MonoBehaviour
 
     void Start()
     {
-        
+        FindNeighbors();
     }
 
     void Update()
@@ -28,9 +29,13 @@ public class Tile : MonoBehaviour
         }
         else if (isTarget)
         {
-            GetComponent<Renderer>().material.color = Color.green;
+            GetComponent<Renderer>().material.color = Color.blue;
         }
         else if (isSelectable)
+        {
+            GetComponent<Renderer>().material.color = Color.green;
+        }
+        else if (isBlocked)
         {
             GetComponent<Renderer>().material.color = Color.red;
         }
@@ -38,6 +43,16 @@ public class Tile : MonoBehaviour
         {
             GetComponent<Renderer>().material.color = Color.white;
         }
+    }
+
+    public void ClearMovementVariables()
+    {
+        isCurrent = false;
+        isTarget = false;
+        isSelectable = false;
+        wasVisited = false;
+        parent = null;
+        distance = 0;
     }
 
     public void FindNeighbors()
@@ -52,15 +67,8 @@ public class Tile : MonoBehaviour
 
     public void Reset()
     {
-        isCurrent = false;
-        isTarget = false;
-        isSelectable = false;
-
+        ClearMovementVariables();
         adjacentTileList.Clear();
-
-        wasVisited = false;
-        parent = null;
-        distance = 0;
     }
 
     private void CheckTile(Vector3 direction)
@@ -75,8 +83,6 @@ public class Tile : MonoBehaviour
             if (tile == null || !tile.isWalkable) continue;
             
             RaycastHit hit;
-            // If there is an obstacle on the tile, ignore it
-            if (Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1)) continue;
 
             adjacentTileList.Add(tile);
         }
