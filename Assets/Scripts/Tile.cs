@@ -18,7 +18,7 @@ public class Tile : MonoBehaviour
 
     void Start()
     {
-        
+        FindNeighbors();
     }
 
     void Update()
@@ -45,6 +45,16 @@ public class Tile : MonoBehaviour
         }
     }
 
+    public void ClearMovementVariables()
+    {
+        isCurrent = false;
+        isTarget = false;
+        isSelectable = false;
+        wasVisited = false;
+        parent = null;
+        distance = 0;
+    }
+
     public void FindNeighbors()
     {
         Reset();
@@ -57,15 +67,8 @@ public class Tile : MonoBehaviour
 
     public void Reset()
     {
-        isCurrent = false;
-        isTarget = false;
-        isSelectable = false;
-
+        ClearMovementVariables();
         adjacentTileList.Clear();
-
-        wasVisited = false;
-        parent = null;
-        distance = 0;
     }
 
     private void CheckTile(Vector3 direction)
@@ -80,8 +83,6 @@ public class Tile : MonoBehaviour
             if (tile == null || !tile.isWalkable) continue;
             
             RaycastHit hit;
-            // If there is an obstacle on the tile, ignore it
-            if (Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1)) continue;
 
             adjacentTileList.Add(tile);
         }

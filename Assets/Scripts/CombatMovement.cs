@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CombatMovement : MonoBehaviour
 {
-    private List<Tile> selectableTiles = new List<Tile>();
+    protected List<Tile> selectableTiles = new List<Tile>();
     private GameObject[] tiles;
 
     private Stack<Tile> path = new Stack<Tile>();
@@ -41,13 +41,15 @@ public class CombatMovement : MonoBehaviour
 
     protected void FindSelectableTiles()
     {
-        FindAdjacentTiles();
+        if (actionPoints == 0)
+        {
+            return;
+        }
         AssignCurrentTile();
 
         Queue<Tile> queue = new Queue<Tile>();
-
-        queue.Enqueue(currentTile);
         currentTile.wasVisited = true;
+        queue.Enqueue(currentTile);
 
         while (queue.Count > 0)
         {
@@ -55,28 +57,24 @@ public class CombatMovement : MonoBehaviour
 
             selectableTiles.Add(tile);
             tile.isSelectable = true;
-
             if (tile.distance >= actionPoints) continue;
 
             foreach (Tile adjacentTile in tile.adjacentTileList)
             {
                 if (adjacentTile.wasVisited) continue;
                 if (adjacentTile.isBlocked) continue;
-
-                adjacentTile.parent = tile;
-                adjacentTile.wasVisited = true;
                 adjacentTile.distance = 1 + tile.distance;
+                adjacentTile.wasVisited = true;
+                if (tile == currentTile)
+                {
+                    adjacentTile.parent = null;
+                }
+                else
+                {
+                    adjacentTile.parent = tile;
+                }
                 queue.Enqueue(adjacentTile);
             }
-        }
-    }
-
-    private void FindAdjacentTiles()
-    {
-        foreach (GameObject tileObject in tiles)
-        {
-            Tile tile = tileObject.GetComponent<Tile>();
-            tile.FindNeighbors();
         }
     }
 
@@ -143,14 +141,12 @@ public class CombatMovement : MonoBehaviour
                 {
                     currentTile.isBlocked = false;
                     currentTile.isCurrent = false;
+                    Debug.Log(currentTile);
                     currentTile = path.Peek();
                     currentTile.isCurrent = true;
                     currentTile.isBlocked = true;
                 }
-                else
-                {
-                    actionPoints -= 1;
-                }
+                actionPoints -= 1;
                 path.Pop();
             }
         }
@@ -177,7 +173,7 @@ public class CombatMovement : MonoBehaviour
 
         foreach (Tile tile in selectableTiles)
         {
-            tile.Reset();
+            tile.ClearMovementVariables();
         }
 
         selectableTiles.Clear();

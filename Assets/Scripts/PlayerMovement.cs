@@ -15,7 +15,11 @@ public class PlayerMovement : CombatMovement
         }
         if (!isMoving)
         {
-            FindSelectableTiles();
+            // Only need to recalculate selectable tiles after action is concluded.
+            if (selectableTiles.Count == 0)
+            {
+                FindSelectableTiles();
+            }
             CheckMouseClick();
         }
         else
