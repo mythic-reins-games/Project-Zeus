@@ -6,7 +6,7 @@ public class TurnManager : MonoBehaviour
 {
 
     private List<GameObject> combatants = new List<GameObject>();
-    private int moveIdx;
+    private int moveIdx = 0;
 
     PlayerMovement GetCurrentPlayerMovement()
     {
