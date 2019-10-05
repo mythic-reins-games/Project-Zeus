@@ -12,7 +12,7 @@ public class CombatController : MonoBehaviour
     [SerializeField] private int move = 5;
     private int actionPoints = 0;
 
-    protected void Init()
+    protected void Start()
     {
         AssignCurrentTile();
     }

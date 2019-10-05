@@ -2,10 +2,6 @@
 
 public class PlayerController : CombatController
 {
-    void Start()
-    {
-        Init();
-    }
 
     void Update()
     {
