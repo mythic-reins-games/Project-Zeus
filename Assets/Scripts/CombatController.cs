@@ -3,22 +3,17 @@ using UnityEngine;
 
 public class CombatController : MonoBehaviour
 {
-    protected List<Tile> selectableTiles = new List<Tile>();
-    private GameObject[] tiles;
+    private List<Tile> selectableTiles = new List<Tile>();
 
     private Tile currentTile;
 
     public bool isTurn = false;
     protected bool isActing = false;
     [SerializeField] private int move = 5;
-     private int actionPoints = 0;
-
-    private float unitHalfHeight = 0;
+    private int actionPoints = 0;
 
     protected void Init()
     {
-        tiles = GameObject.FindGameObjectsWithTag("Tile");
-        unitHalfHeight = GetComponent<CharacterController>().bounds.extents.y;
         AssignCurrentTile();
     }
 

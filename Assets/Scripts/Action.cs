@@ -9,7 +9,7 @@ public class Action : MonoBehaviour
 
     protected bool inProgress = false;
 
-    protected CombatController combatController;
+    private CombatController combatController;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +25,7 @@ public class Action : MonoBehaviour
 
     protected void BeginAction(Tile targetTile)
     {
+        // Re-initialize the number of spent action points to 0.
         spentActionPoints = 0;
         inProgress = true;
         combatController.BeginAction();

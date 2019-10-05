@@ -80,8 +80,6 @@ public class Tile : MonoBehaviour
             Tile tile = item.GetComponent<Tile>();
 
             if (tile == null || !tile.isWalkable) continue;
-            
-            RaycastHit hit;
 
             adjacentTileList.Add(tile);
         }

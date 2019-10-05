@@ -18,7 +18,7 @@ public class ActionMove : Action
         }
     }
 
-    protected void Move()
+    private void Move()
     {
         if (path.Count > 0)
         {
@@ -40,13 +40,6 @@ public class ActionMove : Action
             {
                 // Center of tile reached
                 transform.position = target;
-                if (path.Count == 1)
-                {
-                    tile.ClearMovementVariables();
-                    tile = path.Peek();
-                    tile.isCurrent = true;
-                    tile.isBlocked = true;
-                }
                 spentActionPoints += 1;
                 path.Pop();
             }
@@ -64,7 +57,7 @@ public class ActionMove : Action
         base.BeginAction(targetTile);
     }
 
-    protected void CalculatePath(Tile targetTile)
+    private void CalculatePath(Tile targetTile)
     {
         path.Clear();
         targetTile.isTarget = true;

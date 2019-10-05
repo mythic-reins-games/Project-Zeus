@@ -7,7 +7,7 @@ public class PlayerController : CombatController
         Init();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (!isTurn)
         {
