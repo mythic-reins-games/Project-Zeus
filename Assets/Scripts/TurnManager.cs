@@ -8,15 +8,15 @@ public class TurnManager : MonoBehaviour
     private List<GameObject> combatants = new List<GameObject>();
     private int moveIdx = 0;
 
-    PlayerMovement GetCurrentPlayerMovement()
+    PlayerController GetCurrentPlayerController()
     {
-        return combatants[moveIdx].GetComponent<PlayerMovement>();
+        return combatants[moveIdx].GetComponent<PlayerController>();
     }
 
     void NextTurn()
     {
         moveIdx = (moveIdx + 1) % combatants.Count;
-        GetCurrentPlayerMovement().BeginTurn();
+        GetCurrentPlayerController().BeginTurn();
     }
 
     // Start is called before the first frame update
@@ -30,13 +30,13 @@ public class TurnManager : MonoBehaviour
                 combatants.Add(child.gameObject);
             }
         }
-        GetCurrentPlayerMovement().BeginTurn();
+        GetCurrentPlayerController().BeginTurn();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!GetCurrentPlayerMovement().isTurn)
+        if (!GetCurrentPlayerController().isTurn)
         {
             NextTurn();
         }

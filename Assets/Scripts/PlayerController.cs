@@ -1,30 +1,23 @@
 ﻿using UnityEngine;
 
-public class PlayerMovement : CombatMovement
+public class PlayerController : CombatController
 {
     void Start()
     {
         Init();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (!isTurn)
         {
             return;
         }
-        if (!isMoving)
+        if (!isActing)
         {
             // Only need to recalculate selectable tiles after action is concluded.
-            if (selectableTiles.Count == 0)
-            {
-                FindSelectableTiles();
-            }
+            FindSelectableTiles();
             CheckMouseClick();
-        }
-        else
-        {
-            Move();
         }
     }
 
@@ -43,8 +36,9 @@ public class PlayerMovement : CombatMovement
                 Tile clickedTile = hit.collider.GetComponent<Tile>();
 
                 if (!clickedTile.isSelectable) return;
-
-                CalculatePath(clickedTile);
+                
+                ActionMove mover = GetComponent<ActionMove>();
+                mover.BeginAction(clickedTile);
             }
         }
     }

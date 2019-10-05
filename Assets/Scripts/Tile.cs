@@ -47,6 +47,7 @@ public class Tile : MonoBehaviour
 
     public void ClearMovementVariables()
     {
+        isBlocked = false;
         isCurrent = false;
         isTarget = false;
         isSelectable = false;
@@ -57,8 +58,6 @@ public class Tile : MonoBehaviour
 
     public void FindNeighbors()
     {
-        Reset();
-
         CheckTile(Vector3.forward);
         CheckTile(Vector3.back);
         CheckTile(Vector3.right);
@@ -81,8 +80,6 @@ public class Tile : MonoBehaviour
             Tile tile = item.GetComponent<Tile>();
 
             if (tile == null || !tile.isWalkable) continue;
-            
-            RaycastHit hit;
 
             adjacentTileList.Add(tile);
         }
