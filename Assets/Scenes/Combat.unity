@@ -7641,6 +7641,7 @@ GameObject:
   - component: {fileID: 662700913}
   - component: {fileID: 662700912}
   - component: {fileID: 662700911}
+  - component: {fileID: 662700919}
   m_Layer: 0
   m_Name: Player Character 2
   m_TagString: Untagged
@@ -7862,7 +7863,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTurn: 0
   move: 5
-  moveSpeed: 2
 --- !u!143 &662700916
 CharacterController:
   m_ObjectHideFlags: 0
@@ -7984,6 +7984,19 @@ MonoBehaviour:
     verticalSpeed: 0
     normal: {x: 0, y: 0, z: 0}
   save: 0
+--- !u!114 &662700919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662700909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96931cdb635156047a7208056dc6b4ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
 --- !u!1 &668277137
 GameObject:
   m_ObjectHideFlags: 0
@@ -16714,6 +16727,7 @@ GameObject:
   - component: {fileID: 1425522881}
   - component: {fileID: 1425522884}
   - component: {fileID: 1425522883}
+  - component: {fileID: 1425522885}
   m_Layer: 0
   m_Name: Player Character 1
   m_TagString: Untagged
@@ -16735,7 +16749,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTurn: 0
   move: 5
-  moveSpeed: 2
 --- !u!143 &1425522877
 CharacterController:
   m_ObjectHideFlags: 0
@@ -17057,6 +17070,19 @@ MonoBehaviour:
   - {fileID: 1425522883}
   executingIndex: -1
   isExecuting: 0
+--- !u!114 &1425522885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425522875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96931cdb635156047a7208056dc6b4ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
 --- !u!1 &1430633053
 GameObject:
   m_ObjectHideFlags: 0

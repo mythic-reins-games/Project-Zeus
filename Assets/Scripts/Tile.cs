@@ -47,6 +47,7 @@ public class Tile : MonoBehaviour
 
     public void ClearMovementVariables()
     {
+        isBlocked = false;
         isCurrent = false;
         isTarget = false;
         isSelectable = false;
@@ -57,8 +58,6 @@ public class Tile : MonoBehaviour
 
     public void FindNeighbors()
     {
-        Reset();
-
         CheckTile(Vector3.forward);
         CheckTile(Vector3.back);
         CheckTile(Vector3.right);

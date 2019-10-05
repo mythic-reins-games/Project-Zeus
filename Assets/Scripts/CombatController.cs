@@ -1,19 +1,17 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatMovement : MonoBehaviour
+public class CombatController : MonoBehaviour
 {
     protected List<Tile> selectableTiles = new List<Tile>();
     private GameObject[] tiles;
 
-    private Stack<Tile> path = new Stack<Tile>();
     private Tile currentTile;
 
     public bool isTurn = false;
-    protected bool isMoving = false;
+    protected bool isActing = false;
     [SerializeField] private int move = 5;
      private int actionPoints = 0;
-    [SerializeField] private float moveSpeed = 2;
 
     private float unitHalfHeight = 0;
 
@@ -28,15 +26,6 @@ public class CombatMovement : MonoBehaviour
     {
         isTurn = true;
         actionPoints = move;
-    }
-
-    protected void EndAction()
-    {
-        isMoving = false;
-        if (actionPoints == 0)
-        {
-            isTurn = false;
-        }
     }
 
     protected void FindSelectableTiles()
@@ -99,73 +88,21 @@ public class CombatMovement : MonoBehaviour
         return hit.collider.GetComponent<Tile>();
     }
 
-    protected void CalculatePath(Tile targetTile)
+    public void BeginAction()
     {
-        path.Clear();
-        targetTile.isTarget = true;
-        isMoving = true;
-
-        Tile next = targetTile;
-        while (next != null)
-        {
-            path.Push(next);
-            next = next.parent;
-        }
+        isActing = true;
     }
 
-    protected void Move()
+    public void EndAction(int spentActionPoints)
     {
-        if (path.Count > 0)
+        RemoveSelectableTiles();
+        isActing = false;
+        actionPoints -= spentActionPoints;
+        AssignCurrentTile();
+        if (actionPoints <= 0)
         {
-            Tile tile = path.Peek();
-            Vector3 target = tile.transform.position;
-
-            // Calculating the unit's position on the target tile, assuming the top of the tile is at y = 0
-            target.y = unitHalfHeight;
-            target.y = 0.08f;
-
-            if (Vector3.Distance(transform.position, target) >= 0.1f)
-            {
-                CharacterController characterController = GetComponent<CharacterController>();
-                Vector3 direction = CalculateDirection(target);
-                Vector3 velocity = SetHorizontalVelocity(direction);
-
-                transform.forward = direction;
-                characterController.Move(velocity * Time.deltaTime);
-            }
-            else
-            {
-                // Center of tile reached
-                transform.position = target;
-                if (path.Count == 1)
-                {
-                    currentTile.isBlocked = false;
-                    currentTile.isCurrent = false;
-                    Debug.Log(currentTile);
-                    currentTile = path.Peek();
-                    currentTile.isCurrent = true;
-                    currentTile.isBlocked = true;
-                }
-                actionPoints -= 1;
-                path.Pop();
-            }
+            isTurn = false;
         }
-        else
-        {
-            RemoveSelectableTiles();
-            EndAction();
-        }
-    }
-
-    private Vector3 CalculateDirection(Vector3 target)
-    {
-        Vector3 direction = target - transform.position;
-        return direction.normalized;
-    }
-
-    private Vector3 SetHorizontalVelocity(Vector3 direction)
-    {
-        return direction * moveSpeed;
     }
 
     private void RemoveSelectableTiles()
