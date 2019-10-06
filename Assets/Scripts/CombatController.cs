@@ -19,8 +19,26 @@ public class CombatController : MonoBehaviour
 
     public void BeginTurn()
     {
+        AssignCurrentTile();
+        currentTile.isCurrent = true;
         isTurn = true;
         actionPoints = move;
+    }
+
+    // Defaults to false, but can be overridden by subclasses.
+    virtual protected bool CanAttack(Tile tile)
+    {
+        return false;
+    }
+
+    private void AttachTile(int moveCost, Tile adjacentTile, Tile parent)
+    {
+        if (parent != currentTile)
+        {
+            adjacentTile.parent = parent;
+        }
+        adjacentTile.distance = moveCost + parent.distance;
+        adjacentTile.wasVisited = true;
     }
 
     protected void FindSelectableTiles()
@@ -46,17 +64,17 @@ public class CombatController : MonoBehaviour
             foreach (Tile adjacentTile in tile.adjacentTileList)
             {
                 if (adjacentTile.wasVisited) continue;
-                if (adjacentTile.isBlocked) continue;
-                adjacentTile.distance = 1 + tile.distance;
-                adjacentTile.wasVisited = true;
-                if (tile == currentTile)
-                {
-                    adjacentTile.parent = null;
+                if (adjacentTile.isBlocked) {
+                    if (CanAttack(adjacentTile) && (tile.distance + 4 <= actionPoints))
+                    {
+                        AttachTile(4, adjacentTile, tile);
+                        selectableTiles.Add(adjacentTile);
+                        adjacentTile.isSelectable = true;
+                    }
+                    continue;
                 }
-                else
-                {
-                    adjacentTile.parent = tile;
-                }
+                // Basic moves cost one action point per tile.
+                AttachTile(1, adjacentTile, tile);
                 queue.Enqueue(adjacentTile);
             }
         }
@@ -64,9 +82,14 @@ public class CombatController : MonoBehaviour
 
     private void AssignCurrentTile()
     {
+        if (currentTile != null)
+        {
+            currentTile.occupant = null;
+            currentTile.isBlocked = false;
+        }
         currentTile = GetTargetTile(gameObject);
         currentTile.isBlocked = true;
-        currentTile.isCurrent = true;
+        currentTile.occupant = gameObject;
     }
 
     // Will need adjustment once there are objects that units can stand on, e.g., crates
@@ -88,6 +111,13 @@ public class CombatController : MonoBehaviour
         isActing = true;
     }
 
+    protected void EndTurn()
+    {
+
+        isTurn = false;
+        currentTile.isCurrent = false;
+    }
+
     public void EndAction(int spentActionPoints)
     {
         RemoveSelectableTiles();
@@ -96,7 +126,7 @@ public class CombatController : MonoBehaviour
         AssignCurrentTile();
         if (actionPoints <= 0)
         {
-            isTurn = false;
+            EndTurn();
         }
     }
 

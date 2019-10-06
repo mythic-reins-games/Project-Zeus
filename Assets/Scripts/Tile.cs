@@ -11,6 +11,8 @@ public class Tile : MonoBehaviour
 
     public List<Tile> adjacentTileList = new List<Tile>();
 
+    public GameObject occupant = null;
+
     // Needed for breadth-first search
     public bool wasVisited = false;
     public Tile parent = null;
@@ -31,13 +33,13 @@ public class Tile : MonoBehaviour
         {
             GetComponent<Renderer>().material.color = Color.blue;
         }
-        else if (isSelectable)
-        {
-            GetComponent<Renderer>().material.color = Color.green;
-        }
         else if (isBlocked)
         {
             GetComponent<Renderer>().material.color = Color.red;
+        }
+        else if (isSelectable)
+        {
+            GetComponent<Renderer>().material.color = Color.green;
         }
         else
         {
@@ -47,7 +49,6 @@ public class Tile : MonoBehaviour
 
     public void ClearMovementVariables()
     {
-        isBlocked = false;
         isCurrent = false;
         isTarget = false;
         isSelectable = false;

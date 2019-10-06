@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Creature : MonoBehaviour
+public class CreatureStats : MonoBehaviour
 {
+    [SerializeField] GameObject healthBar;
+    HealthBar healthBarScript;
 
     [SerializeField] protected int Strength = 10;
     [SerializeField] protected int Speed = 10;
@@ -14,16 +16,16 @@ public class Creature : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        healthBarScript = healthBar.GetComponent<HealthBar>();
     }
 
     public void ReceiveDamage(int amount)
     {
-
+        healthBarScript.TakeDamage();
     }
 
-    public void PerformAttack(GameObject target)
+    public void PerformAttack(CreatureStats target)
     {
-
+        target.ReceiveDamage(0);
     }
 }

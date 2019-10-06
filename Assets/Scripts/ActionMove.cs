@@ -7,20 +7,34 @@ public class ActionMove : Action
 
     [SerializeField] private float moveSpeed = 2;
 
-    private Stack<Tile> path = new Stack<Tile>();
+    protected Stack<Tile> path = new Stack<Tile>();
+
+    protected int phase = 0;
+
+    // Extra tiles at the end of the action
+    protected int reserve_tiles = 0;
 
     // Update is called once per frame
     void Update()
     {
-        if (inProgress)
+        if (!inProgress)
+        {
+            return;
+        }
+        if (phase == 1)
         {
             Move();
         }
+        else
+        {
+            phase = 0;
+            EndAction();
+        }
     }
 
-    private void Move()
+    protected void Move()
     {
-        if (path.Count > 0)
+        if (path.Count > reserve_tiles)
         {
             Tile tile = path.Peek();
             Vector3 target = tile.transform.position;
@@ -46,14 +60,14 @@ public class ActionMove : Action
         }
         else
         {
-            EndAction();
+            phase = 2;
         }
     }
 
-    new public void BeginAction(Tile targetTile)
+    override public void BeginAction(Tile targetTile)
     {
+        phase = 1;
         CalculatePath(targetTile);
-        Move();
         base.BeginAction(targetTile);
     }
 
@@ -70,7 +84,7 @@ public class ActionMove : Action
         }
     }
 
-    private Vector3 CalculateDirection(Vector3 target)
+    protected Vector3 CalculateDirection(Vector3 target)
     {
         Vector3 direction = target - transform.position;
         return direction.normalized;
