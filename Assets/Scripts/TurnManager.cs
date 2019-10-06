@@ -8,9 +8,17 @@ public class TurnManager : MonoBehaviour
     private List<GameObject> combatants = new List<GameObject>();
     private int moveIdx = 0;
 
-    PlayerController GetCurrentPlayerController()
+    CombatController GetCurrentPlayerController()
     {
-        return combatants[moveIdx].GetComponent<PlayerController>();
+        if (combatants[moveIdx].GetComponent<PlayerController>() != null)
+        {
+            return combatants[moveIdx].GetComponent<PlayerController>();
+        }
+        if (combatants[moveIdx].GetComponent<EnemyController>() != null)
+        {
+            return combatants[moveIdx].GetComponent<EnemyController>();
+        }
+        return null;
     }
 
     void NextTurn()
