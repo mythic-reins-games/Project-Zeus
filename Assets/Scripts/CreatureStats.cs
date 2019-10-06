@@ -13,6 +13,10 @@ public class CreatureStats : MonoBehaviour
     [SerializeField] protected int Agility = 10;
     [SerializeField] protected int Intelligence = 10;
 
+    [SerializeField] protected int MaxHP = 10;
+
+    [SerializeField] protected int CurrentHP = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +25,14 @@ public class CreatureStats : MonoBehaviour
 
     public void ReceiveDamage(int amount)
     {
-        healthBarScript.TakeDamage();
+        CurrentHP -= amount;
+        float percent = (float)CurrentHP / (float)MaxHP;
+        healthBarScript.SetLifePercent(percent);
     }
 
     public void PerformAttack(CreatureStats target)
     {
-        target.ReceiveDamage(0);
+        // For now, just do four damage.
+        target.ReceiveDamage(4);
     }
 }

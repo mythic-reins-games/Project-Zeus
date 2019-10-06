@@ -8,15 +8,32 @@ public class HealthBar : MonoBehaviour
 
     [SerializeField] private GameObject foreground;
 
+    private float updateTimeSeconds = 0.35f;
+
     // Start is called before the first frame update
     void Start()
     {
         foreground.GetComponent<Image>().fillAmount = 1.0f;
     }
 
-    public void TakeDamage()
+    public void SetLifePercent(float percent)
     {
-        foreground.GetComponent<Image>().fillAmount -= 0.45f;
+        StartCoroutine(GradualizeLifePercentChange(percent));
+    }
+
+    private IEnumerator GradualizeLifePercentChange(float percent)
+    {
+        float originalPercent = foreground.GetComponent<Image>().fillAmount;
+        float elapsed = 0f;
+
+        while (elapsed < updateTimeSeconds)
+        {
+            elapsed += Time.deltaTime;
+            foreground.GetComponent<Image>().fillAmount = Mathf.Lerp(originalPercent, percent, elapsed / updateTimeSeconds);
+            yield return null;
+        }
+        foreground.GetComponent<Image>().fillAmount = percent;
+        yield break;
     }
 
     // Update is called once per frame
