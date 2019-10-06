@@ -20,17 +20,17 @@ public class ActionBasicAttack : ActionMove
         {
             return;
         }
-        if (phase == 1)
+        if (phase == PHASE_MOVING)
         {
             Move();
         }
-        else if (phase == 2)
+        else if (phase == PHASE_ATTACKING)
         {
             AttackPhase();
         }
         else
         {
-            phase = 0;
+            phase = PHASE_NONE;
             EndAction();
         }
     }

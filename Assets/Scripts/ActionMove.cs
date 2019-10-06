@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class ActionMove : Action
 {
+    protected const int PHASE_NONE = 0;
+    protected const int PHASE_MOVING = 1;
+    protected const int PHASE_ATTACKING = 2;
 
     [SerializeField] private float moveSpeed = 2;
 
     protected Stack<Tile> path = new Stack<Tile>();
 
-    protected int phase = 0;
+    protected int phase = PHASE_NONE;
 
     // Extra tiles at the end of the action
     protected int reserve_tiles = 0;
@@ -21,7 +24,7 @@ public class ActionMove : Action
         {
             return;
         }
-        if (phase == 1)
+        if (phase == PHASE_MOVING)
         {
             Move();
         }
@@ -60,13 +63,13 @@ public class ActionMove : Action
         }
         else
         {
-            phase = 2;
+            phase = PHASE_ATTACKING;
         }
     }
 
     override public void BeginAction(Tile targetTile)
     {
-        phase = 1;
+        phase = PHASE_MOVING;
         CalculatePath(targetTile);
         base.BeginAction(targetTile);
     }
