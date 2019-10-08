@@ -19,6 +19,7 @@ public class PlayerController : CombatController
 
     override protected bool CanAttack(Tile tile)
     {
+        if (tile.occupant == null) return false;
         return tile.occupant.GetComponent<EnemyController>() != null;
     }
 
