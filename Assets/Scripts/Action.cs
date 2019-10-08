@@ -12,7 +12,7 @@ public class Action : MonoBehaviour
     private CombatController combatController;
 
     // Start is called before the first frame update
-    void Start()
+    virtual protected void Start()
     {
         combatController = GetComponent<CombatController>();
     }
@@ -23,7 +23,7 @@ public class Action : MonoBehaviour
         
     }
 
-    protected void BeginAction(Tile targetTile)
+    virtual public void BeginAction(Tile targetTile)
     {
         // Re-initialize the number of spent action points to 0.
         spentActionPoints = 0;

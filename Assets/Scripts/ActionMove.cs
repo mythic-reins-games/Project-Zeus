@@ -4,23 +4,40 @@ using UnityEngine;
 
 public class ActionMove : Action
 {
+    protected const int PHASE_NONE = 0;
+    protected const int PHASE_MOVING = 1;
+    protected const int PHASE_ATTACKING = 2;
 
     [SerializeField] private float moveSpeed = 2;
 
-    private Stack<Tile> path = new Stack<Tile>();
+    protected Stack<Tile> path = new Stack<Tile>();
+
+    protected int phase = PHASE_NONE;
+
+    // Extra tiles at the end of the action
+    protected int reserve_tiles = 0;
 
     // Update is called once per frame
     void Update()
     {
-        if (inProgress)
+        if (!inProgress)
+        {
+            return;
+        }
+        if (phase == PHASE_MOVING)
         {
             Move();
         }
+        else
+        {
+            phase = 0;
+            EndAction();
+        }
     }
 
-    private void Move()
+    protected void Move()
     {
-        if (path.Count > 0)
+        if (path.Count > reserve_tiles)
         {
             Tile tile = path.Peek();
             Vector3 target = tile.transform.position;
@@ -46,14 +63,14 @@ public class ActionMove : Action
         }
         else
         {
-            EndAction();
+            phase = PHASE_ATTACKING;
         }
     }
 
-    new public void BeginAction(Tile targetTile)
+    override public void BeginAction(Tile targetTile)
     {
+        phase = PHASE_MOVING;
         CalculatePath(targetTile);
-        Move();
         base.BeginAction(targetTile);
     }
 
@@ -70,7 +87,7 @@ public class ActionMove : Action
         }
     }
 
-    private Vector3 CalculateDirection(Vector3 target)
+    protected Vector3 CalculateDirection(Vector3 target)
     {
         Vector3 direction = target - transform.position;
         return direction.normalized;

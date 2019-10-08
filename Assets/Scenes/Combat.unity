@@ -512,6 +512,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -658,6 +659,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -773,6 +775,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -1045,6 +1048,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -1222,6 +1226,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -1399,6 +1404,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -1670,6 +1676,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -1785,6 +1792,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -1932,6 +1940,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -2047,6 +2056,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -2194,6 +2204,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -2468,6 +2479,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -2584,6 +2596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 630112dd8b84fb044b4979a5b45685b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  foreground: {fileID: 1597336327}
 --- !u!114 &184447768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2696,6 +2709,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -2874,6 +2888,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -3239,6 +3254,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -3450,6 +3466,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -3713,6 +3730,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -3860,6 +3878,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -3975,6 +3994,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -4164,6 +4184,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -4311,6 +4332,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -4664,6 +4686,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -4811,6 +4834,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -4987,6 +5011,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -5102,6 +5127,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -5249,6 +5275,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -5396,6 +5423,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -5606,6 +5634,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -5783,6 +5812,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -6060,6 +6090,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -6206,6 +6237,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -6321,6 +6353,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -6436,6 +6469,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -6618,6 +6652,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -6764,6 +6799,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -6909,6 +6945,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -7057,6 +7094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 630112dd8b84fb044b4979a5b45685b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  foreground: {fileID: 199116320}
 --- !u!114 &504585218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7200,6 +7238,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -7442,6 +7481,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -7633,6 +7673,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -7748,6 +7789,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -7863,6 +7905,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -8108,6 +8151,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -8347,6 +8391,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -8553,6 +8598,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -8699,6 +8745,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -8936,6 +8983,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -9051,6 +9099,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -9470,6 +9519,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -9634,6 +9684,8 @@ GameObject:
   - component: {fileID: 662700912}
   - component: {fileID: 662700911}
   - component: {fileID: 662700919}
+  - component: {fileID: 662700920}
+  - component: {fileID: 662700921}
   m_Layer: 0
   m_Name: Player Character 2
   m_TagString: Untagged
@@ -9649,7 +9701,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 662700909}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 0.1, z: -5.5}
+  m_LocalPosition: {x: -2.5, y: 0.08, z: -5.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 754557099}
@@ -9990,6 +10042,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+--- !u!114 &662700920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662700909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee63d119bd10d6749b90b06925edb398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &662700921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662700909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c89537a004adc24bbbf788a02a75297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 504585215}
+  Strength: 10
+  Speed: 10
+  Endurance: 10
+  Agility: 10
+  Intelligence: 10
 --- !u!1 &666209691
 GameObject:
   m_ObjectHideFlags: 0
@@ -10303,6 +10386,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -10418,6 +10502,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -10565,6 +10650,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -10680,6 +10766,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -10904,6 +10991,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -11019,6 +11107,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -11299,6 +11388,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -11445,6 +11535,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -11875,6 +11966,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -12170,6 +12262,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -12358,6 +12451,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -12473,6 +12567,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -12818,6 +12913,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -13113,6 +13209,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -13228,6 +13325,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -13375,6 +13473,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -13737,6 +13836,8 @@ GameObject:
   - component: {fileID: 866748471}
   - component: {fileID: 866748470}
   - component: {fileID: 866748469}
+  - component: {fileID: 866748478}
+  - component: {fileID: 866748479}
   m_Layer: 0
   m_Name: Enemy Character 2
   m_TagString: Untagged
@@ -13752,7 +13853,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866748467}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 0.1, z: 2.5}
+  m_LocalPosition: {x: 2.5, y: 0.08, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1993163094}
@@ -14093,6 +14194,37 @@ MonoBehaviour:
     verticalSpeed: 0
     normal: {x: 0, y: 0, z: 0}
   save: 0
+--- !u!114 &866748478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866748467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee63d119bd10d6749b90b06925edb398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &866748479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866748467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c89537a004adc24bbbf788a02a75297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1140212020}
+  Strength: 10
+  Speed: 10
+  Endurance: 10
+  Agility: 10
+  Intelligence: 10
 --- !u!1 &868187552
 GameObject:
   m_ObjectHideFlags: 0
@@ -14248,6 +14380,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -14549,6 +14682,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -14694,6 +14828,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -15029,6 +15164,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -15144,6 +15280,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -15540,6 +15677,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -15783,6 +15921,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -15993,6 +16132,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -16171,6 +16311,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -16349,6 +16490,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -16673,6 +16815,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -16788,6 +16931,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -17059,6 +17203,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -17626,6 +17771,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -17741,6 +17887,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -18140,6 +18287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 630112dd8b84fb044b4979a5b45685b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  foreground: {fileID: 357828388}
 --- !u!114 &1140212023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18252,6 +18400,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -18460,6 +18609,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -18575,6 +18725,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -18877,6 +19028,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -19086,6 +19238,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -19314,6 +19467,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -19461,6 +19615,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -19607,6 +19762,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -19878,6 +20034,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -20056,6 +20213,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -20263,6 +20421,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -20500,6 +20659,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -20676,6 +20836,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -20822,6 +20983,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -20937,6 +21099,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -21052,6 +21215,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -21167,6 +21331,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -21314,6 +21479,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -21563,6 +21729,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -21678,6 +21845,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -21898,6 +22066,8 @@ GameObject:
   - component: {fileID: 1425522884}
   - component: {fileID: 1425522883}
   - component: {fileID: 1425522885}
+  - component: {fileID: 1425522886}
+  - component: {fileID: 1425522887}
   m_Layer: 0
   m_Name: Player Character 1
   m_TagString: Untagged
@@ -21918,7 +22088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTurn: 0
-  move: 5
+  move: 8
 --- !u!143 &1425522877
 CharacterController:
   m_ObjectHideFlags: 0
@@ -22048,7 +22218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425522875}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0.1, z: -5.5}
+  m_LocalPosition: {x: -0.5, y: 0.08, z: -5.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 660260883}
@@ -22254,6 +22424,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+--- !u!114 &1425522886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425522875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee63d119bd10d6749b90b06925edb398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &1425522887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425522875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c89537a004adc24bbbf788a02a75297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1455555457}
+  Strength: 10
+  Speed: 10
+  Endurance: 10
+  Agility: 10
+  Intelligence: 10
 --- !u!1 &1427648756
 GameObject:
   m_ObjectHideFlags: 0
@@ -22399,6 +22600,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -22637,6 +22839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 630112dd8b84fb044b4979a5b45685b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  foreground: {fileID: 1370490006}
 --- !u!1 &1458932979
 GameObject:
   m_ObjectHideFlags: 0
@@ -22689,6 +22892,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -22835,6 +23039,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -23108,6 +23313,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -23346,6 +23552,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -23717,6 +23924,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -23894,6 +24102,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -24009,6 +24218,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -24166,6 +24376,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -24483,6 +24694,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -25028,6 +25240,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -25206,6 +25419,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -25321,6 +25535,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -25436,6 +25651,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -25613,6 +25829,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -25926,6 +26143,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -26041,6 +26259,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -26281,6 +26500,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -26488,6 +26708,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -26771,6 +26992,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -26886,6 +27108,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -27001,6 +27224,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -27209,6 +27433,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -27420,6 +27645,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -27535,6 +27761,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -27681,6 +27908,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -27796,6 +28024,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -27911,6 +28140,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -28057,6 +28287,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -28328,6 +28559,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -28849,6 +29081,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -28996,6 +29229,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -29173,6 +29407,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -29352,6 +29587,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -29499,6 +29735,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -29890,6 +30127,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -30036,6 +30274,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -30182,6 +30421,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -30263,6 +30503,8 @@ GameObject:
   - component: {fileID: 2018414486}
   - component: {fileID: 2018414485}
   - component: {fileID: 2018414484}
+  - component: {fileID: 2018414493}
+  - component: {fileID: 2018414494}
   m_Layer: 0
   m_Name: Enemy Character 1
   m_TagString: Untagged
@@ -30278,7 +30520,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2018414482}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0.1, z: 3.5}
+  m_LocalPosition: {x: -0.5, y: 0.08, z: 3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 925909119}
@@ -30619,6 +30861,37 @@ MonoBehaviour:
     verticalSpeed: 0
     normal: {x: 0, y: 0, z: 0}
   save: 0
+--- !u!114 &2018414493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018414482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee63d119bd10d6749b90b06925edb398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &2018414494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018414482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c89537a004adc24bbbf788a02a75297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 184447765}
+  Strength: 10
+  Speed: 10
+  Endurance: 10
+  Agility: 10
+  Intelligence: 10
 --- !u!1 &2029696421
 GameObject:
   m_ObjectHideFlags: 0
@@ -30737,6 +31010,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -31141,6 +31415,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -31414,6 +31689,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -31561,6 +31837,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -31676,6 +31953,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -31891,6 +32169,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0
@@ -32429,6 +32708,7 @@ MonoBehaviour:
   isTarget: 0
   isSelectable: 0
   adjacentTileList: []
+  occupant: {fileID: 0}
   wasVisited: 0
   parent: {fileID: 0}
   distance: 0

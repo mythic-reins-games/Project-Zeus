@@ -17,6 +17,11 @@ public class PlayerController : CombatController
         }
     }
 
+    override protected bool CanAttack(Tile tile)
+    {
+        return tile.occupant.GetComponent<EnemyController>() != null;
+    }
+
     private void CheckMouseClick()
     {
         if (Input.GetMouseButtonUp(0))
@@ -32,9 +37,16 @@ public class PlayerController : CombatController
                 Tile clickedTile = hit.collider.GetComponent<Tile>();
 
                 if (!clickedTile.isSelectable) return;
-                
-                ActionMove mover = GetComponent<ActionMove>();
-                mover.BeginAction(clickedTile);
+                if (clickedTile.occupant != null)
+                {
+                    Action atk = GetComponent<ActionBasicAttack>();
+                    atk.BeginAction(clickedTile);
+                }
+                else
+                {
+                    Action move = GetComponent<ActionMove>();
+                    move.BeginAction(clickedTile);
+                }
             }
         }
     }
