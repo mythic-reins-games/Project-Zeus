@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CombatController : MonoBehaviour
 {
-    private List<Tile> selectableTiles = new List<Tile>();
+    protected List<Tile> selectableTiles = new List<Tile>();
 
     private Tile currentTile;
 
@@ -11,6 +11,8 @@ public class CombatController : MonoBehaviour
     protected bool isActing = false;
     [SerializeField] private int move = 5;
     private int actionPoints = 0;
+
+    const int ATTACK_COST = 4;
 
     protected void Start()
     {
@@ -65,9 +67,9 @@ public class CombatController : MonoBehaviour
             {
                 if (adjacentTile.wasVisited) continue;
                 if (adjacentTile.isBlocked) {
-                    if (CanAttack(adjacentTile) && (tile.distance + 4 <= actionPoints))
+                    if (CanAttack(adjacentTile) && (tile.distance + ATTACK_COST <= actionPoints))
                     {
-                        AttachTile(4, adjacentTile, tile);
+                        AttachTile(ATTACK_COST, adjacentTile, tile);
                         selectableTiles.Add(adjacentTile);
                         adjacentTile.isSelectable = true;
                     }

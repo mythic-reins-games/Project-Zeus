@@ -21,6 +21,19 @@ public class TurnManager : MonoBehaviour
         return null;
     }
 
+    // Picks an arbitrary/random Player controlled character
+    public GameObject PickArbitraryPC()
+    {
+        foreach (GameObject pick in combatants)
+        {
+            if (pick.GetComponent<PlayerController>() != null)
+            {
+                return pick;
+            }
+        }
+        return null;
+    }
+
     void NextTurn()
     {
         moveIdx = (moveIdx + 1) % combatants.Count;
