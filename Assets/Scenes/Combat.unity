@@ -511,6 +511,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -658,6 +659,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -774,6 +776,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -1047,6 +1050,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -1225,6 +1229,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -1403,6 +1408,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -1675,6 +1681,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -1791,6 +1798,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -1939,6 +1947,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -2055,6 +2064,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -2203,6 +2213,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -2478,6 +2489,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -2708,6 +2720,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -2887,6 +2900,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -3253,6 +3267,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -3465,6 +3480,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -3729,6 +3745,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -3877,6 +3894,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -3993,6 +4011,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -4183,6 +4202,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -4331,6 +4351,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -4685,6 +4706,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -4833,6 +4855,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -5010,6 +5033,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -5126,6 +5150,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -5274,6 +5299,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -5422,6 +5448,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -5633,6 +5660,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -5811,6 +5839,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -6089,6 +6118,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -6236,6 +6266,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -6352,6 +6383,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -6468,6 +6500,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -6651,6 +6684,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -6798,6 +6832,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -6944,6 +6979,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -7237,6 +7273,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -7480,6 +7517,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -7672,6 +7710,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -7788,6 +7827,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -7904,6 +7944,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -8150,6 +8191,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -8390,6 +8432,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -8597,6 +8640,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -8744,6 +8788,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -8982,6 +9027,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -9098,6 +9144,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -9518,6 +9565,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -9702,7 +9750,7 @@ Transform:
   m_GameObject: {fileID: 662700909}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.5, y: 0.08, z: -5.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 754557099}
   - {fileID: 504585216}
@@ -9908,6 +9956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTurn: 0
   move: 5
+  actionPoints: 0
 --- !u!143 &662700916
 CharacterController:
   m_ObjectHideFlags: 0
@@ -10073,6 +10122,8 @@ MonoBehaviour:
   Endurance: 10
   Agility: 10
   Intelligence: 10
+  MaxHP: 10
+  CurrentHP: 10
 --- !u!1 &666209691
 GameObject:
   m_ObjectHideFlags: 0
@@ -10385,6 +10436,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -10501,6 +10553,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -10649,6 +10702,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -10765,6 +10819,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -10990,6 +11045,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -11106,6 +11162,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -11387,6 +11444,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -11534,6 +11592,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -11965,6 +12024,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -12261,6 +12321,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -12450,6 +12511,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -12566,6 +12628,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -12912,6 +12975,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -13208,6 +13272,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -13324,6 +13389,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -13472,6 +13538,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -13854,7 +13921,7 @@ Transform:
   m_GameObject: {fileID: 866748467}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.5, y: 0.08, z: 2.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 1993163094}
   - {fileID: 1140212021}
@@ -13875,6 +13942,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTurn: 0
   move: 5
+  actionPoints: 0
 --- !u!114 &866748470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14225,6 +14293,8 @@ MonoBehaviour:
   Endurance: 10
   Agility: 10
   Intelligence: 10
+  MaxHP: 10
+  CurrentHP: 10
 --- !u!1 &868187552
 GameObject:
   m_ObjectHideFlags: 0
@@ -14379,6 +14449,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -14681,6 +14752,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -14827,6 +14899,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -15163,6 +15236,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -15279,6 +15353,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -15676,6 +15751,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -15920,6 +15996,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -16131,6 +16208,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -16310,6 +16388,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -16489,6 +16568,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -16814,6 +16894,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -16930,6 +17011,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -17202,6 +17284,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -17770,6 +17853,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -17886,6 +17970,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -18399,6 +18484,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -18608,6 +18694,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -18724,6 +18811,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -19027,6 +19115,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -19237,6 +19326,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -19466,6 +19556,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -19614,6 +19705,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -19761,6 +19853,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -20033,6 +20126,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -20212,6 +20306,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -20420,6 +20515,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -20658,6 +20754,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -20835,6 +20932,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -20982,6 +21080,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -21098,6 +21197,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -21214,6 +21314,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -21330,6 +21431,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -21478,6 +21580,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -21728,6 +21831,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -21844,6 +21948,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -22089,6 +22194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTurn: 0
   move: 8
+  actionPoints: 0
 --- !u!143 &1425522877
 CharacterController:
   m_ObjectHideFlags: 0
@@ -22219,7 +22325,7 @@ Transform:
   m_GameObject: {fileID: 1425522875}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0.08, z: -5.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 660260883}
   - {fileID: 1455555458}
@@ -22455,6 +22561,8 @@ MonoBehaviour:
   Endurance: 10
   Agility: 10
   Intelligence: 10
+  MaxHP: 10
+  CurrentHP: 10
 --- !u!1 &1427648756
 GameObject:
   m_ObjectHideFlags: 0
@@ -22599,6 +22707,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -22891,6 +23000,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -23038,6 +23148,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -23312,6 +23423,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -23551,6 +23663,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -23923,6 +24036,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -24101,6 +24215,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -24217,6 +24332,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -24375,6 +24491,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -24693,6 +24810,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -25239,6 +25357,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -25418,6 +25537,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -25534,6 +25654,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -25650,6 +25771,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -25828,6 +25950,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -26142,6 +26265,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -26258,6 +26382,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -26499,6 +26624,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -26707,6 +26833,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -26991,6 +27118,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -27107,6 +27235,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -27223,6 +27352,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -27432,6 +27562,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -27644,6 +27775,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -27760,6 +27892,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -27907,6 +28040,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -28023,6 +28157,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -28139,6 +28274,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -28286,6 +28422,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -28558,6 +28695,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -29080,6 +29218,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -29228,6 +29367,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -29406,6 +29546,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -29586,6 +29727,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -29734,6 +29876,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -30126,6 +30269,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -30273,6 +30417,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -30420,6 +30565,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -30521,7 +30667,7 @@ Transform:
   m_GameObject: {fileID: 2018414482}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0.08, z: 3.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 925909119}
   - {fileID: 184447766}
@@ -30542,6 +30688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTurn: 0
   move: 5
+  actionPoints: 0
 --- !u!114 &2018414485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30892,6 +31039,8 @@ MonoBehaviour:
   Endurance: 10
   Agility: 10
   Intelligence: 10
+  MaxHP: 10
+  CurrentHP: 10
 --- !u!1 &2029696421
 GameObject:
   m_ObjectHideFlags: 0
@@ -31009,6 +31158,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -31414,6 +31564,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -31688,6 +31839,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -31836,6 +31988,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -31952,6 +32105,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -32168,6 +32322,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
@@ -32707,6 +32862,7 @@ MonoBehaviour:
   isBlocked: 0
   isTarget: 0
   isSelectable: 0
+  isZoneOfControl: 0
   adjacentTileList: []
   occupant: {fileID: 0}
   wasVisited: 0
