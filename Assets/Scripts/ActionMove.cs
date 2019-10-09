@@ -57,7 +57,7 @@ public class ActionMove : Action
             {
                 // Center of tile reached
                 transform.position = target;
-                spentActionPoints += 1;
+                spentActionPoints += tile.GetMoveCost();
                 path.Pop();
             }
         }

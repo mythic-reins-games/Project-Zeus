@@ -11,16 +11,14 @@ public class PlayerController : CombatController
         }
         if (!isActing)
         {
-            // Only need to recalculate selectable tiles after action is concluded.
-            FindSelectableTiles();
             CheckMouseClick();
         }
     }
 
-    override protected bool CanAttack(Tile tile)
+    override protected bool ContainsEnemy(Tile tile)
     {
         if (tile.occupant == null) return false;
-        return tile.occupant.GetComponent<EnemyController>() != null;
+        return tile.HasNPC();
     }
 
     private void CheckMouseClick()

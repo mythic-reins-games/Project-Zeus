@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour
     public bool isBlocked = false;
     public bool isTarget = false;
     public bool isSelectable = false;
+    public bool isZoneOfControl = false;
 
     public List<Tile> adjacentTileList = new List<Tile>();
 
@@ -45,6 +46,40 @@ public class Tile : MonoBehaviour
         {
             GetComponent<Renderer>().material.color = Color.white;
         }
+    }
+
+    public bool HasPC()
+    {
+        return occupant.GetComponent<PlayerController>() != null;
+    }
+
+    public bool HasNPC()
+    {
+        return occupant.GetComponent<EnemyController>() != null;
+    }
+
+    public bool IsFasterParent(Tile newParent)
+    {
+        return GetTotalDistanceWithParent(newParent) < distance;
+    }
+
+    public int GetTotalDistanceWithParent(Tile newParent)
+    {
+        return newParent.distance + GetMoveCostForParent(newParent);
+    }
+
+    private int GetMoveCostForParent(Tile measureParent)
+    {
+        if (isCurrent) return 0; // You don't pay a move point for entering your current tile.
+        if (measureParent == null) return 1;
+        if (measureParent.isZoneOfControl) return 2;
+        return 1;
+    }
+
+    // Cost to enter the tile.
+    public int GetMoveCost()
+    {
+        return GetMoveCostForParent(parent);
     }
 
     public void ClearMovementVariables()
