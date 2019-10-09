@@ -98,7 +98,7 @@ public class CombatController : MonoBehaviour
                 }
                 if (!adjacentTile.wasVisited || adjacentTile.IsFasterParent(tile))
                 {
-                    if (GetTotalDistanceWithParent(tile) <= actionPoints)
+                    if (adjacentTile.GetTotalDistanceWithParent(tile) <= actionPoints)
                     {
                         adjacentTile.wasVisited = true;
                         visitedTiles.Add(adjacentTile);
