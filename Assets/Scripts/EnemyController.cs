@@ -5,10 +5,10 @@ using UnityEngine;
 public class EnemyController : CombatController
 {
 
-    override protected bool CanAttack(Tile tile)
+    override protected bool ContainsEnemy(Tile tile)
     {
         if (tile.occupant == null) return false;
-        return tile.occupant.GetComponent<PlayerController>() != null;
+        return tile.HasPC();
     }
 
     // Update is called once per frame
@@ -21,7 +21,6 @@ public class EnemyController : CombatController
         }
         if (!isActing)
         {
-            FindSelectableTiles();
             Tile choice = AIChooseMove();
             if (choice == null)
             {
@@ -70,7 +69,7 @@ public class EnemyController : CombatController
     // returns 100 minus its distance from the target.
     float EvaluateMove(Tile tile, GameObject target)
     {
-        if (CanAttack(tile)) {
+        if (ContainsEnemy(tile)) {
             return 100.0f;
         }
         if (tile.occupant != null) return -1.0f; // Invalid choice, can't move to an occupied tile
