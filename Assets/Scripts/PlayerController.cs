@@ -62,6 +62,8 @@ public class PlayerController : CombatController
 
     private void SetMouseHover()
     {
+        HoverTile = GetMouseTile();
+        if (HoverTile == null) return;
         Tile t = HoverTile;
         while (t.parent)
         {
@@ -93,8 +95,6 @@ public class PlayerController : CombatController
             if (GetMouseTile() != HoverTile)
             {
                 ClearMouseHover();
-                HoverTile = GetMouseTile();
-                if (HoverTile == null) return;
                 SetMouseHover();
             }
         }
