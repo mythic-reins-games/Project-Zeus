@@ -10,10 +10,10 @@ public class CreatureStats : MonoBehaviour
     System.Random rng;
 
     [SerializeField] GameObject healthBar;
-    HealthBar healthBarScript;
+    IndicatorBar healthBarScript;
 
     [SerializeField] GameObject staminaBar;
-    HealthBar staminaBarScript;
+    IndicatorBar staminaBarScript;
 
     [SerializeField] private int Strength = 10;
     [SerializeField] private int Speed = 10;
@@ -41,8 +41,8 @@ public class CreatureStats : MonoBehaviour
     void Start()
     {
         rng = new System.Random();
-        healthBarScript = healthBar.GetComponent<HealthBar>();
-        staminaBarScript = staminaBar.GetComponent<HealthBar>();
+        healthBarScript = healthBar.GetComponent<IndicatorBar>();
+        staminaBarScript = staminaBar.GetComponent<IndicatorBar>();
         MaxHealth = Endurance * 3 + Strength;
         MaxStamina = Endurance * 2;
         CurrentStamina = MaxStamina;
