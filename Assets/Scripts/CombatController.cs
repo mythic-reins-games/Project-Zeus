@@ -33,7 +33,7 @@ public class CombatController : MonoBehaviour
         AssignCurrentTile();
         currentTile.isCurrent = true;
         isTurn = true;
-        actionPoints = move;
+        actionPoints = GetComponent<CreatureStats>().GetMaxActionPoints();
         FindSelectableTiles();
     }
 

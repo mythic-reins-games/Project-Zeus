@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class IndicatorBar : MonoBehaviour
 {
 
     [SerializeField] private GameObject foreground;
@@ -16,12 +16,12 @@ public class HealthBar : MonoBehaviour
         foreground.GetComponent<Image>().fillAmount = 1.0f;
     }
 
-    public void SetLifePercent(float percent)
+    public void SetPercent(float percent)
     {
-        StartCoroutine(GradualizeLifePercentChange(percent));
+        StartCoroutine(GradualizePercentChange(percent));
     }
 
-    private IEnumerator GradualizeLifePercentChange(float percent)
+    private IEnumerator GradualizePercentChange(float percent)
     {
         float originalPercent = foreground.GetComponent<Image>().fillAmount;
         float elapsed = 0f;
