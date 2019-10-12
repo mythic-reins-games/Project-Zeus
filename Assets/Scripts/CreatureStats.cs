@@ -109,12 +109,12 @@ public class CreatureStats : MonoBehaviour
 
     private int HitChance()
     {
-        return 75 + GetEffectiveAgility() / 4;
+        return 75 + (GetEffectiveAgility() / 4);
     }
 
     private int DodgeChance()
     {
-        return 0 + GetEffectiveAgility() / 2;
+        return 0 + (GetEffectiveAgility() / 2);
     }
 
     private bool PercentRoll(int percent)
