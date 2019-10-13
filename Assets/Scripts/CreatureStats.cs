@@ -162,7 +162,7 @@ public class CreatureStats : MonoBehaviour
     {
         float rotation1 = target.transform.eulerAngles.y;
         float rotation2 = transform.eulerAngles.y;
-        return VeryApproximateMatch(Mathf.Abs(rotation1 - rotation2), 0.0f) || VeryApproximately(Mathf.Abs(rotation1 - rotation2), 360.0f);
+        return VeryApproximateMatch(Mathf.Abs(rotation1 - rotation2), 0.0f) || VeryApproximateMatch(Mathf.Abs(rotation1 - rotation2), 360.0f);
     }
 
     public bool IsCrit(CreatureStats target)
