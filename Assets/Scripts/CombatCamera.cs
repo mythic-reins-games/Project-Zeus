@@ -28,7 +28,7 @@ public class CombatCamera : MonoBehaviour
             transform.position = new Vector3(x, initial.y, z);
             yield return null;
         }
-        transform.position = new Vector3(loc.x, initial.y, loc.z); ;
+        transform.position = loc;
         yield break;
     }
 
@@ -36,6 +36,7 @@ public class CombatCamera : MonoBehaviour
     {
         Vector3 newTarget = target.transform.position;
         newTarget.z -= 5.5f;
+        newTarget.y = transform.position.y;
         StartCoroutine(GradualizeMove(newTarget));
     }
 
