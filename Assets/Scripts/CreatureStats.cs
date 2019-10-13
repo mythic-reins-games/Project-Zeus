@@ -141,31 +141,28 @@ public class CreatureStats : MonoBehaviour
     }
 
     // Returns true if floats are within 15.0f of each other.
-    // compare Mathf.Approximately.
-    private bool VeryApproximately(float f1, float f2)
+    // compare Mathf.Approximately, this has a much larger tolerance window.
+    private bool VeryApproximateMatch(float f1, float f2)
     {
         if (Mathf.Abs(f1 - f2) < 15.0f) return true;
         return false;
     }
 
-    // Returns true if the target is being attacked from the side or rear.
-    // Side/read attacks double the chance of a critical hit.
+    // Returns true if the target is being attacked from the rear, left, or right.
+    // Side/rear attacks double the chance of a critical hit.
     public bool IsFlanking(CreatureStats target)
     {
         float rotation1 = target.transform.eulerAngles.y;
         float rotation2 = transform.eulerAngles.y;
-        bool flanking = !VeryApproximately(Mathf.Abs(rotation1 - rotation2), 180.0f);
-        return flanking;
+        return !VeryApproximateMatch(Mathf.Abs(rotation1 - rotation2), 180.0f);
     }
 
     // Returns true if the target is being attacked from the rear.
-    // Rear attacks do a bonus 0-10 damage plus one half of agility.
     public bool IsBehind(CreatureStats target)
     {
         float rotation1 = target.transform.eulerAngles.y;
         float rotation2 = transform.eulerAngles.y;
-        bool behind = VeryApproximately(Mathf.Abs(rotation1 - rotation2), 0.0f) || VeryApproximately(Mathf.Abs(rotation1 - rotation2), 360.0f);
-        return behind;
+        return VeryApproximateMatch(Mathf.Abs(rotation1 - rotation2), 0.0f) || VeryApproximately(Mathf.Abs(rotation1 - rotation2), 360.0f);
     }
 
     public bool IsCrit(CreatureStats target)
@@ -195,6 +192,7 @@ public class CreatureStats : MonoBehaviour
             DisplayPopup("Rear attack!");
             dam += BonusRearDamage();
         }
+        // Critical hits apply a +50% multiplier, after all other modifiers are considered.
         if (IsCrit(target))
         {
             target.DisplayPopup("CRITICAL HIT! " + dam + " damage inflicted!");
