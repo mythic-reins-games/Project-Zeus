@@ -27,14 +27,17 @@ public class PlayerController : CombatController
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        RaycastHit hit;
+        RaycastHit[] hits;
         // Ignore a click on empty space
-        if (!Physics.Raycast(ray, out hit)) return null;
+        hits = Physics.RaycastAll(ray, 100.0f);
 
-        if (hit.collider.tag == "Tile")
-        {
-            Tile mouseTile = hit.collider.GetComponent<Tile>();
-            return mouseTile;
+        foreach (RaycastHit hit in hits)
+        { 
+            if (hit.collider.tag == "Tile")
+            {
+                Tile mouseTile = hit.collider.GetComponent<Tile>();
+                return mouseTile;
+            }
         }
         return null;
     }
