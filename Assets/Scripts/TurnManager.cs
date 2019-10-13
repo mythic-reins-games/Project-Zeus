@@ -6,6 +6,7 @@ using System;
 public class TurnManager : MonoBehaviour
 {
 
+    [SerializeField] private GameObject combatCamera;
     private List<GameObject> combatants = new List<GameObject>();
     private int moveIdx = -1;
     private bool EnemyTurn = false;
@@ -87,6 +88,7 @@ public class TurnManager : MonoBehaviour
             moveIdx = (moveIdx + 1) % combatants.Count;
             if (GetCurrentCombatController() != null)
             {
+                combatCamera.GetComponent<CombatCamera>().ZoomNear(GetCurrentCombatController());
                 BeginTurn();
             }
             return;
@@ -94,6 +96,7 @@ public class TurnManager : MonoBehaviour
         if (!GetCurrentCombatController().isTurn)
         {
             moveIdx = (moveIdx + 1) % combatants.Count;
+            combatCamera.GetComponent<CombatCamera>().ZoomNear(GetCurrentCombatController());
             BeginTurn();
         }
     }
