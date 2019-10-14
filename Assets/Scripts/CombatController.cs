@@ -10,7 +10,6 @@ public class CombatController : MonoBehaviour
 
     public bool isTurn = false;
     protected bool isActing = false;
-    [SerializeField] private int move = 5;
     [SerializeField] private int actionPoints = 0;
 
     const int ATTACK_COST = 4;
@@ -30,10 +29,10 @@ public class CombatController : MonoBehaviour
 
     public void BeginTurn()
     {
+        actionPoints = GetComponent<CreatureStats>().GetMaxActionPoints();
         AssignCurrentTile();
         currentTile.isCurrent = true;
         isTurn = true;
-        actionPoints = GetComponent<CreatureStats>().GetMaxActionPoints();
         FindSelectableTiles();
     }
 
@@ -86,13 +85,18 @@ public class CombatController : MonoBehaviour
             foreach (Tile adjacentTile in tile.adjacentTileList)
             {
                 if (adjacentTile.isBlocked) {
-                    if (!adjacentTile.wasVisited && ContainsEnemy(adjacentTile) && (tile.distance + ATTACK_COST <= actionPoints))
+                    if (!adjacentTile.wasVisited && ContainsEnemy(adjacentTile))
                     {
-                        AttachTile(ATTACK_COST, adjacentTile, tile);
+                        if (tile.distance + ATTACK_COST <= actionPoints)
+                        {
+                            AttachTile(ATTACK_COST, adjacentTile, tile);
+                            visitedTiles.Add(adjacentTile);
+                            adjacentTile.wasVisited = true;
+                            selectableTiles.Add(adjacentTile);
+                            adjacentTile.isSelectable = true;
+                        }
                         visitedTiles.Add(adjacentTile);
                         adjacentTile.wasVisited = true;
-                        selectableTiles.Add(adjacentTile);
-                        adjacentTile.isSelectable = true;
                     }
                     continue;
                 }
@@ -130,14 +134,12 @@ public class CombatController : MonoBehaviour
     // Will need adjustment once there are objects that units can stand on, e.g., crates
     private Tile GetTargetTile(GameObject target)
     {
-
         RaycastHit hit;
         // Return null if there is nothing below the target
         if (!Physics.Raycast(target.transform.position, Vector3.down, out hit, Mathf.Infinity, Physics.AllLayers))
         {
             return null;
         }
-
         return hit.collider.GetComponent<Tile>();
     }
 
@@ -161,6 +163,8 @@ public class CombatController : MonoBehaviour
         isActing = false;
         if (selectableTiles.Count <= 0)
         {
+            // Since we might have 'visited' a tile in FindSelectableTiles, we need to re-clear.
+            ClearVisitedTiles();
             EndTurn();
         }
     }

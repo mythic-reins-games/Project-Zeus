@@ -31,7 +31,6 @@ public class ActionBasicAttack : ActionMove
         else
         {
             phase = PHASE_NONE;
-            EndAction();
         }
     }
 
@@ -40,6 +39,18 @@ public class ActionBasicAttack : ActionMove
         spentActionPoints += 4;
         CreatureStats targetStats = target.GetComponent<CreatureStats>();
         GetComponent<CreatureStats>().PerformAttack(targetStats);
+    }
+
+    private IEnumerator WaitForAttackAnimations(float fDuration)
+    {
+        float elapsed = 0f;
+        while (elapsed < fDuration)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        EndAction();
+        yield break;
     }
 
     void AttackPhase()
@@ -53,7 +64,8 @@ public class ActionBasicAttack : ActionMove
         }
         else
         {
-            EndAction();
+            phase = PHASE_NONE;
+            StartCoroutine(WaitForAttackAnimations(1.0f));
         }
     }
 

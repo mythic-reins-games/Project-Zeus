@@ -3,7 +3,7 @@
 public class PlayerController : CombatController
 {
 
-    private Tile HoverTile = null;
+    private Tile hoverTile = null;
 
     void Update()
     {
@@ -28,7 +28,6 @@ public class PlayerController : CombatController
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit[] hits;
-        // Ignore a click on empty space
         hits = Physics.RaycastAll(ray, 100.0f);
 
         foreach (RaycastHit hit in hits)
@@ -65,9 +64,9 @@ public class PlayerController : CombatController
 
     private void SetMouseHover()
     {
-        HoverTile = GetMouseTile();
-        if (HoverTile == null) return;
-        Tile t = HoverTile;
+        hoverTile = GetMouseTile();
+        if (hoverTile == null) return;
+        Tile t = hoverTile;
         while (t.parent)
         {
             LineBetweenPositions(t.transform.position, t.parent.transform.position);
@@ -95,7 +94,7 @@ public class PlayerController : CombatController
         }
         else
         {
-            if (GetMouseTile() != HoverTile)
+            if (GetMouseTile() != hoverTile)
             {
                 ClearMouseHover();
                 SetMouseHover();
