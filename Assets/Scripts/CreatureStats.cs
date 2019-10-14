@@ -15,20 +15,22 @@ public class CreatureStats : MonoBehaviour
     [SerializeField] GameObject staminaBar;
     IndicatorBar staminaBarScript;
 
-    [SerializeField] private int Strength = 10;
-    [SerializeField] private int Speed = 10;
-    [SerializeField] private int Endurance = 10;
-    [SerializeField] private int Agility = 10;
-    [SerializeField] private int Intelligence = 10;
+    [SerializeField] private int strength = 10;
+    [SerializeField] private int speed = 10;
+    [SerializeField] private int endurance = 10;
+    [SerializeField] private int agility = 10;
+    [SerializeField] private int intelligence = 10;
 
-    protected int MaxHealth = 1;
-    protected int CurrentHealth = 1;
+    protected int maxHealth = 1;
+    protected int currentHealth = 1;
 
-    protected int MaxStamina = 1;
-    protected int CurrentStamina = 1;
+    protected int maxStamina = 1;
+    protected int currentStamina = 1;
 
     float textLabelTimer = 0f;
     string textLabelText = "";
+
+    private Animator anim;
 
     void OnGUI()
     {
@@ -43,48 +45,49 @@ public class CreatureStats : MonoBehaviour
         rng = new System.Random();
         healthBarScript = healthBar.GetComponent<IndicatorBar>();
         staminaBarScript = staminaBar.GetComponent<IndicatorBar>();
-        MaxHealth = Endurance * 3 + Strength;
-        MaxStamina = Endurance * 2;
-        CurrentStamina = MaxStamina;
-        CurrentHealth = MaxHealth;
+        maxHealth = endurance * 3 + strength;
+        maxStamina = endurance * 2;
+        currentStamina = maxStamina;
+        currentHealth = maxHealth;
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Average of strength and strength times lifepercent
     protected int GetEffectiveStrength()
     {
-        float[] ar = new float[2] { Strength, Strength * PercentHealth() };
+        float[] ar = new float[2] { strength, strength * PercentHealth() };
         return Mathf.RoundToInt(ar.Average());
     }
 
     // Average of agility and agility times lifepercent
     protected int GetEffectiveAgility()
     {
-        float[] ar = new float[2] { Agility, Agility * PercentHealth() };
+        float[] ar = new float[2] { agility, agility * PercentHealth() };
         return Mathf.RoundToInt(ar.Average());
     }
 
     // Average of intelligence and intelligence times lifepercent
     protected int GetEffectiveIntelligence()
     {
-        float[] ar = new float[2] { Intelligence, Intelligence * PercentHealth() };
+        float[] ar = new float[2] { intelligence, intelligence * PercentHealth() };
         return Mathf.RoundToInt(ar.Average());
     }
 
     // Average of Speed and Speed times lifepercent
     protected int GetEffectiveSpeed()
     {
-        float[] ar = new float[2] { Speed, Speed * PercentHealth() };
+        float[] ar = new float[2] { speed, speed * PercentHealth() };
         return Mathf.RoundToInt(ar.Average());
     }
 
     private float PercentHealth()
     {
-        return (float)CurrentHealth / (float)MaxHealth;
+        return (float)currentHealth / (float)maxHealth;
     }
 
     private float PercentStamina()
     {
-        return (float)CurrentStamina / (float)MaxStamina;
+        return (float)currentStamina / (float)maxStamina;
     }
 
     public int GetMaxActionPoints()
@@ -94,14 +97,14 @@ public class CreatureStats : MonoBehaviour
 
     public void ReceiveDamage(int amount)
     {
-        if (CurrentStamina >= amount)
+        if (currentStamina >= amount)
         {
-            CurrentStamina -= amount;
+            currentStamina -= amount;
         }
         else
         {
-            CurrentHealth -= (amount - CurrentStamina);
-            CurrentStamina = 0;
+            currentHealth -= (amount - currentStamina);
+            currentStamina = 0;
         }
         healthBarScript.SetPercent(PercentHealth());
         staminaBarScript.SetPercent(PercentStamina());
@@ -175,14 +178,33 @@ public class CreatureStats : MonoBehaviour
         return PercentRoll(chance);
     }
 
+    private IEnumerator ClearAttackAnimationsAfterDelay(float fDuration)
+    {
+        float elapsed = 0f;
+        while (elapsed < fDuration)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        anim.SetBool("IsAttacking", false);
+        anim.SetBool("IsDodging", false);
+        anim.SetBool("IsGettingDamaged", false);
+        yield break;
+    }
+
     public void PerformAttack(CreatureStats target)
     {
+        StartCoroutine(ClearAttackAnimationsAfterDelay(0.5f));
+        StartCoroutine(target.ClearAttackAnimationsAfterDelay(0.5f));
+        anim.SetBool("IsAttacking", true);
         if (!PercentRoll(HitChance())) {
+            target.anim.SetBool("IsDodging", true);
             DisplayPopup("Miss!");
             return;
         }
         if (PercentRoll(target.DodgeChance()))
         {
+            target.anim.SetBool("IsDodging", true);
             target.DisplayPopup("Dodge!");
             return;
         }
@@ -202,6 +224,7 @@ public class CreatureStats : MonoBehaviour
         {
             target.DisplayPopup(dam + " damage inflicted!");
         }
+        target.anim.SetBool("IsGettingDamaged", true);
         target.ReceiveDamage(dam);
     }
 }

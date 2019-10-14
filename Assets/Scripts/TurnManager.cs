@@ -9,19 +9,20 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private GameObject combatCamera;
     private List<GameObject> combatants = new List<GameObject>();
     private int moveIdx = -1;
-    private bool EnemyTurn = false;
+    private bool enemyTurn = false;
+    private bool frozen = false;
 
     CombatController GetCurrentCombatController()
     {
         if (moveIdx == -1) return null;
         if (combatants[moveIdx].GetComponent<PlayerController>() != null)
         {
-            EnemyTurn = false;
+            enemyTurn = false;
             return combatants[moveIdx].GetComponent<PlayerController>();
         }
         if (combatants[moveIdx].GetComponent<EnemyController>() != null)
         {
-            EnemyTurn = true;
+            enemyTurn = true;
             return combatants[moveIdx].GetComponent<EnemyController>();
         }
         return null;
@@ -53,8 +54,8 @@ public class TurnManager : MonoBehaviour
         foreach (GameObject combatant in combatants)
         {
             CombatController opponent = null;
-            if (EnemyTurn) opponent = combatant.GetComponent<PlayerController>();
-            if (!EnemyTurn) opponent = combatant.GetComponent<EnemyController>();
+            if (enemyTurn) opponent = combatant.GetComponent<PlayerController>();
+            if (!enemyTurn) opponent = combatant.GetComponent<EnemyController>();
             if (opponent == null) continue;
             opponent.AssignZonesOfControl();
         }
@@ -66,6 +67,20 @@ public class TurnManager : MonoBehaviour
         ClearZonesOfControl();
         SetZonesOfControl();
         controller.BeginTurn();
+    }
+
+    private IEnumerator BeginTurnAfterDelay(float fDuration)
+    {
+        frozen = true;
+        float elapsed = 0f;
+        while (elapsed < fDuration)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        frozen = false;
+        BeginTurn();
+        yield break;
     }
 
     // Start is called before the first frame update
@@ -83,13 +98,14 @@ public class TurnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (frozen) return;
         if (GetCurrentCombatController() == null)
         {
             moveIdx = (moveIdx + 1) % combatants.Count;
             if (GetCurrentCombatController() != null)
             {
                 combatCamera.GetComponent<CombatCamera>().ZoomNear(GetCurrentCombatController());
-                BeginTurn();
+                StartCoroutine(BeginTurnAfterDelay(0.1f));
             }
             return;
         }
@@ -97,7 +113,7 @@ public class TurnManager : MonoBehaviour
         {
             moveIdx = (moveIdx + 1) % combatants.Count;
             combatCamera.GetComponent<CombatCamera>().ZoomNear(GetCurrentCombatController());
-            BeginTurn();
+            StartCoroutine(BeginTurnAfterDelay(0.1f));
         }
     }
 }

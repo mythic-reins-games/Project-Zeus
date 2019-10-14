@@ -17,6 +17,11 @@ public class ActionMove : Action
     // Extra tiles at the end of the action
     protected int reserve_tiles = 0;
 
+    override protected void Start()
+    {
+        base.Start();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -49,7 +54,6 @@ public class ActionMove : Action
                 CharacterController characterController = GetComponent<CharacterController>();
                 Vector3 direction = CalculateDirection(target);
                 Vector3 velocity = SetHorizontalVelocity(direction);
-
                 transform.forward = direction;
                 characterController.Move(velocity * Time.deltaTime);
             }
@@ -60,9 +64,15 @@ public class ActionMove : Action
                 spentActionPoints += tile.GetMoveCost();
                 path.Pop();
             }
+            // Putting this under a conditional prevents the creature from "moonwalking" an extra step animation after it reaches the center of tile.
+            if (path.Count > reserve_tiles)
+            {
+                anim.SetBool("IsWalking", true);
+            }
         }
         else
         {
+            anim.SetBool("IsWalking", false);
             phase = PHASE_ATTACKING;
         }
     }

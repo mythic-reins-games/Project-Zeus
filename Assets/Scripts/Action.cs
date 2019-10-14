@@ -5,6 +5,8 @@ using UnityEngine;
 public class Action : MonoBehaviour
 {
 
+    protected Animator anim;
+
     protected int spentActionPoints = 0;
 
     protected bool inProgress = false;
@@ -15,12 +17,7 @@ public class Action : MonoBehaviour
     virtual protected void Start()
     {
         combatController = GetComponent<CombatController>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        anim = GetComponentInChildren<Animator>();
     }
 
     virtual public void BeginAction(Tile targetTile)
@@ -33,7 +30,7 @@ public class Action : MonoBehaviour
 
     protected void EndAction()
     {
-        inProgress = false;
         combatController.EndAction(spentActionPoints);
+        inProgress = false;
     }
 }

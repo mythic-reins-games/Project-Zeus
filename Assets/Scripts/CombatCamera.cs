@@ -18,25 +18,25 @@ public class CombatCamera : MonoBehaviour
 
     void MouseScroll()
     {
-        Vector3 CameraSpeed = new Vector3(0f, 0f, 0f);
-        Vector3 CurrentMousePosition = Input.mousePosition;
-        if (CurrentMousePosition.x >= Screen.width - 20)
+        Vector3 cameraSpeed = new Vector3(0f, 0f, 0f);
+        Vector3 currentMousePosition = Input.mousePosition;
+        if (currentMousePosition.x >= Screen.width - 20)
         {
-            CameraSpeed.x = Time.deltaTime * 10f;
+            cameraSpeed.x = Time.deltaTime * 10f;
         }
-        if (CurrentMousePosition.x <= 20)
+        if (currentMousePosition.x <= 20)
         {
-            CameraSpeed.x = Time.deltaTime * -10f;
+            cameraSpeed.x = Time.deltaTime * -10f;
         }
-        if (CurrentMousePosition.y >= Screen.height - 20)
+        if (currentMousePosition.y >= Screen.height - 20)
         {
-            CameraSpeed.z = Time.deltaTime * 10f;
+            cameraSpeed.z = Time.deltaTime * 10f;
         }
-        if (CurrentMousePosition.y <= 20)
+        if (currentMousePosition.y <= 20)
         {
-            CameraSpeed.z = Time.deltaTime * -10f;
+            cameraSpeed.z = Time.deltaTime * -10f;
         }
-        transform.Translate(CameraSpeed, Space.World);
+        transform.Translate(cameraSpeed, Space.World);
 
         // Clamp the camera position so it doesn't go too far away from the grid.
         transform.position = new Vector3(
