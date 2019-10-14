@@ -59,11 +59,11 @@ public class CombatController : MonoBehaviour
 
     protected void FindSelectableTiles()
     {
+        AssignCurrentTile();
         if (actionPoints == 0)
         {
             return;
         }
-        AssignCurrentTile();
 
         // TODO: Replace with PriorityQueue for performance optimization
         List<Tile> queue = new List<Tile>();
@@ -90,8 +90,6 @@ public class CombatController : MonoBehaviour
                         if (tile.distance + ATTACK_COST <= actionPoints)
                         {
                             AttachTile(ATTACK_COST, adjacentTile, tile);
-                            visitedTiles.Add(adjacentTile);
-                            adjacentTile.wasVisited = true;
                             selectableTiles.Add(adjacentTile);
                             adjacentTile.isSelectable = true;
                         }
@@ -158,7 +156,6 @@ public class CombatController : MonoBehaviour
     {
         ClearVisitedTiles();
         actionPoints -= spentActionPoints;
-        AssignCurrentTile();
         FindSelectableTiles();
         isActing = false;
         if (selectableTiles.Count <= 0)

@@ -64,6 +64,7 @@ public class ActionMove : Action
                 spentActionPoints += tile.GetMoveCost();
                 path.Pop();
             }
+            // Putting this under a conditional prevents the creature from "moonwalking" an extra step animation after it reaches the center of tile.
             if (path.Count > reserve_tiles)
             {
                 anim.SetBool("IsWalking", true);
