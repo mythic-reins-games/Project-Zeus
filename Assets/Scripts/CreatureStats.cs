@@ -200,7 +200,7 @@ public class CreatureStats : MonoBehaviour
         anim.SetBool("IsDodging", false);
         anim.SetBool("IsGettingDamaged", false);
         anim.SetBool("IsDying", true);
-        StartCoroutine(DestroyAfterDelay(0.75f));
+        StartCoroutine(DestroyAfterDelay(0.9f));
     }
 
     private IEnumerator DestroyAfterDelay(float fDuration)

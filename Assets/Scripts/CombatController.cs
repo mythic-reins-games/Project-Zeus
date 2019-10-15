@@ -158,10 +158,15 @@ public class CombatController : MonoBehaviour
 
     public void EndAction(int spentActionPoints)
     {
+        isActing = false;
         ClearVisitedTiles();
         actionPoints -= spentActionPoints;
+        if (transform.parent.GetComponent<TurnManager>().CheckCombatOver())
+        {
+            isTurn = false;
+            return;
+        }
         FindSelectableTiles();
-        isActing = false;
         if (selectableTiles.Count <= 0)
         {
             // Since we might have 'visited' a tile in FindSelectableTiles, we need to re-clear.

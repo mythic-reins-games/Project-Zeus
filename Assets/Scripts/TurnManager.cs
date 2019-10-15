@@ -34,6 +34,7 @@ public class TurnManager : MonoBehaviour
     {
         MusicManager m = GameObject.Find("MusicManager").GetComponent<MusicManager>();
         gameOver = true;
+        GetCurrentCombatController().isTurn = false;
         m.SetDefeat();
     }
 
@@ -41,6 +42,7 @@ public class TurnManager : MonoBehaviour
     {
         MusicManager m = GameObject.Find("MusicManager").GetComponent<MusicManager>();
         gameOver = true;
+        GetCurrentCombatController().isTurn = false;
         m.SetVictory();
     }
 
@@ -62,6 +64,21 @@ public class TurnManager : MonoBehaviour
             if (pick.GetComponent<EnemyController>() != null) return false;
         }
         return true;
+    }
+
+    public bool CheckCombatOver()
+    {
+        if (PlayerWon())
+        {
+            EndVictory();
+            return true;
+        }
+        if (EnemyWon())
+        {
+            EndDefeat();
+            return true;
+        }
+        return false;
     }
 
     // Picks an arbitrary/random Player controlled character
@@ -135,16 +152,6 @@ public class TurnManager : MonoBehaviour
 
     void AdvanceToNextTurn()
     {
-        if (PlayerWon())
-        {
-            EndVictory();
-            return;
-        }
-        if (EnemyWon())
-        {
-            EndDefeat();
-            return;
-        }
         moveIdx = (moveIdx + 1) % combatants.Count;
         if (GetCurrentCombatController() != null)
         {
