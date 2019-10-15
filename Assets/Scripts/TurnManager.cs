@@ -11,6 +11,7 @@ public class TurnManager : MonoBehaviour
     private int moveIdx = -1;
     private bool enemyTurn = false;
     private bool frozen = false;
+    private bool gameOver = false;
 
     CombatController GetCurrentCombatController()
     {
@@ -27,6 +28,40 @@ public class TurnManager : MonoBehaviour
             return combatants[moveIdx].GetComponent<EnemyController>();
         }
         return null;
+    }
+
+    void EndDefeat()
+    {
+        MusicManager m = GameObject.Find("MusicManager").GetComponent<MusicManager>();
+        gameOver = true;
+        m.SetDefeat();
+    }
+
+    void EndVictory()
+    {
+        MusicManager m = GameObject.Find("MusicManager").GetComponent<MusicManager>();
+        gameOver = true;
+        m.SetVictory();
+    }
+
+    bool EnemyWon()
+    {
+        foreach (GameObject pick in combatants)
+        {
+            if (pick == null) continue;
+            if (pick.GetComponent<PlayerController>() != null) return false;
+        }
+        return true;
+    }
+
+    bool PlayerWon()
+    {
+        foreach (GameObject pick in combatants)
+        {
+            if (pick == null) continue;
+            if (pick.GetComponent<EnemyController>() != null) return false;
+        }
+        return true;
     }
 
     // Picks an arbitrary/random Player controlled character
@@ -98,28 +133,38 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    void AdvanceToNextTurn()
+    {
+        if (PlayerWon())
+        {
+            EndVictory();
+            return;
+        }
+        if (EnemyWon())
+        {
+            EndDefeat();
+            return;
+        }
+        moveIdx = (moveIdx + 1) % combatants.Count;
+        if (GetCurrentCombatController() != null)
+        {
+            combatCamera.GetComponent<CombatCamera>().ZoomNear(GetCurrentCombatController());
+            StartCoroutine(BeginTurnAfterDelay(0.1f));
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (frozen) return;
+        if (frozen || gameOver) return;
         if (GetCurrentCombatController() == null)
         {
-            moveIdx = (moveIdx + 1) % combatants.Count;
-            if (GetCurrentCombatController() != null)
-            {
-                combatCamera.GetComponent<CombatCamera>().ZoomNear(GetCurrentCombatController());
-                StartCoroutine(BeginTurnAfterDelay(0.1f));
-            }
+            AdvanceToNextTurn();
             return;
         }
         if (!GetCurrentCombatController().isTurn)
         {
-            moveIdx = (moveIdx + 1) % combatants.Count;
-            if (GetCurrentCombatController() != null)
-            {
-                combatCamera.GetComponent<CombatCamera>().ZoomNear(GetCurrentCombatController());
-                StartCoroutine(BeginTurnAfterDelay(0.1f));
-            }
+            AdvanceToNextTurn();
         }
     }
 }

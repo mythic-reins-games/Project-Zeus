@@ -40,9 +40,9 @@ public class CombatCamera : MonoBehaviour
 
         // Clamp the camera position so it doesn't go too far away from the grid.
         transform.position = new Vector3(
-            Mathf.Clamp(transform.position.x, -5f, 5f),
+            Mathf.Clamp(transform.position.x, -2.5f, 2.5f),
             transform.position.y,
-            Mathf.Clamp(transform.position.z, -10f, 1f)
+            Mathf.Clamp(transform.position.z, -7.5f, 0f)
         );
     }
 

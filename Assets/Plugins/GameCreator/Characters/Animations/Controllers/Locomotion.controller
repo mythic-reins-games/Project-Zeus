@@ -927,7 +927,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Character@cocky
-  m_Speed: 0.3
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1097331782873317859}
@@ -940,7 +940,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 74415687291179230, guid: c1f3af61278c54c04a6903b2212e4f4d, type: 2}
+  m_Motion: {fileID: 74310066668652102, guid: c1f3af61278c54c04a6903b2212e4f4d, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

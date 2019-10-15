@@ -6,7 +6,6 @@ using System;
 
 public class CreatureStats : MonoBehaviour
 {
-
     System.Random rng;
 
     [SerializeField] GameObject healthBar;
@@ -45,7 +44,7 @@ public class CreatureStats : MonoBehaviour
         rng = new System.Random();
         healthBarScript = healthBar.GetComponent<IndicatorBar>();
         staminaBarScript = staminaBar.GetComponent<IndicatorBar>();
-        maxHealth = endurance + (endurange / 2) + (strength / 2);
+        maxHealth = endurance + (endurance / 2) + (strength / 2);
         maxStamina = endurance * 2;
         currentStamina = maxStamina;
         currentHealth = maxHealth;
