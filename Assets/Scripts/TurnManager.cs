@@ -15,6 +15,7 @@ public class TurnManager : MonoBehaviour
     CombatController GetCurrentCombatController()
     {
         if (moveIdx == -1) return null;
+        if (combatants[moveIdx] == null) return null;
         if (combatants[moveIdx].GetComponent<PlayerController>() != null)
         {
             enemyTurn = false;
@@ -33,6 +34,7 @@ public class TurnManager : MonoBehaviour
     {
         foreach (GameObject pick in combatants)
         {
+            if (pick == null) continue;
             if (pick.GetComponent<PlayerController>() != null)
             {
                 return pick;
@@ -53,6 +55,7 @@ public class TurnManager : MonoBehaviour
     {
         foreach (GameObject combatant in combatants)
         {
+            if (combatant == null) return;
             CombatController opponent = null;
             if (enemyTurn) opponent = combatant.GetComponent<PlayerController>();
             if (!enemyTurn) opponent = combatant.GetComponent<EnemyController>();
@@ -112,8 +115,11 @@ public class TurnManager : MonoBehaviour
         if (!GetCurrentCombatController().isTurn)
         {
             moveIdx = (moveIdx + 1) % combatants.Count;
-            combatCamera.GetComponent<CombatCamera>().ZoomNear(GetCurrentCombatController());
-            StartCoroutine(BeginTurnAfterDelay(0.1f));
+            if (GetCurrentCombatController() != null)
+            {
+                combatCamera.GetComponent<CombatCamera>().ZoomNear(GetCurrentCombatController());
+                StartCoroutine(BeginTurnAfterDelay(0.1f));
+            }
         }
     }
 }

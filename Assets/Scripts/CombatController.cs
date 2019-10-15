@@ -112,14 +112,18 @@ public class CombatController : MonoBehaviour
         }
     }
 
-    private void AssignCurrentTile()
+    public void UnassignCurrentTile()
     {
-        if (currentTile != null)
-        {
+        if (currentTile != null) {
             currentTile.occupant = null;
             currentTile.isBlocked = false;
             currentTile.isCurrent = false;
         }
+    }
+
+    private void AssignCurrentTile()
+    {
+        UnassignCurrentTile();
         currentTile = GetTargetTile(gameObject);
         currentTile.isBlocked = true;
         currentTile.occupant = gameObject;
