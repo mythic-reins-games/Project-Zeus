@@ -8,7 +8,7 @@ public class Tile : MonoBehaviour
     public bool isBlocked = false;
     public bool isTarget = false;
     public bool isSelectable = false;
-    public bool isZoneOfControl = false;
+    private bool isZoneOfControl = false;
 
     public List<Tile> adjacentTileList = new List<Tile>();
 
@@ -18,6 +18,11 @@ public class Tile : MonoBehaviour
     public bool wasVisited = false;
     public Tile parent = null;
     public int distance = 0;
+
+    public void SetIsZoneOfControl(bool zoc)
+    {
+        isZoneOfControl = zoc;
+    }
 
     void Start()
     {

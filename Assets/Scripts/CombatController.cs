@@ -23,7 +23,7 @@ public class CombatController : MonoBehaviour
     {
         foreach (Tile adjacentTile in currentTile.adjacentTileList)
         {
-            adjacentTile.isZoneOfControl = true;
+            adjacentTile.SetIsZoneOfControl(true);
         }
     }
 

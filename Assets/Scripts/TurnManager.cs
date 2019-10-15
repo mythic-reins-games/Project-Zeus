@@ -99,7 +99,7 @@ public class TurnManager : MonoBehaviour
     {
         foreach (Tile tile in FindObjectsOfType<Tile>())
         {
-            tile.isZoneOfControl = false;
+            tile.SetIsZoneOfControl(false);
         }
     }
 
@@ -107,7 +107,7 @@ public class TurnManager : MonoBehaviour
     {
         foreach (GameObject combatant in combatants)
         {
-            if (combatant == null) return;
+            if (combatant == null) continue;
             CombatController opponent = null;
             if (enemyTurn) opponent = combatant.GetComponent<PlayerController>();
             if (!enemyTurn) opponent = combatant.GetComponent<EnemyController>();
