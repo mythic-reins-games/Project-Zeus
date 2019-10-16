@@ -6,6 +6,8 @@ public class CombatController : MonoBehaviour
     private HashSet<Tile> visitedTiles = new HashSet<Tile>();
     protected List<Tile> selectableTiles = new List<Tile>();
 
+    protected GUIPanel panel;
+
     private Tile currentTile;
 
     public bool isTurn = false;
@@ -16,6 +18,7 @@ public class CombatController : MonoBehaviour
 
     protected void Start()
     {
+        panel = Object.FindObjectOfType<GUIPanel>();
         AssignCurrentTile();
     }
     
@@ -30,10 +33,18 @@ public class CombatController : MonoBehaviour
     public void BeginTurn()
     {
         actionPoints = GetComponent<CreatureStats>().GetMaxActionPoints();
+        if (DoesGUI()) panel.SetActionPoints(actionPoints);
         AssignCurrentTile();
         currentTile.isCurrent = true;
         isTurn = true;
         FindSelectableTiles();
+    }
+
+    // Defaults to false, but can be overridden by subclasses.
+    // If true, the unit is interactable via the GUI.
+    virtual protected bool DoesGUI()
+    {
+        return false;
     }
 
     // Defaults to false, but can be overridden by subclasses.
@@ -152,12 +163,16 @@ public class CombatController : MonoBehaviour
 
     protected void EndTurn()
     {
+        // Since we might have 'visited' a tile in FindSelectableTiles, we need to re-clear.
+        ClearVisitedTiles();
+        if (DoesGUI()) panel.ClearActionPoints();
         isTurn = false;
         currentTile.isCurrent = false;
     }
 
     public void EndAction(int spentActionPoints)
     {
+        if (DoesGUI()) panel.SpendActionPoints(spentActionPoints);
         isActing = false;
         ClearVisitedTiles();
         actionPoints -= spentActionPoints;
@@ -169,8 +184,6 @@ public class CombatController : MonoBehaviour
         FindSelectableTiles();
         if (selectableTiles.Count <= 0)
         {
-            // Since we might have 'visited' a tile in FindSelectableTiles, we need to re-clear.
-            ClearVisitedTiles();
             EndTurn();
         }
     }
