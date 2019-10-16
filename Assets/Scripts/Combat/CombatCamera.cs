@@ -77,6 +77,11 @@ public class CombatCamera : MonoBehaviour
         );
     }
 
+    public bool IsFacingEastOrWest()
+    {
+        return dir == 1 || dir == 3;
+    }
+
     void Update()
     {
         if (Input.GetKeyDown("q"))

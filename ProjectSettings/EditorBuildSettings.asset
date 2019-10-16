@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Scenes/Combat.unity
+    guid: e70e98741d9e40643bb2ac14313762ca
   m_configObjects: {}
