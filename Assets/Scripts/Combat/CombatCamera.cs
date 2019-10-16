@@ -10,6 +10,7 @@ public class CombatCamera : MonoBehaviour
     const int DIR_WEST = 3;
 
     int dir = 0;
+    bool rotationFrozen = false;
 
     private float updateTimeSeconds = 0.25f;
 
@@ -18,14 +19,15 @@ public class CombatCamera : MonoBehaviour
 
     public void RotateLeft()
     {
-        transform.Rotate(Vector3.up, 90, Space.Self);
-        // Easier to reason about than dir - 1 because C# has slightly confusing handling of modulo of negative numbers.
+        if (rotationFrozen) return;
+        StartCoroutine(GradualizeRotation(90, .025f));
         dir = (dir + 3) % 4;
     }
 
     public void RotateRight()
     {
-        transform.Rotate(Vector3.up, -90, Space.Self);
+        if (rotationFrozen) return;
+        StartCoroutine(GradualizeRotation(-90, .025f));
         dir = (dir + 1) % 4;
     }
 
@@ -75,6 +77,25 @@ public class CombatCamera : MonoBehaviour
             transform.position.y,
             Mathf.Clamp(transform.position.z, MIN_SCROLL, MAX_SCROLL)
         );
+    }
+
+    private IEnumerator GradualizeRotation(int delta, float duration)
+    {
+        rotationFrozen = true;
+        float initial = transform.eulerAngles.y;
+        float elapsed = 0f;
+        Vector3 tmp = transform.eulerAngles;
+        while (elapsed < updateTimeSeconds)
+        {
+            elapsed += Time.deltaTime;
+            tmp.y = Mathf.SmoothStep(initial, initial + delta, elapsed / updateTimeSeconds);
+            transform.eulerAngles = tmp;
+            yield return null;
+        }
+        tmp.y = Mathf.SmoothStep(initial, initial + delta, elapsed / updateTimeSeconds);
+        transform.eulerAngles = tmp;
+        rotationFrozen = false;
+        yield break;
     }
 
     public bool IsFacingEastOrWest()
