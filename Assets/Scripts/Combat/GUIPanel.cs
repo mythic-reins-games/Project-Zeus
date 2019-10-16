@@ -15,6 +15,14 @@ public class GUIPanel : MonoBehaviour
     {
     }
 
+    void Update()
+    {
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
+    }
+
     public void ClearActionPoints()
     {
         foreach (Image im in actionPointImages)
