@@ -6,7 +6,6 @@ using System;
 
 public class CreatureStats : MonoBehaviour
 {
-
     System.Random rng;
 
     [SerializeField] GameObject healthBar;
@@ -45,7 +44,7 @@ public class CreatureStats : MonoBehaviour
         rng = new System.Random();
         healthBarScript = healthBar.GetComponent<IndicatorBar>();
         staminaBarScript = staminaBar.GetComponent<IndicatorBar>();
-        maxHealth = endurance * 3 + strength;
+        maxHealth = endurance + (endurance / 2) + (strength / 2);
         maxStamina = endurance * 2;
         currentStamina = maxStamina;
         currentHealth = maxHealth;
@@ -108,6 +107,15 @@ public class CreatureStats : MonoBehaviour
         }
         healthBarScript.SetPercent(PercentHealth());
         staminaBarScript.SetPercent(PercentStamina());
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            anim.SetBool("IsGettingDamaged", true);
+            StartCoroutine(ClearAttackAnimationsAfterDelay(0.5f));
+        }
     }
 
     private int HitChance()
@@ -178,6 +186,35 @@ public class CreatureStats : MonoBehaviour
         return PercentRoll(chance);
     }
 
+    private CombatController GetController()
+    {
+        if (GetComponent<PlayerController>() != null) return GetComponent<PlayerController>();
+        if (GetComponent<EnemyController>() != null) return GetComponent<EnemyController>();
+        return null;
+    }
+
+    private void Die()
+    {
+        GetController().UnassignCurrentTile();
+        anim.SetBool("IsAttacking", false);
+        anim.SetBool("IsDodging", false);
+        anim.SetBool("IsGettingDamaged", false);
+        anim.SetBool("IsDying", true);
+        StartCoroutine(DestroyAfterDelay(0.9f));
+    }
+
+    private IEnumerator DestroyAfterDelay(float fDuration)
+    {
+        float elapsed = 0f;
+        while (elapsed < fDuration)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        Destroy(gameObject);
+        yield break;
+    }
+
     private IEnumerator ClearAttackAnimationsAfterDelay(float fDuration)
     {
         float elapsed = 0f;
@@ -195,17 +232,18 @@ public class CreatureStats : MonoBehaviour
     public void PerformAttack(CreatureStats target)
     {
         StartCoroutine(ClearAttackAnimationsAfterDelay(0.5f));
-        StartCoroutine(target.ClearAttackAnimationsAfterDelay(0.5f));
         anim.SetBool("IsAttacking", true);
         if (!PercentRoll(HitChance())) {
             target.anim.SetBool("IsDodging", true);
             DisplayPopup("Miss!");
+            StartCoroutine(target.ClearAttackAnimationsAfterDelay(0.5f));
             return;
         }
         if (PercentRoll(target.DodgeChance()))
         {
             target.anim.SetBool("IsDodging", true);
             target.DisplayPopup("Dodge!");
+            StartCoroutine(target.ClearAttackAnimationsAfterDelay(0.5f));
             return;
         }
         int dam = DamageInflicted();
@@ -224,7 +262,6 @@ public class CreatureStats : MonoBehaviour
         {
             target.DisplayPopup(dam + " damage inflicted!");
         }
-        target.anim.SetBool("IsGettingDamaged", true);
         target.ReceiveDamage(dam);
     }
 }

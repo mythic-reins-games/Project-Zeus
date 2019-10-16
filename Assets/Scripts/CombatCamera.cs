@@ -40,9 +40,9 @@ public class CombatCamera : MonoBehaviour
 
         // Clamp the camera position so it doesn't go too far away from the grid.
         transform.position = new Vector3(
-            Mathf.Clamp(transform.position.x, -5f, 5f),
+            Mathf.Clamp(transform.position.x, -4f, 4f),
             transform.position.y,
-            Mathf.Clamp(transform.position.z, -10f, 1f)
+            Mathf.Clamp(transform.position.z, -9f, 0f)
         );
     }
 
@@ -70,7 +70,7 @@ public class CombatCamera : MonoBehaviour
     public void ZoomNear(CombatController target)
     {
         Vector3 newTarget = target.transform.position;
-        newTarget.z -= 3.5f;
+        newTarget.z -= 3f;
         newTarget.y = transform.position.y;
         StartCoroutine(GradualizeMove(newTarget));
     }

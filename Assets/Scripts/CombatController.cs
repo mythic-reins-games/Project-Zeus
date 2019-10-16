@@ -23,7 +23,7 @@ public class CombatController : MonoBehaviour
     {
         foreach (Tile adjacentTile in currentTile.adjacentTileList)
         {
-            adjacentTile.isZoneOfControl = true;
+            adjacentTile.SetIsZoneOfControl(true);
         }
     }
 
@@ -112,14 +112,18 @@ public class CombatController : MonoBehaviour
         }
     }
 
-    private void AssignCurrentTile()
+    public void UnassignCurrentTile()
     {
-        if (currentTile != null)
-        {
+        if (currentTile != null) {
             currentTile.occupant = null;
             currentTile.isBlocked = false;
             currentTile.isCurrent = false;
         }
+    }
+
+    private void AssignCurrentTile()
+    {
+        UnassignCurrentTile();
         currentTile = GetTargetTile(gameObject);
         currentTile.isBlocked = true;
         currentTile.occupant = gameObject;
@@ -154,10 +158,15 @@ public class CombatController : MonoBehaviour
 
     public void EndAction(int spentActionPoints)
     {
+        isActing = false;
         ClearVisitedTiles();
         actionPoints -= spentActionPoints;
+        if (transform.parent.GetComponent<TurnManager>().CheckCombatOver())
+        {
+            isTurn = false;
+            return;
+        }
         FindSelectableTiles();
-        isActing = false;
         if (selectableTiles.Count <= 0)
         {
             // Since we might have 'visited' a tile in FindSelectableTiles, we need to re-clear.

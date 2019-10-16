@@ -11,10 +11,12 @@ public class TurnManager : MonoBehaviour
     private int moveIdx = -1;
     private bool enemyTurn = false;
     private bool frozen = false;
+    private bool gameOver = false;
 
     CombatController GetCurrentCombatController()
     {
         if (moveIdx == -1) return null;
+        if (combatants[moveIdx] == null) return null;
         if (combatants[moveIdx].GetComponent<PlayerController>() != null)
         {
             enemyTurn = false;
@@ -28,11 +30,63 @@ public class TurnManager : MonoBehaviour
         return null;
     }
 
+    void EndDefeat()
+    {
+        MusicManager m = GameObject.Find("MusicManager").GetComponent<MusicManager>();
+        gameOver = true;
+        GetCurrentCombatController().isTurn = false;
+        m.SetDefeat();
+    }
+
+    void EndVictory()
+    {
+        MusicManager m = GameObject.Find("MusicManager").GetComponent<MusicManager>();
+        gameOver = true;
+        GetCurrentCombatController().isTurn = false;
+        m.SetVictory();
+    }
+
+    bool EnemyWon()
+    {
+        foreach (GameObject pick in combatants)
+        {
+            if (pick == null) continue;
+            if (pick.GetComponent<PlayerController>() != null) return false;
+        }
+        return true;
+    }
+
+    bool PlayerWon()
+    {
+        foreach (GameObject pick in combatants)
+        {
+            if (pick == null) continue;
+            if (pick.GetComponent<EnemyController>() != null) return false;
+        }
+        return true;
+    }
+
+    public bool CheckCombatOver()
+    {
+        if (PlayerWon())
+        {
+            EndVictory();
+            return true;
+        }
+        if (EnemyWon())
+        {
+            EndDefeat();
+            return true;
+        }
+        return false;
+    }
+
     // Picks an arbitrary/random Player controlled character
     public GameObject PickArbitraryPC()
     {
         foreach (GameObject pick in combatants)
         {
+            if (pick == null) continue;
             if (pick.GetComponent<PlayerController>() != null)
             {
                 return pick;
@@ -45,7 +99,7 @@ public class TurnManager : MonoBehaviour
     {
         foreach (Tile tile in FindObjectsOfType<Tile>())
         {
-            tile.isZoneOfControl = false;
+            tile.SetIsZoneOfControl(false);
         }
     }
 
@@ -53,6 +107,7 @@ public class TurnManager : MonoBehaviour
     {
         foreach (GameObject combatant in combatants)
         {
+            if (combatant == null) continue;
             CombatController opponent = null;
             if (enemyTurn) opponent = combatant.GetComponent<PlayerController>();
             if (!enemyTurn) opponent = combatant.GetComponent<EnemyController>();
@@ -95,25 +150,28 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    void AdvanceToNextTurn()
+    {
+        moveIdx = (moveIdx + 1) % combatants.Count;
+        if (GetCurrentCombatController() != null)
+        {
+            combatCamera.GetComponent<CombatCamera>().ZoomNear(GetCurrentCombatController());
+            StartCoroutine(BeginTurnAfterDelay(0.1f));
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (frozen) return;
+        if (frozen || gameOver) return;
         if (GetCurrentCombatController() == null)
         {
-            moveIdx = (moveIdx + 1) % combatants.Count;
-            if (GetCurrentCombatController() != null)
-            {
-                combatCamera.GetComponent<CombatCamera>().ZoomNear(GetCurrentCombatController());
-                StartCoroutine(BeginTurnAfterDelay(0.1f));
-            }
+            AdvanceToNextTurn();
             return;
         }
         if (!GetCurrentCombatController().isTurn)
         {
-            moveIdx = (moveIdx + 1) % combatants.Count;
-            combatCamera.GetComponent<CombatCamera>().ZoomNear(GetCurrentCombatController());
-            StartCoroutine(BeginTurnAfterDelay(0.1f));
+            AdvanceToNextTurn();
         }
     }
 }
