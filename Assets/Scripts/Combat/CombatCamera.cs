@@ -9,16 +9,12 @@ public class CombatCamera : MonoBehaviour
     const int DIR_SOUTH = 2;
     const int DIR_WEST = 3;
 
-    float[,] boundsByDirection = new float[,] {
-        {0f, 4f, -4f, -9f},
-        {4f, 9f, 0f, -4f},
-        {9f, 4f, -4f, 0f},
-        {4f, 0f, -9f, -4f},
-    };
-
     int dir = 0;
 
     private float updateTimeSeconds = 0.25f;
+
+    const float MIN_SCROLL = -2.5f;
+    const float MAX_SCROLL = 2.5f;
 
     public void RotateLeft()
     {
@@ -75,9 +71,9 @@ public class CombatCamera : MonoBehaviour
 
         // Clamp the camera position so it doesn't go too far away from the grid.
         transform.position = new Vector3(
-            Mathf.Clamp(transform.position.x, boundsByDirection[dir, 2], boundsByDirection[dir, 1]),
+            Mathf.Clamp(transform.position.x, MIN_SCROLL, MAX_SCROLL),
             transform.position.y,
-            Mathf.Clamp(transform.position.z, boundsByDirection[dir, 3], boundsByDirection[dir, 0])
+            Mathf.Clamp(transform.position.z, MIN_SCROLL, MAX_SCROLL)
         );
     }
 
@@ -112,8 +108,11 @@ public class CombatCamera : MonoBehaviour
 
     public void ZoomNear(CombatController target)
     {
-        Vector3 newTarget = target.transform.position;
-        newTarget.z -= 3f;
+        Vector3 newTarget = new Vector3(
+            Mathf.Clamp(target.transform.position.x, MIN_SCROLL, MAX_SCROLL),
+            target.transform.position.y,
+            Mathf.Clamp(target.transform.position.z, MIN_SCROLL, MAX_SCROLL)
+        );
         newTarget.y = transform.position.y;
         StartCoroutine(GradualizeMove(newTarget));
     }
