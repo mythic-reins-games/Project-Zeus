@@ -17,6 +17,11 @@ public class PlayerController : CombatController
         }
     }
 
+    override protected bool DoesGUI()
+    {
+        return true;
+    }
+
     override protected bool ContainsEnemy(Tile tile)
     {
         if (tile.occupant == null) return false;
@@ -71,6 +76,14 @@ public class PlayerController : CombatController
         {
             LineBetweenPositions(t.transform.position, t.parent.transform.position);
             t = t.parent;
+        }
+    }
+
+    public void EndTurnButtonClick()
+    {
+        if (isTurn && !isActing)
+        {
+            EndTurn();
         }
     }
 

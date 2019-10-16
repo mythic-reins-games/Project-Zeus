@@ -255,8 +255,8 @@ public class CreatureStats : MonoBehaviour
         // Critical hits apply a +50% multiplier, after all other modifiers are considered.
         if (IsCrit(target))
         {
-            target.DisplayPopup("CRITICAL HIT! " + dam + " damage inflicted!");
             dam += (dam / 2);
+            target.DisplayPopup("CRITICAL HIT! " + dam + " damage inflicted!");
         }
         else
         {

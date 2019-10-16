@@ -164,12 +164,7 @@ public class TurnManager : MonoBehaviour
     void Update()
     {
         if (frozen || gameOver) return;
-        if (GetCurrentCombatController() == null)
-        {
-            AdvanceToNextTurn();
-            return;
-        }
-        if (!GetCurrentCombatController().isTurn)
+        if (GetCurrentCombatController() == null || !GetCurrentCombatController().isTurn)
         {
             AdvanceToNextTurn();
         }
