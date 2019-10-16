@@ -42,9 +42,9 @@ public class IndicatorBar : MonoBehaviour
         transform.LookAt(Camera.main.transform);
         transform.Rotate(0, 180, 0);
         transform.eulerAngles = new Vector3(
-            transform.eulerAngles.x,
             0,
-            transform.eulerAngles.z
+            transform.eulerAngles.y,
+            0
         );
     }
 }
