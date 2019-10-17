@@ -10,9 +10,12 @@ public class IndicatorBar : MonoBehaviour
 
     private float updateTimeSeconds = 0.35f;
 
+    private CombatCamera camera;
+
     // Start is called before the first frame update
     void Start()
     {
+        camera = Object.FindObjectOfType<CombatCamera>();
         foreground.GetComponent<Image>().fillAmount = 1.0f;
     }
 
@@ -39,12 +42,23 @@ public class IndicatorBar : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.LookAt(Camera.main.transform);
+        Vector3 lookTarget;
+        if (camera.IsFacingEastOrWest())
+        {
+            lookTarget = Camera.main.transform.position;
+            lookTarget.z = transform.position.z;
+        }
+        else
+        {
+            lookTarget = Camera.main.transform.position;
+            lookTarget.x = transform.position.x;
+        }
+        transform.LookAt(lookTarget);
         transform.Rotate(0, 180, 0);
         transform.eulerAngles = new Vector3(
-            transform.eulerAngles.x,
             0,
-            transform.eulerAngles.z
+            transform.eulerAngles.y,
+            0
         );
     }
 }

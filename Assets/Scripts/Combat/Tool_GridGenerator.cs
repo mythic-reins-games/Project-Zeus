@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if (UNITY_EDITOR)
+using UnityEditor;
 using UnityEngine;
 
 public class Tool_GridGenerator : MonoBehaviour
@@ -30,3 +31,4 @@ public class Tool_GridGenerator : MonoBehaviour
         grid.transform.position = new Vector3(-5.5f, 0, -5.5f);
     }
 }
+#endif
