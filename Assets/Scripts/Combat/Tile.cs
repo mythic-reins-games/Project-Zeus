@@ -113,7 +113,7 @@ public class Tile : MonoBehaviour
 
     private void CheckTile(Vector3 direction)
     {
-        Vector3 halfExtents = new Vector3(0.25f, 2f, 0.25f);
+        Vector3 halfExtents = new Vector3(0.25f, 2.0f, 0.25f);
         Collider[] colliders = Physics.OverlapBox(transform.position + direction, halfExtents);
 
         foreach (Collider item in colliders)
