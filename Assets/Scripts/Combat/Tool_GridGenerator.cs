@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tool_GridGenerator : MonoBehaviour
 {
     private static int gridWidth = 12;
-    private static string tilePrefabFilePath = "Assets/Prefabs/Tiles/Tile.prefab";
+    private static string tilePrefabFilePath = "Assets/Prefabs/Tile.prefab";
 
     [MenuItem("Tools/Generate Grid")]
     public static void generateGrid()
