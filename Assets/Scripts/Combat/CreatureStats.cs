@@ -243,11 +243,11 @@ public class CreatureStats : MonoBehaviour
         if (IsCrit(target))
         {
             dam += (dam / 2);
-            target.DisplayPopup("CRITICAL HIT! " + dam + " damage inflicted!");
+            target.DisplayPopup("CRITICAL HIT!\n" + dam + " damage!");
         }
         else
         {
-            target.DisplayPopup(dam + " damage inflicted!");
+            target.DisplayPopup(dam + " damage!");
         }
         target.ReceiveDamage(dam);
     }
