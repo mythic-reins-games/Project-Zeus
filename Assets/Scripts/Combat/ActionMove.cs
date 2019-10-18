@@ -47,7 +47,7 @@ public class ActionMove : Action
             Tile tile = path.Peek();
             Vector3 target = tile.transform.position;
             
-            target.y = 0.08f;
+            target.y += 0.08f;
 
             if (Vector3.Distance(transform.position, target) >= 0.1f)
             {

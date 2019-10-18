@@ -113,6 +113,8 @@ public class CombatController : MonoBehaviour
                 {
                     if (adjacentTile.GetTotalDistanceWithParent(tile) <= actionPoints)
                     {
+                        // You cannot step up a stair of more than .25 meters, though you can jump down any height.
+                        if (adjacentTile.transform.position.y > tile.transform.position.y + .25f) continue;
                         adjacentTile.wasVisited = true;
                         visitedTiles.Add(adjacentTile);
                         AttachTile(-1, adjacentTile, tile);
