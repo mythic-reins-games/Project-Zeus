@@ -1,8 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System;
 
 public class CreatureStats : MonoBehaviour
 {
@@ -26,17 +24,7 @@ public class CreatureStats : MonoBehaviour
     protected int maxStamina = 1;
     protected int currentStamina = 1;
 
-    float textLabelTimer = 0f;
-    string textLabelText = "";
-
     private Animator anim;
-
-    void OnGUI()
-    {
-        if (textLabelTimer <= 0f) return;
-        textLabelTimer -= Time.deltaTime;
-        GUILayout.Label(textLabelText);
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -147,8 +135,7 @@ public class CreatureStats : MonoBehaviour
 
     private void DisplayPopup(string text)
     {
-        textLabelTimer = 5.0f;
-        textLabelText = text;
+        PopupTextController.CreatePopupText(text, transform);
     }
 
     // Returns true if floats are within 15.0f of each other.
@@ -256,11 +243,11 @@ public class CreatureStats : MonoBehaviour
         if (IsCrit(target))
         {
             dam += (dam / 2);
-            target.DisplayPopup("CRITICAL HIT! " + dam + " damage inflicted!");
+            target.DisplayPopup("CRITICAL HIT!\n" + dam + " damage!");
         }
         else
         {
-            target.DisplayPopup(dam + " damage inflicted!");
+            target.DisplayPopup(dam + " damage!");
         }
         target.ReceiveDamage(dam);
     }

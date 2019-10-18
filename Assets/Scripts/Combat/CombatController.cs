@@ -20,6 +20,7 @@ public class CombatController : MonoBehaviour
     {
         panel = Object.FindObjectOfType<GUIPanel>();
         AssignCurrentTile();
+        PopupTextController.Initialize();
     }
     
     public void AssignZonesOfControl()
