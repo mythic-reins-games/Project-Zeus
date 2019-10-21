@@ -2,16 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class TurnManager : MonoBehaviour
 {
 
+    System.Random rng;
     [SerializeField] private GameObject combatCamera;
     private List<GameObject> combatants = new List<GameObject>();
     private int moveIdx = -1;
     private bool enemyTurn = false;
     private bool frozen = false;
     private bool gameOver = false;
+
+    void Start()
+    {
+        rng = new System.Random();
+        foreach (Transform child in transform)
+        {
+            if (child != transform)
+            {
+                combatants.Add(child.gameObject);
+            }
+        }
+    }
 
     CombatController GetCurrentCombatController()
     {
@@ -81,15 +95,31 @@ public class TurnManager : MonoBehaviour
         return false;
     }
 
-    // Picks an arbitrary/random Player controlled character
-    public GameObject PickArbitraryPC()
+    private int CountPCs()
     {
+        int count = 0;
         foreach (GameObject pick in combatants)
         {
             if (pick == null) continue;
             if (pick.GetComponent<PlayerController>() != null)
             {
-                return pick;
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // Picks an arbitrary/random Player controlled character
+    public GameObject PickArbitraryPC()
+    {
+        int randomChoice = rng.Next(0, CountPCs());
+        foreach (GameObject pick in combatants)
+        {
+            if (pick == null) continue;
+            if (pick.GetComponent<PlayerController>() != null)
+            {
+                if (randomChoice == 0) return pick;
+                randomChoice--;
             }
         }
         return null;
@@ -136,18 +166,6 @@ public class TurnManager : MonoBehaviour
         frozen = false;
         BeginTurn();
         yield break;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        foreach (Transform child in transform)
-        {
-            if (child != transform)
-            {
-                combatants.Add(child.gameObject);
-            }
-        }
     }
 
     void AdvanceToNextTurn()

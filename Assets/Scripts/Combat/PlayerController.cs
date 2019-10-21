@@ -25,7 +25,7 @@ public class PlayerController : CombatController
     override protected bool ContainsEnemy(Tile tile)
     {
         if (tile.occupant == null) return false;
-        return tile.HasNPC();
+        return tile.HasNPC() || tile.HasDestructibleBlocker();
     }
 
     private Tile GetMouseTile()

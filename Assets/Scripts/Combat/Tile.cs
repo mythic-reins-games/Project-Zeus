@@ -63,6 +63,11 @@ public class Tile : MonoBehaviour
         return occupant.GetComponent<EnemyController>() != null;
     }
 
+    public bool HasDestructibleBlocker()
+    {
+        return occupant.GetComponent<TileBlockerController>() != null;
+    }
+
     public bool IsFasterParent(Tile newParent)
     {
         return GetTotalDistanceWithParent(newParent) < distance;

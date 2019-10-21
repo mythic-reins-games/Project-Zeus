@@ -2,12 +2,9 @@
 using UnityEngine;
 using System.Linq;
 
-public class CreatureStats : MonoBehaviour
+public class CreatureStats : ObjectStats
 {
     System.Random rng;
-
-    [SerializeField] GameObject healthBar;
-    IndicatorBar healthBarScript;
 
     [SerializeField] GameObject staminaBar;
     IndicatorBar staminaBarScript;
@@ -18,16 +15,11 @@ public class CreatureStats : MonoBehaviour
     [SerializeField] private int agility = 10;
     [SerializeField] private int intelligence = 10;
 
-    protected int maxHealth = 1;
-    protected int currentHealth = 1;
-
     protected int maxStamina = 1;
     protected int currentStamina = 1;
 
-    private Animator anim;
-
     // Start is called before the first frame update
-    void Start()
+    override protected void Start()
     {
         rng = new System.Random();
         healthBarScript = healthBar.GetComponent<IndicatorBar>();
@@ -36,7 +28,7 @@ public class CreatureStats : MonoBehaviour
         maxStamina = endurance * 2;
         currentStamina = maxStamina;
         currentHealth = maxHealth;
-        anim = GetComponentInChildren<Animator>();
+        base.Start();
     }
 
     // Average of strength and strength times lifepercent
@@ -67,11 +59,6 @@ public class CreatureStats : MonoBehaviour
         return Mathf.RoundToInt(ar.Average());
     }
 
-    private float PercentHealth()
-    {
-        return (float)currentHealth / (float)maxHealth;
-    }
-
     private float PercentStamina()
     {
         return (float)currentStamina / (float)maxStamina;
@@ -82,7 +69,7 @@ public class CreatureStats : MonoBehaviour
         return 5 + GetEffectiveSpeed() / 10;
     }
 
-    public void ReceiveDamage(int amount)
+    override public void ReceiveDamage(int amount)
     {
         if (currentStamina >= amount)
         {
@@ -101,8 +88,7 @@ public class CreatureStats : MonoBehaviour
         }
         else
         {
-            anim.SetBool("IsGettingDamaged", true);
-            StartCoroutine(ClearAttackAnimationsAfterDelay(0.5f));
+            Animate("IsGettingDamaged");
         }
     }
 
@@ -111,7 +97,7 @@ public class CreatureStats : MonoBehaviour
         return 75 + (GetEffectiveAgility() / 4);
     }
 
-    private int DodgeChance()
+    override public int DodgeChance()
     {
         return 0 + (GetEffectiveAgility() / 2);
     }
@@ -133,11 +119,6 @@ public class CreatureStats : MonoBehaviour
         return rng.Next(1, 5) + GetEffectiveAgility() / 4;
     }
 
-    private void DisplayPopup(string text)
-    {
-        PopupTextController.CreatePopupText(text, transform);
-    }
-
     // Returns true if floats are within 15.0f of each other.
     // compare Mathf.Approximately, this has a much larger tolerance window.
     private bool VeryApproximateMatch(float f1, float f2)
@@ -148,7 +129,7 @@ public class CreatureStats : MonoBehaviour
 
     // Returns true if the target is being attacked from the rear, left, or right.
     // Side/rear attacks double the chance of a critical hit.
-    public bool IsFlanking(CreatureStats target)
+    public bool IsFlanking(ObjectStats target)
     {
         float rotation1 = target.transform.eulerAngles.y;
         float rotation2 = transform.eulerAngles.y;
@@ -156,14 +137,14 @@ public class CreatureStats : MonoBehaviour
     }
 
     // Returns true if the target is being attacked from the rear.
-    public bool IsBehind(CreatureStats target)
+    public bool IsBehind(ObjectStats target)
     {
         float rotation1 = target.transform.eulerAngles.y;
         float rotation2 = transform.eulerAngles.y;
         return VeryApproximateMatch(Mathf.Abs(rotation1 - rotation2), 0.0f) || VeryApproximateMatch(Mathf.Abs(rotation1 - rotation2), 360.0f);
     }
 
-    public bool IsCrit(CreatureStats target)
+    public bool IsCrit(ObjectStats target)
     {
         int chance = GetEffectiveIntelligence() / 10;
         if (IsFlanking(target))
@@ -173,64 +154,18 @@ public class CreatureStats : MonoBehaviour
         return PercentRoll(chance);
     }
 
-    private CombatController GetController()
+    public void PerformAttack(ObjectStats target)
     {
-        if (GetComponent<PlayerController>() != null) return GetComponent<PlayerController>();
-        if (GetComponent<EnemyController>() != null) return GetComponent<EnemyController>();
-        return null;
-    }
-
-    private void Die()
-    {
-        GetController().UnassignCurrentTile();
-        anim.SetBool("IsAttacking", false);
-        anim.SetBool("IsDodging", false);
-        anim.SetBool("IsGettingDamaged", false);
-        anim.SetBool("IsDying", true);
-        StartCoroutine(DestroyAfterDelay(0.9f));
-    }
-
-    private IEnumerator DestroyAfterDelay(float fDuration)
-    {
-        float elapsed = 0f;
-        while (elapsed < fDuration)
-        {
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        Destroy(gameObject);
-        yield break;
-    }
-
-    private IEnumerator ClearAttackAnimationsAfterDelay(float fDuration)
-    {
-        float elapsed = 0f;
-        while (elapsed < fDuration)
-        {
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        anim.SetBool("IsAttacking", false);
-        anim.SetBool("IsDodging", false);
-        anim.SetBool("IsGettingDamaged", false);
-        yield break;
-    }
-
-    public void PerformAttack(CreatureStats target)
-    {
-        StartCoroutine(ClearAttackAnimationsAfterDelay(0.5f));
-        anim.SetBool("IsAttacking", true);
+        Animate("IsAttacking");
         if (!PercentRoll(HitChance())) {
-            target.anim.SetBool("IsDodging", true);
+            target.Animate("IsDodging");
             DisplayPopup("Miss!");
-            StartCoroutine(target.ClearAttackAnimationsAfterDelay(0.5f));
             return;
         }
         if (PercentRoll(target.DodgeChance()))
         {
-            target.anim.SetBool("IsDodging", true);
+            target.Animate("IsDodging");
             target.DisplayPopup("Dodge!");
-            StartCoroutine(target.ClearAttackAnimationsAfterDelay(0.5f));
             return;
         }
         int dam = DamageInflicted();

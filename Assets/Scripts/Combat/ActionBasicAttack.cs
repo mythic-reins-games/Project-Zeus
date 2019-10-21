@@ -37,7 +37,8 @@ public class ActionBasicAttack : ActionMove
     void ResolveAttack(GameObject target)
     {
         spentActionPoints += 4;
-        CreatureStats targetStats = target.GetComponent<CreatureStats>();
+        ObjectStats targetStats = target.GetComponent<CreatureStats>();
+        if (targetStats == null) targetStats = target.GetComponent<ObjectStats>();
         GetComponent<CreatureStats>().PerformAttack(targetStats);
     }
 
