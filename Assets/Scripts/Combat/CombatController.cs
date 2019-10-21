@@ -1,26 +1,23 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatController : MonoBehaviour
+public class CombatController : TileBlockerController
 {
     private HashSet<Tile> visitedTiles = new HashSet<Tile>();
     protected List<Tile> selectableTiles = new List<Tile>();
 
     protected GUIPanel panel;
 
-    private Tile currentTile;
-
-    public bool isTurn = false;
     protected bool isActing = false;
     [SerializeField] private int actionPoints = 0;
 
     const int ATTACK_COST = 4;
 
-    protected void Start()
+    override protected void Start()
     {
         panel = Object.FindObjectOfType<GUIPanel>();
-        AssignCurrentTile();
         PopupTextController.Initialize();
+        base.Start();
     }
     
     public void AssignZonesOfControl()
@@ -35,9 +32,8 @@ public class CombatController : MonoBehaviour
     {
         actionPoints = GetComponent<CreatureStats>().GetMaxActionPoints();
         if (DoesGUI()) panel.SetActionPoints(actionPoints);
-        AssignCurrentTile();
-        currentTile.isCurrent = true;
         isTurn = true;
+        AssignCurrentTile();
         FindSelectableTiles();
     }
 
@@ -81,6 +77,7 @@ public class CombatController : MonoBehaviour
         List<Tile> queue = new List<Tile>();
         queue.Add(currentTile);
         visitedTiles.Add(currentTile);
+        currentTile.wasVisited = true;
 
         while (queue.Count > 0)
         {
@@ -124,39 +121,6 @@ public class CombatController : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void UnassignCurrentTile()
-    {
-        if (currentTile != null) {
-            currentTile.occupant = null;
-            currentTile.isBlocked = false;
-            currentTile.isCurrent = false;
-        }
-    }
-
-    private void AssignCurrentTile()
-    {
-        UnassignCurrentTile();
-        currentTile = GetTargetTile(gameObject);
-        currentTile.isBlocked = true;
-        currentTile.occupant = gameObject;
-        if (isTurn)
-        {
-            currentTile.isCurrent = true;
-        }
-    }
-
-    // Will need adjustment once there are objects that units can stand on, e.g., crates
-    private Tile GetTargetTile(GameObject target)
-    {
-        RaycastHit hit;
-        // Return null if there is nothing below the target
-        if (!Physics.Raycast(target.transform.position, Vector3.down, out hit, Mathf.Infinity, Physics.AllLayers))
-        {
-            return null;
-        }
-        return hit.collider.GetComponent<Tile>();
     }
 
     public void BeginAction()
