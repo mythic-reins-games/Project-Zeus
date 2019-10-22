@@ -19181,7 +19181,7 @@ MonoBehaviour:
   speed: 10
   endurance: 10
   agility: 70
-  intelligence: 30
+  intelligence: 90
   name: Rogue
 --- !u!1 &662887152
 GameObject:

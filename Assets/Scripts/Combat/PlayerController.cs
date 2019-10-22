@@ -4,6 +4,13 @@ public class PlayerController : CombatController
 {
 
     private Tile hoverTile = null;
+    private TurnManager manager = null;
+
+    void Start()
+    {
+        manager = Object.FindObjectOfType<TurnManager>();
+        base.Start();
+    }
 
     void Update()
     {
@@ -57,6 +64,7 @@ public class PlayerController : CombatController
         {
             Destroy(line);
         }
+        manager.DisplayCurrentCreatureStats();
     }
 
     void LineBetweenPositions(Vector3 start, Vector3 end)
@@ -76,6 +84,10 @@ public class PlayerController : CombatController
     {
         hoverTile = GetMouseTile();
         if (hoverTile == null) return;
+        if (hoverTile.occupant != null && !hoverTile.HasDestructibleBlocker())
+        {
+            manager.DisplayCreatureStats(hoverTile.occupant);
+        }
         Tile t = hoverTile;
         while (t.parent)
         {

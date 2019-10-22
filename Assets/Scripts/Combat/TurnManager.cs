@@ -161,6 +161,16 @@ public class TurnManager : MonoBehaviour
         ClearZonesOfControl();
         SetZonesOfControl();
         controller.BeginTurn();
+        DisplayCurrentCreatureStats();
+    }
+
+    public void DisplayCreatureStats(GameObject creature)
+    {
+        panel.DisplayStats(creature.GetComponent<CreatureStats>());
+    }
+
+    public void DisplayCurrentCreatureStats()
+    {
         panel.DisplayStats(GetCurrentCreatureStats());
     }
 
