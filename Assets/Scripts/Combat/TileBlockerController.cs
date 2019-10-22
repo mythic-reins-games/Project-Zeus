@@ -13,6 +13,11 @@ public class TileBlockerController : MonoBehaviour
         AssignCurrentTile();
     }
 
+    virtual public bool IsStaticBlocker()
+    {
+        return true;
+    }
+
     protected void AssignCurrentTile()
     {
         UnassignCurrentTile();

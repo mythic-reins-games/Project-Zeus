@@ -94,9 +94,9 @@ public class CombatController : TileBlockerController
             foreach (Tile adjacentTile in tile.adjacentTileList)
             {
                 if (adjacentTile.isBlocked) {
-                    if (!adjacentTile.wasVisited && ContainsEnemy(adjacentTile))
+                    if (!adjacentTile.wasVisited)
                     {
-                        if (tile.distance + ATTACK_COST <= actionPoints)
+                        if (tile.distance + ATTACK_COST <= actionPoints && ContainsEnemy(adjacentTile))
                         {
                             AttachTile(ATTACK_COST, adjacentTile, tile);
                             selectableTiles.Add(adjacentTile);

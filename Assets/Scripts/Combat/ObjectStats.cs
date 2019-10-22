@@ -24,6 +24,11 @@ public class ObjectStats : MonoBehaviour
         return 0;
     }
 
+    public string LifeString()
+    {
+        return currentHealth + "/" + maxHealth;
+    }
+
     protected float PercentHealth()
     {
         return (float)currentHealth / (float)maxHealth;

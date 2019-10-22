@@ -15,6 +15,8 @@ public class CreatureStats : ObjectStats
     [SerializeField] private int agility = 10;
     [SerializeField] private int intelligence = 10;
 
+    [SerializeField] public string name = "";
+
     protected int maxStamina = 1;
     protected int currentStamina = 1;
 
@@ -24,11 +26,16 @@ public class CreatureStats : ObjectStats
         rng = new System.Random();
         healthBarScript = healthBar.GetComponent<IndicatorBar>();
         staminaBarScript = staminaBar.GetComponent<IndicatorBar>();
-        maxHealth = endurance + (endurance / 2) + (strength / 2);
-        maxStamina = endurance * 2;
+        maxHealth = endurance + (strength / 5) + 5;
+        maxStamina = endurance + 10;
         currentStamina = maxStamina;
         currentHealth = maxHealth;
         base.Start();
+    }
+
+    public string StaminaString()
+    {
+        return currentStamina + "/" + maxStamina;
     }
 
     // Average of strength and strength times lifepercent
@@ -92,7 +99,7 @@ public class CreatureStats : ObjectStats
         }
     }
 
-    private int HitChance()
+    public int HitChance()
     {
         return 75 + (GetEffectiveAgility() / 4);
     }
@@ -107,16 +114,36 @@ public class CreatureStats : ObjectStats
         return rng.Next(0, 99) < percent;
     }
 
+    public int MaxDamage()
+    {
+        return 11 + GetEffectiveStrength() / 2;
+    }
+
+    public int MinDamage()
+    {
+        return 1 + GetEffectiveStrength() / 2;
+    }
+
     // Damage from a basic attack is 1-11 plus half of strength.
     private int DamageInflicted()
     {
-        return rng.Next(1, 11) + GetEffectiveStrength() / 2;
+        return rng.Next(MinDamage(), MaxDamage());
+    }
+
+    public int BonusRearDamageMin()
+    {
+        return 1 + GetEffectiveAgility() / 4;
+    }
+
+    public int BonusRearDamageMax()
+    {
+        return 5 + GetEffectiveAgility() / 4;
     }
 
     // Bonus damage from a rear attack is 1-5 plus a quarter of agility.
     private int BonusRearDamage()
     {
-        return rng.Next(1, 5) + GetEffectiveAgility() / 4;
+        return rng.Next(BonusRearDamageMin(), BonusRearDamageMax()); 
     }
 
     // Returns true if floats are within 15.0f of each other.
@@ -138,16 +165,21 @@ public class CreatureStats : ObjectStats
 
     // Returns true if the target is being attacked from the rear.
     // Doesn't include attacks from the left or right.
-    public bool IsBackstab(ObjectStats target)
+    private bool IsBackstab(ObjectStats target)
     {
         float rotation1 = target.transform.eulerAngles.y;
         float rotation2 = transform.eulerAngles.y;
         return VeryApproximateMatch(Mathf.Abs(rotation1 - rotation2), 0.0f) || VeryApproximateMatch(Mathf.Abs(rotation1 - rotation2), 360.0f);
     }
 
-    public bool IsCrit(ObjectStats target)
+    public int CritChance()
     {
-        int chance = GetEffectiveIntelligence() / 5;
+        return GetEffectiveIntelligence() / 5;
+    }
+
+    private bool IsCrit(ObjectStats target)
+    {
+        int chance = CritChance();
         if (IsFlanking(target))
         {
             chance *= 2;

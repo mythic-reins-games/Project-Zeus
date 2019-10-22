@@ -14,9 +14,11 @@ public class TurnManager : MonoBehaviour
     private bool enemyTurn = false;
     private bool frozen = false;
     private bool gameOver = false;
+    private GUIPanel panel = null;
 
     void Start()
     {
+        panel = GameObject.FindObjectOfType<GUIPanel>();
         rng = new System.Random();
         foreach (Transform child in transform)
         {
@@ -25,6 +27,13 @@ public class TurnManager : MonoBehaviour
                 combatants.Add(child.gameObject);
             }
         }
+    }
+
+    CreatureStats GetCurrentCreatureStats()
+    {
+        if (moveIdx == -1) return null;
+        if (combatants[moveIdx] == null) return null;
+        return combatants[moveIdx].GetComponent<CreatureStats>();
     }
 
     CombatController GetCurrentCombatController()
@@ -152,6 +161,17 @@ public class TurnManager : MonoBehaviour
         ClearZonesOfControl();
         SetZonesOfControl();
         controller.BeginTurn();
+        DisplayCurrentCreatureStats();
+    }
+
+    public void DisplayCreatureStats(GameObject creature)
+    {
+        panel.DisplayStats(creature.GetComponent<CreatureStats>());
+    }
+
+    public void DisplayCurrentCreatureStats()
+    {
+        panel.DisplayStats(GetCurrentCreatureStats());
     }
 
     private IEnumerator BeginTurnAfterDelay(float fDuration)

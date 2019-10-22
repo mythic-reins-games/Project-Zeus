@@ -11,6 +11,11 @@ public class EnemyController : CombatController
         return tile.HasPC();
     }
 
+    override public bool IsStaticBlocker()
+    {
+        return false;
+    }
+
     // Update is called once per frame
     void Update()
     {
