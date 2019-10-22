@@ -19,7 +19,7 @@ public class IndicatorBar : MonoBehaviour
         foreground.GetComponent<Image>().fillAmount = 1.0f;
     }
 
-    public void SetPercent(float percent)
+    public void SetPercent(float percent, int x = 0, int xmax = 0)
     {
         StartCoroutine(GradualizePercentChange(percent));
     }

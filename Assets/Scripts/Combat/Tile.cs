@@ -65,7 +65,7 @@ public class Tile : MonoBehaviour
 
     public bool HasDestructibleBlocker()
     {
-        return occupant.GetComponent<TileBlockerController>() != null;
+        return occupant.GetComponent<TileBlockerController>().IsStaticBlocker();
     }
 
     public bool IsFasterParent(Tile newParent)

@@ -17,6 +17,11 @@ public class PlayerController : CombatController
         }
     }
 
+    override public bool IsStaticBlocker()
+    {
+        return false;
+    }
+
     override protected bool DoesGUI()
     {
         return true;
