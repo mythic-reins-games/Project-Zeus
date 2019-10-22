@@ -137,7 +137,8 @@ public class CreatureStats : ObjectStats
     }
 
     // Returns true if the target is being attacked from the rear.
-    public bool IsBehind(ObjectStats target)
+    // Doesn't include attacks from the left or right.
+    public bool IsBackstab(ObjectStats target)
     {
         float rotation1 = target.transform.eulerAngles.y;
         float rotation2 = transform.eulerAngles.y;
@@ -146,7 +147,7 @@ public class CreatureStats : ObjectStats
 
     public bool IsCrit(ObjectStats target)
     {
-        int chance = GetEffectiveIntelligence() / 10;
+        int chance = GetEffectiveIntelligence() / 5;
         if (IsFlanking(target))
         {
             chance *= 2;
@@ -160,30 +161,33 @@ public class CreatureStats : ObjectStats
         if (!PercentRoll(HitChance())) {
             target.Animate("IsDodging");
             DisplayPopup("Miss!");
+            DisplayPopup("Miss");
             return;
         }
         if (PercentRoll(target.DodgeChance()))
         {
             target.Animate("IsDodging");
-            target.DisplayPopup("Dodge!");
+            target.DisplayPopup("Dodge");
             return;
         }
         int dam = DamageInflicted();
-        if (IsBehind(target))
+        bool backstab = false;
+        if (IsBackstab(target))
         {
-            DisplayPopup("Rear attack!");
+            backstab = true;
             dam += BonusRearDamage();
         }
         // Critical hits apply a +50% multiplier, after all other modifiers are considered.
         if (IsCrit(target))
         {
             dam += (dam / 2);
-            target.DisplayPopup("CRITICAL HIT!\n" + dam + " damage!");
+            DisplayPopup("Crit");
         }
-        else
+        else if (backstab) // Only display the backstab popup if it's not a crit.
         {
-            target.DisplayPopup(dam + " damage!");
+            DisplayPopup("Backstab");
         }
+        target.DisplayPopup(dam + " damage");
         target.ReceiveDamage(dam);
     }
 }

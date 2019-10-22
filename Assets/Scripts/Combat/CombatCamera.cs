@@ -14,8 +14,8 @@ public class CombatCamera : MonoBehaviour
 
     private float updateTimeSeconds = 0.25f;
 
-    const float MIN_SCROLL = -2.5f;
-    const float MAX_SCROLL = 2.5f;
+    const float MIN_SCROLL = -3.5f;
+    const float MAX_SCROLL = 3.5f;
 
     public void RotateLeft()
     {
