@@ -6,7 +6,7 @@ public class PlayerController : CombatController
     private Tile hoverTile = null;
     private TurnManager manager = null;
 
-    void Start()
+    protected override void Start()
     {
         manager = Object.FindObjectOfType<TurnManager>();
         base.Start();
@@ -73,7 +73,8 @@ public class PlayerController : CombatController
         lineObject.tag = "LineTag";
         LineRenderer line = lineObject.AddComponent(typeof(LineRenderer)) as LineRenderer;
         line.positionCount = 2;
-        line.SetWidth(0.2f, 0.2f);
+        line.startWidth = 0.2f;
+        line.endWidth = 0.2f;
         Vector3[] points = new Vector3[2];
         points[0] = start;
         points[1] = end;

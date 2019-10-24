@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour
     public bool isBlocked = false;
     public bool isTarget = false;
     public bool isSelectable = false;
+    [SerializeField] private int tileCostMultiplier = 1;
     private bool isZoneOfControl = false;
 
     public List<Tile> adjacentTileList = new List<Tile>();
@@ -83,7 +84,7 @@ public class Tile : MonoBehaviour
         if (isCurrent) return 0; // You don't pay a move point for entering your current tile.
         if (measureParent == null) return 1;
         if (measureParent.isZoneOfControl) return 2;
-        return 1;
+        return 1 * tileCostMultiplier;
     }
 
     // Cost to enter the tile.

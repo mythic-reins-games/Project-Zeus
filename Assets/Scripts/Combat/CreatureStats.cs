@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#pragma warning disable 0649
+
 using UnityEngine;
 using System.Linq;
 

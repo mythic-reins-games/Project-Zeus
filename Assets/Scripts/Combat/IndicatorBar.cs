@@ -1,5 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿#pragma warning disable 0649
+
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +11,12 @@ public class IndicatorBar : MonoBehaviour
 
     private float updateTimeSeconds = 0.35f;
 
-    private CombatCamera camera;
+    private CombatCamera combarCamera;
 
     // Start is called before the first frame update
     void Start()
     {
-        camera = Object.FindObjectOfType<CombatCamera>();
+        combarCamera = Object.FindObjectOfType<CombatCamera>();
         foreground.GetComponent<Image>().fillAmount = 1.0f;
     }
 
@@ -43,7 +44,7 @@ public class IndicatorBar : MonoBehaviour
     void LateUpdate()
     {
         Vector3 lookTarget;
-        if (camera.IsFacingEastOrWest())
+        if (combarCamera.IsFacingEastOrWest())
         {
             lookTarget = Camera.main.transform.position;
             lookTarget.z = transform.position.z;
