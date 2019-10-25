@@ -3,11 +3,18 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    private static int DEFAULT_TILE_COST_CURRENT = 0;
+    private static int DEFAULT_TILE_COST = 1;
+    private static int DEFAULT_TILE_COST_ZONE_CONTROL = 2;
+
+    private static int DEFAULT_TILE_COST_MULTIPLIER = 1;
+
     public bool isWalkable = true;
     public bool isCurrent = false;
     public bool isBlocked = false;
     public bool isTarget = false;
     public bool isSelectable = false;
+    [SerializeField] private int tileCostMultiplier = DEFAULT_TILE_COST_MULTIPLIER;
     private bool isZoneOfControl = false;
 
     public List<Tile> adjacentTileList = new List<Tile>();
@@ -45,7 +52,11 @@ public class Tile : MonoBehaviour
         }
         else if (isSelectable)
         {
-            GetComponent<Renderer>().material.color = Color.green;
+            if (tileCostMultiplier == DEFAULT_TILE_COST_MULTIPLIER) {
+                GetComponent<Renderer>().material.color = Color.green;
+            } else {
+                GetComponent<Renderer>().material.color = new Color(0, 0.6f, 0, 1);
+            }
         }
         else
         {
@@ -78,12 +89,19 @@ public class Tile : MonoBehaviour
         return newParent.distance + GetMoveCostForParent(newParent);
     }
 
-    private int GetMoveCostForParent(Tile measureParent)
+    private int GetMoveCostForParent(Tile parentTile)
     {
-        if (isCurrent) return 0; // You don't pay a move point for entering your current tile.
-        if (measureParent == null) return 1;
-        if (measureParent.isZoneOfControl) return 2;
-        return 1;
+        int tileCost = DEFAULT_TILE_COST;
+
+        if (isCurrent)
+        {
+            tileCost = DEFAULT_TILE_COST_CURRENT; // You don't pay a move point for entering your current tile.
+        }
+        else if (parentTile != null && parentTile.isZoneOfControl)
+        {
+            tileCost = DEFAULT_TILE_COST_ZONE_CONTROL;
+        }
+        return tileCost * tileCostMultiplier;
     }
 
     // Cost to enter the tile.
