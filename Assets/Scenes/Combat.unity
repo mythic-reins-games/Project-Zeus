@@ -44405,6 +44405,7 @@ GameObject:
   - component: {fileID: 1648450030}
   - component: {fileID: 1648450029}
   - component: {fileID: 1648450028}
+  - component: {fileID: 1648450032}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -44494,6 +44495,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1648450032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648450027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc3ab3220a4e03140a839da1855c47bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupTextPrefab: {fileID: 4850717382184306677, guid: f0f7a688a66b6f741a4a65b582a2f927,
+    type: 3}
 --- !u!1 &1650123241
 GameObject:
   m_ObjectHideFlags: 0
@@ -57301,10 +57316,10 @@ RectTransform:
   m_Father: {fileID: 166531482}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.9, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 150}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: -3, y: 1}
 --- !u!114 &2112417339
 MonoBehaviour:

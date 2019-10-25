@@ -27,7 +27,7 @@ public class CreatureStats : ObjectStats
         rng = new System.Random();
         healthBarScript = healthBar.GetComponent<IndicatorBar>();
         staminaBarScript = staminaBar.GetComponent<IndicatorBar>();
-        maxHealth = endurance + (strength / 5) + 5;
+        maxHealth = endurance + (strength / 5) + 10;
         maxStamina = endurance + 10;
         currentStamina = maxStamina;
         currentHealth = maxHealth;
