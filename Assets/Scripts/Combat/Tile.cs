@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    private static int DEFAULT_TILE_COST_MULTIPLIER = 1;
+
     public bool isWalkable = true;
     public bool isCurrent = false;
     public bool isBlocked = false;
     public bool isTarget = false;
     public bool isSelectable = false;
-    [SerializeField] private int tileCostMultiplier = 1;
+    [SerializeField] private int tileCostMultiplier = DEFAULT_TILE_COST_MULTIPLIER;
     private bool isZoneOfControl = false;
 
     public List<Tile> adjacentTileList = new List<Tile>();
@@ -46,7 +48,11 @@ public class Tile : MonoBehaviour
         }
         else if (isSelectable)
         {
-            GetComponent<Renderer>().material.color = Color.green;
+            if (tileCostMultiplier == DEFAULT_TILE_COST_MULTIPLIER) {
+                GetComponent<Renderer>().material.color = Color.green;
+            } else {
+                GetComponent<Renderer>().material.color = new Color(0, 0.6f, 0, 1);
+            }
         }
         else
         {
@@ -81,10 +87,21 @@ public class Tile : MonoBehaviour
 
     private int GetMoveCostForParent(Tile measureParent)
     {
-        if (isCurrent) return 0; // You don't pay a move point for entering your current tile.
-        if (measureParent == null) return 1;
-        if (measureParent.isZoneOfControl) return 2;
-        return 1 * tileCostMultiplier;
+        var tileCost = 1;
+
+        if (isCurrent)
+        {
+            tileCost = 0; // You don't pay a move point for entering your current tile.
+        }
+        else if (measureParent == null)
+        {
+            tileCost = 1;
+        }
+        else if (measureParent.isZoneOfControl)
+        {
+            tileCost = 2;
+        }
+        return tileCost * tileCostMultiplier;
     }
 
     // Cost to enter the tile.
