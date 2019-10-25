@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    private static int DEFAULT_TILE_COST_CURRENT = 0;
+    private static int DEFAULT_TILE_COST = 1;
+    private static int DEFAULT_TILE_COST_ZONE_CONTROL = 2;
+
     private static int DEFAULT_TILE_COST_MULTIPLIER = 1;
 
     public bool isWalkable = true;
@@ -87,19 +91,19 @@ public class Tile : MonoBehaviour
 
     private int GetMoveCostForParent(Tile measureParent)
     {
-        var tileCost = 1;
+        int tileCost = DEFAULT_TILE_COST;
 
         if (isCurrent)
         {
-            tileCost = 0; // You don't pay a move point for entering your current tile.
+            tileCost = DEFAULT_TILE_COST_CURRENT; // You don't pay a move point for entering your current tile.
         }
         else if (measureParent == null)
         {
-            tileCost = 1;
+            tileCost = DEFAULT_TILE_COST;
         }
         else if (measureParent.isZoneOfControl)
         {
-            tileCost = 2;
+            tileCost = DEFAULT_TILE_COST_ZONE_CONTROL;
         }
         return tileCost * tileCostMultiplier;
     }
