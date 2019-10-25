@@ -89,7 +89,7 @@ public class Tile : MonoBehaviour
         return newParent.distance + GetMoveCostForParent(newParent);
     }
 
-    private int GetMoveCostForParent(Tile measureParent)
+    private int GetMoveCostForParent(Tile parentTile)
     {
         int tileCost = DEFAULT_TILE_COST;
 
@@ -97,11 +97,7 @@ public class Tile : MonoBehaviour
         {
             tileCost = DEFAULT_TILE_COST_CURRENT; // You don't pay a move point for entering your current tile.
         }
-        else if (measureParent == null)
-        {
-            tileCost = DEFAULT_TILE_COST;
-        }
-        else if (measureParent.isZoneOfControl)
+        else if (parentTile != null && parentTile.isZoneOfControl)
         {
             tileCost = DEFAULT_TILE_COST_ZONE_CONTROL;
         }
