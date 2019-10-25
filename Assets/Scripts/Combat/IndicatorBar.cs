@@ -11,12 +11,12 @@ public class IndicatorBar : MonoBehaviour
 
     private float updateTimeSeconds = 0.35f;
 
-    private CombatCamera combarCamera;
+    private CombatCamera combatCamera;
 
     // Start is called before the first frame update
     void Start()
     {
-        combarCamera = Object.FindObjectOfType<CombatCamera>();
+        combatCamera = Object.FindObjectOfType<CombatCamera>();
         foreground.GetComponent<Image>().fillAmount = 1.0f;
     }
 
@@ -44,7 +44,7 @@ public class IndicatorBar : MonoBehaviour
     void LateUpdate()
     {
         Vector3 lookTarget;
-        if (combarCamera.IsFacingEastOrWest())
+        if (combatCamera.IsFacingEastOrWest())
         {
             lookTarget = Camera.main.transform.position;
             lookTarget.z = transform.position.z;
