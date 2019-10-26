@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Combat.unity
     guid: e70e98741d9e40643bb2ac14313762ca
+  - enabled: 1
+    path: Assets/Scenes/Xera.unity
+    guid: d05743459be534fa085227f7ada638e0
   m_configObjects: {}
