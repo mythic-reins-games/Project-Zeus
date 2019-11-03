@@ -13,6 +13,7 @@ public class StatusEffect
     int roundsRemaining = 0;
     CreatureStats target;
     int powerLevel;
+    public bool expired = false;
 
     // Some status effects have varying power levels, others default to -1
     public StatusEffect(EffectType effectType, int durationRounds, CreatureStats effectTarget, int effectPowerLevel = -1)
@@ -36,7 +37,7 @@ public class StatusEffect
         roundsRemaining--;
         if (roundsRemaining == 0)
         {
-            target.RemoveStatusEffect(this);
+            expired = true;
         }
     }
 }

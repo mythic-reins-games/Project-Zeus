@@ -116,11 +116,13 @@ public class PlayerController : CombatController
             {
                 Action atk = GetComponent<ActionBasicAttack>();
                 atk.BeginAction(clickedTile);
+                return;
             }
             else
             {
                 Action move = GetComponent<ActionMove>();
                 move.BeginAction(clickedTile);
+                return;
             }
         }
         else
@@ -130,6 +132,13 @@ public class PlayerController : CombatController
                 ClearMouseHover();
                 SetMouseHover();
             }
+        }
+        if (Input.GetKeyDown("r"))
+        {
+            ActionRegenerate regen = GetComponent<ActionRegenerate>();
+            if (regen == null || actionPoints < regen.FIXED_COST) return;
+            regen.BeginAction(null);
+            return;
         }
     }
 }

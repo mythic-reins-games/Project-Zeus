@@ -32,16 +32,11 @@ public class CreatureStats : ObjectStats
         rng = new System.Random();
         healthBarScript = healthBar.GetComponent<IndicatorBar>();
         staminaBarScript = staminaBar.GetComponent<IndicatorBar>();
-        maxHealth = endurance + (strength / 5) + 10;
+        maxHealth = endurance + (strength / 5) + 5;
         maxStamina = endurance + 10;
         currentStamina = maxStamina;
         currentHealth = maxHealth;
         base.Start();
-    }
-
-    public void RemoveStatusEffect(StatusEffect effect)
-    {
-        statusEffects.RemoveAll(e => e == effect);
     }
 
     public void RegisterStatusEffect(StatusEffect effect)
@@ -55,6 +50,7 @@ public class CreatureStats : ObjectStats
         {
             effect.PerRoundEffect();
         }
+        statusEffects.RemoveAll(e => e.expired);
         return 5 + GetEffectiveSpeed() / 10;
     }
 
