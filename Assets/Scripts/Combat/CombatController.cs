@@ -30,7 +30,7 @@ public class CombatController : TileBlockerController
 
     public void BeginTurn()
     {
-        actionPoints = GetComponent<CreatureStats>().GetMaxActionPoints();
+        actionPoints = GetComponent<CreatureStats>().BeginTurnAndGetMaxActionPoints();
         if (DoesGUI()) panel.SetActionPoints(actionPoints);
         isTurn = true;
         AssignCurrentTile();
