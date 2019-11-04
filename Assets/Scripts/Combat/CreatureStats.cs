@@ -15,6 +15,8 @@ public class CreatureStats : ObjectStats
     [SerializeField] private int endurance = 10;
     [SerializeField] private int agility = 10;
     [SerializeField] private int intelligence = 10;
+    [SerializeField] private int maxConcentration = 10;
+    [SerializeField] private int concentration = 2;
 
     [SerializeField] public string name = "";
 
@@ -75,6 +77,11 @@ public class CreatureStats : ObjectStats
     public int GetMaxActionPoints()
     {
         return 5 + GetEffectiveSpeed() / 10;
+    }
+
+    public float GetConcentrationPoints()
+    {
+        return (float)concentration / (float)maxConcentration;
     }
 
     override public void ReceiveDamage(int amount)
