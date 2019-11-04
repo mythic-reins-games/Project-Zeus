@@ -16,12 +16,12 @@ public class CreatureStats : ObjectStats
     [SerializeField] private int agility = 10;
     [SerializeField] private int intelligence = 10;
     [SerializeField] private int maxConcentration = 10;
-    [SerializeField] private int concentration = 2;
 
     [SerializeField] public string name = "";
 
     protected int maxStamina = 1;
     protected int currentStamina = 1;
+    protected int currentConcentration = 0;
 
     // Start is called before the first frame update
     override protected void Start()
@@ -81,7 +81,7 @@ public class CreatureStats : ObjectStats
 
     public float GetConcentrationPoints()
     {
-        return (float)concentration / (float)maxConcentration;
+        return (float)currentConcentration / (float)maxConcentration;
     }
 
     override public void ReceiveDamage(int amount)

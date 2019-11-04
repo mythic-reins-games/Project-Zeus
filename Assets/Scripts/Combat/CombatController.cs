@@ -138,14 +138,24 @@ public class CombatController : TileBlockerController
     {
         // Since we might have 'visited' a tile in FindSelectableTiles, we need to re-clear.
         ClearVisitedTiles();
-        if (DoesGUI()) panel.ClearActionPoints();
+        if (DoesGUI())
+        {
+            panel.ClearActionPoints();
+            gameSignal?.Raise(0);
+        }
         isTurn = false;
         currentTile.isCurrent = false;
     }
 
     public void EndAction(int spentActionPoints)
     {
-        if (DoesGUI()) panel.SpendActionPoints(spentActionPoints);
+        if (DoesGUI())
+        {
+            CreatureStats creatureStats = GetComponent<CreatureStats>();
+
+            panel.SpendActionPoints(spentActionPoints);
+            gameSignal?.Raise(creatureStats.GetConcentrationPoints());
+        }
         isActing = false;
         ClearVisitedTiles();
         actionPoints -= spentActionPoints;
