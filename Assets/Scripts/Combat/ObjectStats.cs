@@ -36,6 +36,7 @@ public class ObjectStats : MonoBehaviour
 
     public virtual void ReceiveDamage(int amount)
     {
+        DisplayPopup(amount + " damage");
         currentHealth -= (amount);
         if (currentHealth <= 0)
         {

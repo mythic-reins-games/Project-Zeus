@@ -95,6 +95,7 @@ public class CreatureStats : ObjectStats
     // Healing heals health but not stamina.
     public void ReceiveHealing(int amount)
     {
+        DisplayPopup(amount + " healing");
         if (currentHealth + amount > maxHealth)
         {
             currentHealth = maxHealth;
@@ -108,6 +109,7 @@ public class CreatureStats : ObjectStats
 
     override public void ReceiveDamage(int amount)
     {
+        DisplayPopup(amount + " damage");
         if (currentStamina >= amount)
         {
             currentStamina -= amount;
@@ -222,7 +224,6 @@ public class CreatureStats : ObjectStats
         Animate("IsAttacking");
         if (!PercentRoll(HitChance())) {
             target.Animate("IsDodging");
-            DisplayPopup("Miss!");
             DisplayPopup("Miss");
             return;
         }
@@ -249,7 +250,6 @@ public class CreatureStats : ObjectStats
         {
             DisplayPopup("Backstab");
         }
-        target.DisplayPopup(dam + " damage");
         target.ReceiveDamage(dam);
     }
 }

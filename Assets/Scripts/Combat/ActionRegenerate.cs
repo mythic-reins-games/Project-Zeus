@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class ActionRegenerate : Action
 {
-    protected const int PHASE_NONE = 0;
-    protected const int PHASE_ANIMATING = 1;
-
-    protected int phase = PHASE_NONE;
 
     public int FIXED_COST = 2;
 
@@ -19,7 +15,7 @@ public class ActionRegenerate : Action
             elapsed += Time.deltaTime;
             yield return null;
         }
-        phase = PHASE_NONE;
+        currentPhase = phase.NONE;
         EndAction();
         yield break;
     }
@@ -31,13 +27,13 @@ public class ActionRegenerate : Action
         {
             return;
         }
-        if (phase == PHASE_NONE)
+        if (currentPhase == phase.NONE)
         {
             GetComponent<CreatureStats>().Animate("IsCastingSpell");
             spentActionPoints += FIXED_COST;
-            phase = PHASE_ANIMATING;
+            currentPhase = phase.CASTING;
             new StatusEffect(
-                (int)StatusEffect.EffectType.EFFECT_REGENERATION,
+                (int)StatusEffect.EffectType.REGENERATION,
                 2,
                 GetComponent<CreatureStats>()
             );

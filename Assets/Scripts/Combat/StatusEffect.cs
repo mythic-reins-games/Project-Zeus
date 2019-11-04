@@ -6,7 +6,7 @@ public class StatusEffect
 {
     public enum EffectType
     {
-        EFFECT_REGENERATION,
+        REGENERATION,
     };
 
     EffectType type;
@@ -30,7 +30,7 @@ public class StatusEffect
     {
         switch (type)
         {
-            case EffectType.EFFECT_REGENERATION:
+            case EffectType.REGENERATION:
                 target.ReceiveHealing(5);
                 break;
         }
