@@ -5,6 +5,7 @@ public class CombatController : TileBlockerController
 {
     private HashSet<Tile> visitedTiles = new HashSet<Tile>();
     protected List<Tile> selectableTiles = new List<Tile>();
+    [SerializeField] protected GameSignal gameSignal;
 
     protected GUIPanel panel;
 
@@ -30,8 +31,13 @@ public class CombatController : TileBlockerController
 
     public void BeginTurn()
     {
-        actionPoints = GetComponent<CreatureStats>().GetMaxActionPoints();
-        if (DoesGUI()) panel.SetActionPoints(actionPoints);
+        CreatureStats creatureStats = GetComponent<CreatureStats>();
+        actionPoints = creatureStats.GetMaxActionPoints();
+        if (DoesGUI())
+        {
+            panel.SetActionPoints(actionPoints);
+            gameSignal?.Raise(creatureStats.GetConcentrationPoints());
+        }
         isTurn = true;
         AssignCurrentTile();
         FindSelectableTiles();
