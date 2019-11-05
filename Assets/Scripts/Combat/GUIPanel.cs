@@ -50,7 +50,7 @@ public class GUIPanel : MonoBehaviour
         critValueText.text = unit.CritChance() + " %";
         lifeValueText.text = unit.LifeString();
         staminaValueText.text = unit.StaminaString();
-        nameValueText.text = unit.name;
+        nameValueText.text = unit.displayName;
     }
 
     public void ClearActionPoints()
