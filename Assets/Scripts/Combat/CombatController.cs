@@ -5,6 +5,7 @@ public class CombatController : TileBlockerController
 {
     private HashSet<Tile> visitedTiles = new HashSet<Tile>();
     protected List<Tile> selectableTiles = new List<Tile>();
+    [SerializeField] protected GameSignalOneObject gameSignal;
 
     protected GUIPanel panel;
 
@@ -30,8 +31,13 @@ public class CombatController : TileBlockerController
 
     public void BeginTurn()
     {
-        actionPoints = GetComponent<CreatureStats>().BeginTurnAndGetMaxActionPoints();
-        if (DoesGUI()) panel.SetActionPoints(actionPoints);
+        CreatureStats creatureStats = GetComponent<CreatureStats>();
+        actionPoints = creatureStats.BeginTurnAndGetMaxActionPoints();
+        if (DoesGUI())
+        {
+            panel.SetActionPoints(actionPoints);
+            gameSignal?.Raise(creatureStats.GetConcentrationPercent());
+        }
         isTurn = true;
         AssignCurrentTile();
         FindSelectableTiles();
@@ -132,14 +138,24 @@ public class CombatController : TileBlockerController
     {
         // Since we might have 'visited' a tile in FindSelectableTiles, we need to re-clear.
         ClearVisitedTiles();
-        if (DoesGUI()) panel.ClearActionPoints();
+        if (DoesGUI())
+        {
+            panel.ClearActionPoints();
+            gameSignal?.Raise(0);
+        }
         isTurn = false;
         currentTile.isCurrent = false;
     }
 
     public void EndAction(int spentActionPoints)
     {
-        if (DoesGUI()) panel.SpendActionPoints(spentActionPoints);
+        if (DoesGUI())
+        {
+            CreatureStats creatureStats = GetComponent<CreatureStats>();
+
+            panel.SpendActionPoints(spentActionPoints);
+            gameSignal?.Raise(creatureStats.GetConcentrationPercent());
+        }
         isActing = false;
         ClearVisitedTiles();
         actionPoints -= spentActionPoints;

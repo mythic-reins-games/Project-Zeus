@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUIPanel : MonoBehaviour
+public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
 {
 
-    [SerializeField]
-    List<Image> actionPointImages;
+    [SerializeField] List<Image> actionPointImages;
+    [SerializeField] Slider concentrationSlider;
+
+    [SerializeField] private GameSignalOneObject gameSignal;
+    private OneObjectEvent gameSignalEvent;
 
     int numPoints = 0;
 
@@ -21,6 +24,21 @@ public class GUIPanel : MonoBehaviour
     Text lifeValueText = null;
     Text nameValueText = null;
 
+    private void OnEnable()
+    {
+        gameSignal.RegisterListener(this);
+    }
+
+    private void OnDisable()
+    {
+        gameSignal.DeRegisterListener(this);
+    }
+
+    public void OnGameSignalRaised(object value)
+    {
+        gameSignalEvent.Invoke(value);
+    }
+
     void Start()
     {
         dodgeValueText = GameObject.Find("DodgeValueText").GetComponent<Text>();
@@ -31,6 +49,9 @@ public class GUIPanel : MonoBehaviour
         staminaValueText = GameObject.Find("StaminaValueText").GetComponent<Text>();
         lifeValueText = GameObject.Find("LifeValueText").GetComponent<Text>();
         nameValueText = GameObject.Find("NameValueText").GetComponent<Text>();
+
+        gameSignalEvent = new OneObjectEvent();
+        gameSignalEvent.AddListener(SetConcentrationSlider);
     }
 
     void Update()
@@ -92,4 +113,9 @@ public class GUIPanel : MonoBehaviour
         }
     }
     
+    public void SetConcentrationSlider(object value)
+    {
+        float? fValue = value as float?;
+        concentrationSlider.value = fValue.HasValue ? fValue.Value : 0f;
+    }
 }

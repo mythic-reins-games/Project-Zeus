@@ -16,11 +16,13 @@ public class CreatureStats : ObjectStats
     [SerializeField] private int endurance = 10;
     [SerializeField] private int agility = 10;
     [SerializeField] private int intelligence = 10;
+    [SerializeField] private int maxConcentration = 10;
 
     [SerializeField] public string name = "";
 
     protected int maxStamina = 1;
     protected int currentStamina = 1;
+    protected int currentConcentration = 0;
 
     protected int currentConcentration = 0;
 
@@ -105,6 +107,11 @@ public class CreatureStats : ObjectStats
             currentHealth += amount;
         }
         healthBarScript.SetPercent(PercentHealth());
+    }
+
+    public float GetConcentrationPercent()
+    {
+        return (float)currentConcentration / (float)maxConcentration;
     }
 
     override public void ReceiveDamage(int amount)
