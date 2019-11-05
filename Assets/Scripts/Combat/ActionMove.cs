@@ -30,7 +30,7 @@ public class ActionMove : Action
         }
         else
         {
-            currentPhase = 0;
+            currentPhase = phase.NONE;
             EndAction();
         }
     }
