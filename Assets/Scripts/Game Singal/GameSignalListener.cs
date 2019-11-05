@@ -5,7 +5,7 @@ public class GameSignalListener : MonoBehaviour, IGameSignalListener
 {
 
     public GameSignal gameSignal;
-    public FloatEvent gameSignalEvent;
+    public UnityEvent gameSignalEvent;
 
     private void OnEnable()
     {
@@ -17,8 +17,8 @@ public class GameSignalListener : MonoBehaviour, IGameSignalListener
         gameSignal.DeRegisterListener(this);
     }
 
-    public void OnGameSignalRaised(object value)
+    public void OnGameSignalRaised()
     {
-        gameSignalEvent.Invoke(value);
+        gameSignalEvent.Invoke();
     }
 }

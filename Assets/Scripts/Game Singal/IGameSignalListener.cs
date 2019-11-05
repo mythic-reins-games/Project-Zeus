@@ -1,4 +1,4 @@
 ﻿public interface IGameSignalListener
 {
-    void OnGameSignalRaised(object value);
+    void OnGameSignalRaised();
 }

@@ -9,11 +9,11 @@ public class GameSignal : ScriptableObject
 
     [SerializeField] private List<IGameSignalListener> listeners = new List<IGameSignalListener>();
 
-    public void Raise(float value)
+    public void Raise()
     {
-        for (int i = listeners.Count - 1; i >= 0; i--)
+        foreach (var listener in listeners)
         {
-            listeners[i].OnGameSignalRaised(value);
+            listener.OnGameSignalRaised();
         }
     }
 

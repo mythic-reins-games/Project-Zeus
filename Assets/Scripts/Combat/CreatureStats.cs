@@ -79,7 +79,7 @@ public class CreatureStats : ObjectStats
         return 5 + GetEffectiveSpeed() / 10;
     }
 
-    public float GetConcentrationPoints()
+    public float GetConcentrationPercent()
     {
         return (float)currentConcentration / (float)maxConcentration;
     }

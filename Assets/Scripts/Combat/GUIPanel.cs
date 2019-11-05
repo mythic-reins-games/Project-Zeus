@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUIPanel : MonoBehaviour, IGameSignalListener
+public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
 {
 
     [SerializeField] List<Image> actionPointImages;
     [SerializeField] Slider concentrationSlider;
 
-    [SerializeField] private GameSignal gameSignal;
-    private FloatEvent gameSignalEvent;
+    [SerializeField] private GameSignalOneObject gameSignal;
+    private OneObjectEvent gameSignalEvent;
 
     int numPoints = 0;
 
@@ -50,7 +50,7 @@ public class GUIPanel : MonoBehaviour, IGameSignalListener
         lifeValueText = GameObject.Find("LifeValueText").GetComponent<Text>();
         nameValueText = GameObject.Find("NameValueText").GetComponent<Text>();
 
-        gameSignalEvent = new FloatEvent();
+        gameSignalEvent = new OneObjectEvent();
         gameSignalEvent.AddListener(SetConcentrationSlider);
     }
 
