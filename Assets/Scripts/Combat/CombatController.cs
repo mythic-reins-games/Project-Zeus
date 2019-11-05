@@ -9,7 +9,7 @@ public class CombatController : TileBlockerController
     protected GUIPanel panel;
 
     protected bool isActing = false;
-    [SerializeField] private int actionPoints = 0;
+    [SerializeField] protected int actionPoints = 0;
 
     const int ATTACK_COST = 4;
 
@@ -30,7 +30,7 @@ public class CombatController : TileBlockerController
 
     public void BeginTurn()
     {
-        actionPoints = GetComponent<CreatureStats>().GetMaxActionPoints();
+        actionPoints = GetComponent<CreatureStats>().BeginTurnAndGetMaxActionPoints();
         if (DoesGUI()) panel.SetActionPoints(actionPoints);
         isTurn = true;
         AssignCurrentTile();

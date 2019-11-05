@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PopupTextController : MonoBehaviour
 {
-    private static string popupTextPrefabFilePath = "Assets/Prefabs/PopupTextParent.prefab";
     private static PopupText popupTextPrefab;
     private static string canvasName = "Canvas";
     private static GameObject canvas;
@@ -11,7 +10,7 @@ public class PopupTextController : MonoBehaviour
     public static void Initialize()
     {
         canvas = GameObject.Find(canvasName);
-        popupTextPrefab = AssetDatabase.LoadAssetAtPath<PopupText>(popupTextPrefabFilePath);
+        popupTextPrefab = canvas.GetComponent<CanvasPrefabs>().popupTextPrefab;
     }
 
     public static void CreatePopupText(string text, Transform transform)

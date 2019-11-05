@@ -48,7 +48,12 @@ public class Tile : MonoBehaviour
         }
         else if (isBlocked)
         {
-            GetComponent<Renderer>().material.color = Color.red;
+            if (isSelectable)
+            {
+                GetComponent<Renderer>().material.color = Color.red;
+            } else {
+                GetComponent<Renderer>().material.color = new Color(0.5f, 0, 0, 1);
+            }
         }
         else if (isSelectable)
         {

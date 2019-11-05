@@ -36,6 +36,7 @@ public class ObjectStats : MonoBehaviour
 
     public virtual void ReceiveDamage(int amount)
     {
+        DisplayPopup(amount + " damage");
         currentHealth -= (amount);
         if (currentHealth <= 0)
         {
@@ -84,6 +85,7 @@ public class ObjectStats : MonoBehaviour
         anim.SetBool("IsAttacking", false);
         anim.SetBool("IsDodging", false);
         anim.SetBool("IsGettingDamaged", false);
+        anim.SetBool("IsCastingSpell", false);
     }
 
     virtual public void Animate(string animName)
