@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class ActionMove : Action
 {
-    protected const int PHASE_NONE = 0;
-    protected const int PHASE_MOVING = 1;
-    protected const int PHASE_ATTACKING = 2;
 
     [SerializeField] private float moveSpeed = 2;
 
     protected Stack<Tile> path = new Stack<Tile>();
-
-    protected int phase = PHASE_NONE;
 
     // Extra tiles at the end of the action
     protected int reserve_tiles = 0;
@@ -29,13 +24,13 @@ public class ActionMove : Action
         {
             return;
         }
-        if (phase == PHASE_MOVING)
+        if (currentPhase == phase.MOVING)
         {
             Move();
         }
         else
         {
-            phase = 0;
+            currentPhase = phase.NONE;
             EndAction();
         }
     }
@@ -73,13 +68,13 @@ public class ActionMove : Action
         else
         {
             anim.SetBool("IsWalking", false);
-            phase = PHASE_ATTACKING;
+            currentPhase = phase.ATTACKING;
         }
     }
 
     override public void BeginAction(Tile targetTile)
     {
-        phase = PHASE_MOVING;
+        currentPhase = phase.MOVING;
         CalculatePath(targetTile);
         base.BeginAction(targetTile);
     }

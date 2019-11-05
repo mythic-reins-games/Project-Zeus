@@ -13,6 +13,16 @@ public class Action : MonoBehaviour
 
     private CombatController combatController;
 
+    protected enum phase
+    {
+        NONE,
+        MOVING,
+        CASTING,
+        ATTACKING,
+    };
+
+    protected phase currentPhase = phase.NONE;
+
     // Start is called before the first frame update
     virtual protected void Start()
     {

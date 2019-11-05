@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
 
 public class CreatureStats : ObjectStats
 {
@@ -23,6 +24,10 @@ public class CreatureStats : ObjectStats
     protected int currentStamina = 1;
     protected int currentConcentration = 0;
 
+    protected int currentConcentration = 0;
+
+    private List<StatusEffect> statusEffects = new List<StatusEffect>();
+
     // Start is called before the first frame update
     override protected void Start()
     {
@@ -34,6 +39,21 @@ public class CreatureStats : ObjectStats
         currentStamina = maxStamina;
         currentHealth = maxHealth;
         base.Start();
+    }
+
+    public void RegisterStatusEffect(StatusEffect effect)
+    {
+        statusEffects.Add(effect);
+    }
+
+    public int BeginTurnAndGetMaxActionPoints()
+    {
+        foreach (StatusEffect effect in statusEffects)
+        {
+            effect.PerRoundEffect();
+        }
+        statusEffects.RemoveAll(e => e.expired);
+        return 5 + GetEffectiveSpeed() / 10;
     }
 
     public string StaminaString()
@@ -74,9 +94,19 @@ public class CreatureStats : ObjectStats
         return (float)currentStamina / (float)maxStamina;
     }
 
-    public int GetMaxActionPoints()
+    // Healing heals health but not stamina.
+    public void ReceiveHealing(int amount)
     {
-        return 5 + GetEffectiveSpeed() / 10;
+        DisplayPopup(amount + " healing");
+        if (currentHealth + amount > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        else
+        {
+            currentHealth += amount;
+        }
+        healthBarScript.SetPercent(PercentHealth());
     }
 
     public float GetConcentrationPercent()
@@ -86,6 +116,7 @@ public class CreatureStats : ObjectStats
 
     override public void ReceiveDamage(int amount)
     {
+        DisplayPopup(amount + " damage");
         if (currentStamina >= amount)
         {
             currentStamina -= amount;
@@ -200,7 +231,6 @@ public class CreatureStats : ObjectStats
         Animate("IsAttacking");
         if (!PercentRoll(HitChance())) {
             target.Animate("IsDodging");
-            DisplayPopup("Miss!");
             DisplayPopup("Miss");
             return;
         }
@@ -227,7 +257,6 @@ public class CreatureStats : ObjectStats
         {
             DisplayPopup("Backstab");
         }
-        target.DisplayPopup(dam + " damage");
         target.ReceiveDamage(dam);
     }
 }
