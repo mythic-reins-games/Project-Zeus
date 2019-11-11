@@ -197,12 +197,10 @@ public class CombatController : TileBlockerController
         if (DoesGUI())
         {
             CreatureStats creatureStats = GetComponent<CreatureStats>();
-
             panel.SpendActionPoints(spentActionPoints);
             gameSignal?.Raise(creatureStats.GetConcentrationPercent());
         }
         isActing = false;
-        ClearVisitedTiles();
         actionPoints -= spentActionPoints;
         if (transform.parent.GetComponent<TurnManager>().CheckCombatOver())
         {
