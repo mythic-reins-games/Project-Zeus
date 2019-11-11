@@ -2390,6 +2390,7 @@ GameObject:
   - component: {fileID: 98393261}
   - component: {fileID: 98393260}
   - component: {fileID: 98393271}
+  - component: {fileID: 98393272}
   m_Layer: 0
   m_Name: Player Character 3
   m_TagString: Untagged
@@ -2433,7 +2434,8 @@ MonoBehaviour:
   endurance: 10
   agility: 10
   intelligence: 30
-  displayName: Bruiser
+  maxConcentration: 10
+  displayName: 
 --- !u!114 &98393261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2794,6 +2796,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FIXED_COST: 2
+--- !u!114 &98393272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98393258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7cebd3bdeb5ef46b3bd9e630808ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
 --- !u!1 &99567266
 GameObject:
   m_ObjectHideFlags: 0
@@ -6495,6 +6510,7 @@ GameObject:
   - component: {fileID: 231315688}
   - component: {fileID: 231315687}
   - component: {fileID: 231315698}
+  - component: {fileID: 231315699}
   m_Layer: 0
   m_Name: Player Character 4
   m_TagString: Untagged
@@ -6538,7 +6554,8 @@ MonoBehaviour:
   endurance: 70
   agility: 10
   intelligence: 30
-  displayName: Tank
+  maxConcentration: 10
+  displayName: 
 --- !u!114 &231315688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6899,6 +6916,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FIXED_COST: 2
+--- !u!114 &231315699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231315685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7cebd3bdeb5ef46b3bd9e630808ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
 --- !u!1 &233271831
 GameObject:
   m_ObjectHideFlags: 0
@@ -9395,7 +9425,8 @@ MonoBehaviour:
   endurance: 10
   agility: 10
   intelligence: 10
-  displayName: Enemy
+  maxConcentration: 10
+  displayName: 
 --- !u!114 &330945249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18949,6 +18980,7 @@ GameObject:
   - component: {fileID: 662700920}
   - component: {fileID: 662700921}
   - component: {fileID: 662700922}
+  - component: {fileID: 662700923}
   m_Layer: 0
   m_Name: Player Character 2
   m_TagString: Untagged
@@ -19339,7 +19371,8 @@ MonoBehaviour:
   endurance: 10
   agility: 70
   intelligence: 90
-  displayName: Rogue
+  maxConcentration: 10
+  displayName: 
 --- !u!114 &662700922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19353,6 +19386,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FIXED_COST: 2
+--- !u!114 &662700923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662700909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7cebd3bdeb5ef46b3bd9e630808ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
 --- !u!1 &662887152
 GameObject:
   m_ObjectHideFlags: 0
@@ -39147,6 +39193,7 @@ GameObject:
   - component: {fileID: 1425522886}
   - component: {fileID: 1425522887}
   - component: {fileID: 1425522888}
+  - component: {fileID: 1425522889}
   m_Layer: 0
   m_Name: Player Character 1
   m_TagString: Untagged
@@ -39537,7 +39584,8 @@ MonoBehaviour:
   endurance: 10
   agility: 10
   intelligence: 30
-  displayName: Speedster
+  maxConcentration: 10
+  displayName: 
 --- !u!114 &1425522888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39551,6 +39599,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FIXED_COST: 2
+--- !u!114 &1425522889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425522875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7cebd3bdeb5ef46b3bd9e630808ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
 --- !u!1 &1427171464
 GameObject:
   m_ObjectHideFlags: 0
@@ -42216,7 +42277,8 @@ MonoBehaviour:
   endurance: 10
   agility: 10
   intelligence: 10
-  displayName: Enemy
+  maxConcentration: 10
+  displayName: 
 --- !u!114 &1559494460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45234,7 +45296,8 @@ MonoBehaviour:
   endurance: 10
   agility: 10
   intelligence: 10
-  displayName: Enemy
+  maxConcentration: 10
+  displayName: 
 --- !u!114 &1664680876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49814,7 +49877,8 @@ MonoBehaviour:
   endurance: 30
   agility: 30
   intelligence: 30
-  displayName: Leader
+  maxConcentration: 10
+  displayName: 
 --- !u!114 &1813236729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55037,7 +55101,8 @@ MonoBehaviour:
   endurance: 10
   agility: 10
   intelligence: 10
-  displayName: Enemy
+  maxConcentration: 10
+  displayName: 
 --- !u!1 &2018803935
 GameObject:
   m_ObjectHideFlags: 0

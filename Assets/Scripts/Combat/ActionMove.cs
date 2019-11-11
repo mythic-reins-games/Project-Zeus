@@ -10,7 +10,8 @@ public class ActionMove : Action
     protected Stack<Tile> path = new Stack<Tile>();
 
     // Extra tiles at the end of the action
-    protected int reserve_tiles = 0;
+    protected int reserveTiles = 0;
+    protected int freeMoves = 0;
 
     override protected void Start()
     {
@@ -37,7 +38,7 @@ public class ActionMove : Action
 
     protected void Move()
     {
-        if (path.Count > reserve_tiles)
+        if (path.Count > reserveTiles)
         {
             Tile tile = path.Peek();
             Vector3 target = tile.transform.position;
@@ -56,11 +57,11 @@ public class ActionMove : Action
             {
                 // Center of tile reached
                 transform.position = target;
-                spentActionPoints += tile.GetMoveCost();
+                SpendMovePoints(tile);
                 path.Pop();
             }
             // Putting this under a conditional prevents the creature from "moonwalking" an extra step animation after it reaches the center of tile.
-            if (path.Count > reserve_tiles)
+            if (path.Count > reserveTiles)
             {
                 anim.SetBool("IsWalking", true);
             }
@@ -70,6 +71,23 @@ public class ActionMove : Action
             anim.SetBool("IsWalking", false);
             currentPhase = phase.ATTACKING;
         }
+    }
+
+    private void SpendMovePoints(Tile tile)
+    {
+        int c = tile.GetMoveCost();
+        if (freeMoves >= c)
+        {
+            freeMoves -= c;
+            return;
+        }
+        if (freeMoves > 0)
+        {
+            spentActionPoints += tile.GetMoveCost() - freeMoves;
+            freeMoves = 0;
+            return;
+        }
+        spentActionPoints += tile.GetMoveCost();
     }
 
     override public void BeginAction(Tile targetTile)

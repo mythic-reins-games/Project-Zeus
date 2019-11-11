@@ -24,8 +24,6 @@ public class CreatureStats : ObjectStats
     protected int currentStamina = 1;
     protected int currentConcentration = 0;
 
-    protected int currentConcentration = 0;
-
     private List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     // Start is called before the first frame update
@@ -44,16 +42,18 @@ public class CreatureStats : ObjectStats
     public void RegisterStatusEffect(StatusEffect effect)
     {
         statusEffects.Add(effect);
+        SetStatusAnim(effect.GetAnimationName());
     }
 
     public int BeginTurnAndGetMaxActionPoints()
     {
+        int ap = 5 + GetEffectiveSpeed() / 10;
         foreach (StatusEffect effect in statusEffects)
         {
-            effect.PerRoundEffect();
+            ap = effect.PerRoundEffect(ap);
         }
         statusEffects.RemoveAll(e => e.expired);
-        return 5 + GetEffectiveSpeed() / 10;
+        return ap;
     }
 
     public string StaminaString()
@@ -226,19 +226,32 @@ public class CreatureStats : ObjectStats
         return PercentRoll(chance);
     }
 
+    public void PerformAttackWithStatusEffect(ObjectStats target, StatusEffect.EffectType type, int duration, int powerLevel = -1)
+    {
+        if(HitAndDamage(target))
+        {
+            new StatusEffect(type, duration, target, powerLevel);
+        }
+    }
+
     public void PerformAttack(ObjectStats target)
+    {
+        HitAndDamage(target);
+    }
+
+    private bool HitAndDamage(ObjectStats target)
     {
         Animate("IsAttacking");
         if (!PercentRoll(HitChance())) {
             target.Animate("IsDodging");
             DisplayPopup("Miss");
-            return;
+            return false;
         }
         if (PercentRoll(target.DodgeChance()))
         {
             target.Animate("IsDodging");
             target.DisplayPopup("Dodge");
-            return;
+            return false;
         }
         int dam = DamageInflicted();
         bool backstab = false;
@@ -258,5 +271,6 @@ public class CreatureStats : ObjectStats
             DisplayPopup("Backstab");
         }
         target.ReceiveDamage(dam);
+        return true;
     }
 }
