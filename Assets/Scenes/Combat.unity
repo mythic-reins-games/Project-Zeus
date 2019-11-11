@@ -2435,7 +2435,7 @@ MonoBehaviour:
   agility: 10
   intelligence: 30
   maxConcentration: 10
-  displayName: 
+  displayName: Bruiser
 --- !u!114 &98393261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2808,7 +2808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7cebd3bdeb5ef46b3bd9e630808ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 3
 --- !u!1 &99567266
 GameObject:
   m_ObjectHideFlags: 0
@@ -6555,7 +6555,7 @@ MonoBehaviour:
   agility: 10
   intelligence: 30
   maxConcentration: 10
-  displayName: 
+  displayName: Tank
 --- !u!114 &231315688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6928,7 +6928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7cebd3bdeb5ef46b3bd9e630808ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 3
 --- !u!1 &233271831
 GameObject:
   m_ObjectHideFlags: 0
@@ -9426,7 +9426,7 @@ MonoBehaviour:
   agility: 10
   intelligence: 10
   maxConcentration: 10
-  displayName: 
+  displayName: Enemy
 --- !u!114 &330945249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19370,9 +19370,9 @@ MonoBehaviour:
   speed: 10
   endurance: 10
   agility: 70
-  intelligence: 90
+  intelligence: 70
   maxConcentration: 10
-  displayName: 
+  displayName: Rogue
 --- !u!114 &662700922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19398,7 +19398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7cebd3bdeb5ef46b3bd9e630808ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 3
 --- !u!1 &662887152
 GameObject:
   m_ObjectHideFlags: 0
@@ -39585,7 +39585,7 @@ MonoBehaviour:
   agility: 10
   intelligence: 30
   maxConcentration: 10
-  displayName: 
+  displayName: Speedster
 --- !u!114 &1425522888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39611,7 +39611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7cebd3bdeb5ef46b3bd9e630808ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 3
 --- !u!1 &1427171464
 GameObject:
   m_ObjectHideFlags: 0
@@ -42278,7 +42278,7 @@ MonoBehaviour:
   agility: 10
   intelligence: 10
   maxConcentration: 10
-  displayName: 
+  displayName: Enemy
 --- !u!114 &1559494460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45297,7 +45297,7 @@ MonoBehaviour:
   agility: 10
   intelligence: 10
   maxConcentration: 10
-  displayName: 
+  displayName: Enemy
 --- !u!114 &1664680876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49878,7 +49878,7 @@ MonoBehaviour:
   agility: 30
   intelligence: 30
   maxConcentration: 10
-  displayName: 
+  displayName: Leader
 --- !u!114 &1813236729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55102,7 +55102,7 @@ MonoBehaviour:
   agility: 10
   intelligence: 10
   maxConcentration: 10
-  displayName: 
+  displayName: Enemy
 --- !u!1 &2018803935
 GameObject:
   m_ObjectHideFlags: 0
