@@ -9,7 +9,7 @@ public class ActionBasicAttack : ActionMove
     {
         // Save one tile at the end of the movement path:
         // this is the tile containing the target enemy.
-        reserve_tiles = 1;
+        reserveTiles = 1;
         base.Start();
     }
 
@@ -39,6 +39,11 @@ public class ActionBasicAttack : ActionMove
         spentActionPoints += 4;
         ObjectStats targetStats = target.GetComponent<CreatureStats>();
         if (targetStats == null) targetStats = target.GetComponent<ObjectStats>();
+        AttackEffects(targetStats);
+    }
+
+    virtual protected void AttackEffects(ObjectStats targetStats)
+    {
         GetComponent<CreatureStats>().PerformAttack(targetStats);
     }
 

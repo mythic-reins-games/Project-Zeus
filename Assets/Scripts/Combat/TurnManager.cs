@@ -194,7 +194,7 @@ public class TurnManager : MonoBehaviour
         if (GetCurrentCombatController() != null)
         {
             combatCamera.GetComponent<CombatCamera>().ZoomNear(GetCurrentCombatController());
-            StartCoroutine(BeginTurnAfterDelay(0.1f));
+            StartCoroutine(BeginTurnAfterDelay(0.25f));
         }
     }
 

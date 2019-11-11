@@ -5,10 +5,12 @@ public class PlayerController : CombatController
 
     private Tile hoverTile = null;
     private TurnManager manager = null;
+    private Action selectedAction = null;
 
     protected override void Start()
     {
         manager = Object.FindObjectOfType<TurnManager>();
+        selectedAction = GetComponent<ActionBasicAttack>();
         base.Start();
     }
 
@@ -114,8 +116,7 @@ public class PlayerController : CombatController
             ClearMouseHover();
             if (clickedTile.occupant != null)
             {
-                Action atk = GetComponent<ActionBasicAttack>();
-                atk.BeginAction(clickedTile);
+                selectedAction.BeginAction(clickedTile);
                 return;
             }
             else
@@ -133,11 +134,35 @@ public class PlayerController : CombatController
                 SetMouseHover();
             }
         }
+        // Eventually, custom abilities will be proceduralized.
         if (Input.GetKeyDown("r"))
         {
             ActionRegenerate regen = GetComponent<ActionRegenerate>();
             if (regen == null || actionPoints < regen.FIXED_COST) return;
             regen.BeginAction(null);
+            return;
+        }
+        if (Input.GetKeyDown("b"))
+        {
+            if (selectedAction.GetType() == typeof(ActionBullRush)) // Toggle off the special move.
+            {
+                FindSelectableBasicTiles();
+                selectedAction = GetComponent<ActionBasicAttack>();
+                return;
+            }
+            ActionBullRush bullRush = GetComponent<ActionBullRush>();
+            if (bullRush == null)
+            {
+                return;
+            }
+            if(FindSelectableChargeTiles())
+            {
+                selectedAction = bullRush;
+            }
+            else
+            {
+                Debug.Log("No valid charge tiles.");
+            }
             return;
         }
     }

@@ -48,6 +48,22 @@ public class ObjectStats : MonoBehaviour
         }
     }
 
+    public void UnsetStatusAnimation(string animName)
+    {
+        if (animName != null)
+        {
+            anim.SetBool(animName, false);
+        }
+    }
+
+    protected void SetStatusAnim(string animName)
+    {
+        if (animName != null)
+        {
+            anim.SetBool(animName, true);
+        }
+    }
+
     private TileBlockerController GetController()
     {
         if (GetComponent<PlayerController>() != null) return GetComponent<PlayerController>();

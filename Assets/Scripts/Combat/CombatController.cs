@@ -14,6 +14,20 @@ public class CombatController : TileBlockerController
 
     const int ATTACK_COST = 4;
 
+    private enum TileSearchType
+    {
+        // Default means unit can move at normal per-tile costs and attack at normal attack cost.
+        DEFAULT,
+        // Attack only means unit can move at normal per-tile costs and attack at normal attack cost.
+        // But, moves are only valid if they end in an attack.
+        ATTACK_ONLY,
+        // Charges get 'free' movement points equal to ATTACK_COST before the character starts paying for movement.
+        // But, moves are only valid if they end in an attack.
+        CHARGE_ATTACK,
+        // Ranged attacks wil raycast to the target, 
+        RANGED_ATTACK
+    };
+
     override protected void Start()
     {
         panel = Object.FindObjectOfType<GUIPanel>();
@@ -39,8 +53,7 @@ public class CombatController : TileBlockerController
             gameSignal?.Raise(creatureStats.GetConcentrationPercent());
         }
         isTurn = true;
-        AssignCurrentTile();
-        FindSelectableTiles();
+        FindSelectableBasicTiles();
     }
 
     // Defaults to false, but can be overridden by subclasses.
@@ -71,10 +84,36 @@ public class CombatController : TileBlockerController
         }
     }
 
-    protected void FindSelectableTiles()
+    // Returns true if valid charge tiles were found.
+    protected bool FindSelectableChargeTiles()
     {
+        FindSelectableTiles(TileSearchType.CHARGE_ATTACK);
+        if (selectableTiles.Count == 0)
+        {
+            FindSelectableBasicTiles();
+            return false;
+        }
+        return true;
+    }
+
+    protected void FindSelectableBasicTiles()
+    {
+        FindSelectableTiles(TileSearchType.DEFAULT);
+    }
+
+    private void FindSelectableTiles(TileSearchType searchType)
+    {
+        ClearVisitedTiles();
         AssignCurrentTile();
         if (actionPoints == 0)
+        {
+            return;
+        }
+        if (actionPoints < ATTACK_COST && searchType == TileSearchType.ATTACK_ONLY)
+        {
+            return;
+        }
+        if (actionPoints < ATTACK_COST && searchType == TileSearchType.CHARGE_ATTACK)
         {
             return;
         }
@@ -91,7 +130,7 @@ public class CombatController : TileBlockerController
             Tile tile = queue[0];
             queue.RemoveAt(0);
 
-            if (tile != currentTile)
+            if (tile != currentTile && searchType == TileSearchType.DEFAULT) // Only default can select tiles that end in movement.
             {
                 selectableTiles.Add(tile);
                 tile.isSelectable = true;
@@ -102,7 +141,13 @@ public class CombatController : TileBlockerController
                 if (adjacentTile.isBlocked) {
                     if (!adjacentTile.wasVisited)
                     {
-                        if (tile.distance + ATTACK_COST <= actionPoints && ContainsEnemy(adjacentTile))
+                        if (searchType == TileSearchType.CHARGE_ATTACK && tile.distance <= actionPoints && ContainsEnemy(adjacentTile))
+                        {
+                            AttachTile(ATTACK_COST > tile.distance ? ATTACK_COST : tile.distance, adjacentTile, tile);
+                            selectableTiles.Add(adjacentTile);
+                            adjacentTile.isSelectable = true;
+                        }
+                        else if (tile.distance + ATTACK_COST <= actionPoints && ContainsEnemy(adjacentTile))
                         {
                             AttachTile(ATTACK_COST, adjacentTile, tile);
                             selectableTiles.Add(adjacentTile);
@@ -164,7 +209,7 @@ public class CombatController : TileBlockerController
             isTurn = false;
             return;
         }
-        FindSelectableTiles();
+        FindSelectableBasicTiles();
         if (selectableTiles.Count <= 0)
         {
             EndTurn();
