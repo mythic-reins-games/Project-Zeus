@@ -53,7 +53,6 @@ public class CombatController : TileBlockerController
             gameSignal?.Raise(creatureStats.GetConcentrationPercent());
         }
         isTurn = true;
-        AssignCurrentTile();
         FindSelectableBasicTiles();
     }
 
@@ -88,7 +87,6 @@ public class CombatController : TileBlockerController
     // Returns true if valid charge tiles were found.
     protected bool FindSelectableChargeTiles()
     {
-        ClearVisitedTiles();
         FindSelectableTiles(TileSearchType.CHARGE_ATTACK);
         if (selectableTiles.Count == 0)
         {
@@ -100,12 +98,12 @@ public class CombatController : TileBlockerController
 
     protected void FindSelectableBasicTiles()
     {
-        ClearVisitedTiles();
         FindSelectableTiles(TileSearchType.DEFAULT);
     }
 
     private void FindSelectableTiles(TileSearchType searchType)
     {
+        ClearVisitedTiles();
         AssignCurrentTile();
         if (actionPoints == 0)
         {
