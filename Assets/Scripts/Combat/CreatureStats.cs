@@ -18,7 +18,7 @@ public class CreatureStats : ObjectStats
     [SerializeField] private int intelligence = 10;
     [SerializeField] private int maxConcentration = 10;
 
-    [SerializeField] public string name = "";
+    [SerializeField] public string displayName = "";
 
     protected int maxStamina = 1;
     protected int currentStamina = 1;

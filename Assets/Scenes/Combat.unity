@@ -2433,7 +2433,7 @@ MonoBehaviour:
   endurance: 10
   agility: 10
   intelligence: 30
-  name: Bruiser
+  displayName: Bruiser
 --- !u!114 &98393261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2793,6 +2793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1899a183c0749648b7b8e26bb1234c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FIXED_COST: 2
 --- !u!1 &99567266
 GameObject:
   m_ObjectHideFlags: 0
@@ -6537,7 +6538,7 @@ MonoBehaviour:
   endurance: 70
   agility: 10
   intelligence: 30
-  name: Tank
+  displayName: Tank
 --- !u!114 &231315688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6897,6 +6898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1899a183c0749648b7b8e26bb1234c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FIXED_COST: 2
 --- !u!1 &233271831
 GameObject:
   m_ObjectHideFlags: 0
@@ -9393,7 +9395,7 @@ MonoBehaviour:
   endurance: 10
   agility: 10
   intelligence: 10
-  name: Enemy
+  displayName: Enemy
 --- !u!114 &330945249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19337,7 +19339,7 @@ MonoBehaviour:
   endurance: 10
   agility: 70
   intelligence: 90
-  name: Rogue
+  displayName: Rogue
 --- !u!114 &662700922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19350,6 +19352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1899a183c0749648b7b8e26bb1234c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FIXED_COST: 2
 --- !u!1 &662887152
 GameObject:
   m_ObjectHideFlags: 0
@@ -39534,7 +39537,7 @@ MonoBehaviour:
   endurance: 10
   agility: 10
   intelligence: 30
-  name: Speedster
+  displayName: Speedster
 --- !u!114 &1425522888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39547,6 +39550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1899a183c0749648b7b8e26bb1234c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FIXED_COST: 2
 --- !u!1 &1427171464
 GameObject:
   m_ObjectHideFlags: 0
@@ -42212,7 +42216,7 @@ MonoBehaviour:
   endurance: 10
   agility: 10
   intelligence: 10
-  name: Enemy
+  displayName: Enemy
 --- !u!114 &1559494460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45230,7 +45234,7 @@ MonoBehaviour:
   endurance: 10
   agility: 10
   intelligence: 10
-  name: Enemy
+  displayName: Enemy
 --- !u!114 &1664680876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49810,7 +49814,7 @@ MonoBehaviour:
   endurance: 30
   agility: 30
   intelligence: 30
-  name: Leader
+  displayName: Leader
 --- !u!114 &1813236729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55033,7 +55037,7 @@ MonoBehaviour:
   endurance: 10
   agility: 10
   intelligence: 10
-  name: Enemy
+  displayName: Enemy
 --- !u!1 &2018803935
 GameObject:
   m_ObjectHideFlags: 0
