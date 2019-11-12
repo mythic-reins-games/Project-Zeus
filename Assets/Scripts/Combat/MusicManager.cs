@@ -23,18 +23,18 @@ public class MusicManager : MonoBehaviour
     public void SetVictory()
     {
         if (gameOver) return;
-        StartCoroutine(crossFade(1.0f, VictorySong));
+        StartCoroutine(CrossFade(1.0f, VictorySong));
         gameOver = true;
     }
 
     public void SetDefeat()
     {
         if (gameOver) return;
-        StartCoroutine(crossFade(1.0f, DefeatSong));
+        StartCoroutine(CrossFade(1.0f, DefeatSong));
         gameOver = true;
     }
 
-    IEnumerator crossFade(float duration, AudioClip fadeTo)
+    IEnumerator CrossFade(float duration, AudioClip fadeTo)
     {
         aud[1].clip = fadeTo;
         aud[1].volume = 0f;
@@ -48,7 +48,7 @@ public class MusicManager : MonoBehaviour
             yield return null;
         }
         aud[1].volume = 1f;
-        aud[0].volume = 0f;
+        aud[0].Stop();
         yield break;
     }
 
