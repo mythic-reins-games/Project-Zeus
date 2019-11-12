@@ -117,6 +117,7 @@ public class PlayerController : CombatController
             if (clickedTile.occupant != null)
             {
                 selectedAction.BeginAction(clickedTile);
+                selectedAction = GetComponent<ActionBasicAttack>();
                 return;
             }
             else
