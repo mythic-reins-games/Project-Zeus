@@ -274,7 +274,9 @@ public class CreatureStats : ObjectStats
         bool backstab = false;
         if (IsBackstab(target))
         {
-            BoostConcentration();
+            if (isConcentrationEligible) {
+                BoostConcentration();
+            }
             backstab = true;
             dam += BonusRearDamage();
         }
