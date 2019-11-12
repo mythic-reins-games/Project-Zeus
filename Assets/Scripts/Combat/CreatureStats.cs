@@ -24,6 +24,8 @@ public class CreatureStats : ObjectStats
     protected int currentStamina = 1;
     protected int currentConcentration = 0;
 
+    private bool firstBlood = false;
+
     private List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     // Start is called before the first frame update
@@ -36,6 +38,7 @@ public class CreatureStats : ObjectStats
         maxStamina = endurance + 10;
         currentStamina = maxStamina;
         currentHealth = maxHealth;
+        maxConcentration = GetEffectiveIntelligence() * 2;
         base.Start();
     }
 
@@ -123,6 +126,11 @@ public class CreatureStats : ObjectStats
         }
         else
         {
+            if (!firstBlood)
+            {
+                firstBlood = true;
+                BoostConcentration();
+            }
             currentHealth -= (amount - currentStamina);
             currentStamina = 0;
         }
@@ -228,19 +236,28 @@ public class CreatureStats : ObjectStats
 
     public void PerformAttackWithStatusEffect(ObjectStats target, StatusEffect.EffectType type, int duration, int powerLevel = -1)
     {
-        if(HitAndDamage(target))
+        if(HitAndDamage(target, false))
         {
             new StatusEffect(type, duration, target, powerLevel);
         }
     }
 
-    public void PerformAttack(ObjectStats target)
+    public void PerformBasicAttack(ObjectStats target)
     {
-        HitAndDamage(target);
+        HitAndDamage(target, true);
     }
 
-    private bool HitAndDamage(ObjectStats target)
+    private void BoostConcentration()
     {
+        currentConcentration += GetEffectiveIntelligence() / 3;
+    }
+
+    private bool HitAndDamage(ObjectStats target, bool isConcentrationEligible)
+    {
+        if (isConcentrationEligible)
+        {
+            BoostConcentration();
+        }
         Animate("IsAttacking");
         if (!PercentRoll(HitChance())) {
             target.Animate("IsDodging");
@@ -257,6 +274,7 @@ public class CreatureStats : ObjectStats
         bool backstab = false;
         if (IsBackstab(target))
         {
+            BoostConcentration();
             backstab = true;
             dam += BonusRearDamage();
         }

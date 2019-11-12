@@ -44,7 +44,7 @@ public class ActionBasicAttack : ActionMove
 
     virtual protected void AttackEffects(ObjectStats targetStats)
     {
-        GetComponent<CreatureStats>().PerformAttack(targetStats);
+        GetComponent<CreatureStats>().PerformBasicAttack(targetStats);
     }
 
     private IEnumerator WaitForAttackAnimations(float fDuration)
