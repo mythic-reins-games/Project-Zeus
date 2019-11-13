@@ -37,14 +37,14 @@ public class ActionBasicAttack : ActionMove
     void ResolveAttack(GameObject target)
     {
         spentActionPoints += 4;
-        ObjectStats targetStats = target.GetComponent<CreatureStats>();
-        if (targetStats == null) targetStats = target.GetComponent<ObjectStats>();
-        AttackEffects(targetStats);
+        ObjectMechanics targetMechanics = target.GetComponent<CreatureMechanics>();
+        if (targetMechanics == null) targetMechanics = target.GetComponent<ObjectMechanics>();
+        AttackEffects(targetMechanics);
     }
 
-    virtual protected void AttackEffects(ObjectStats targetStats)
+    virtual protected void AttackEffects(ObjectMechanics targetStats)
     {
-        GetComponent<CreatureStats>().PerformBasicAttack(targetStats);
+        mechanics.PerformBasicAttack(targetStats);
     }
 
     private IEnumerator WaitForAttackAnimations(float fDuration)

@@ -62,7 +62,7 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
         }
     }
 
-    public void DisplayStats(CreatureStats unit)
+    public void DisplayStats(CreatureMechanics unit)
     {
         dodgeValueText.text = unit.DodgeChance() + " %";
         backstabValueText.text = unit.BonusRearDamageMin() + "-" + unit.BonusRearDamageMax();

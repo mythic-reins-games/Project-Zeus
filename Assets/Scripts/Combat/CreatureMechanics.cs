@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 
-public class CreatureStats : ObjectStats
+public class CreatureMechanics : ObjectMechanics
 {
     System.Random rng;
 
@@ -203,7 +203,7 @@ public class CreatureStats : ObjectStats
 
     // Returns true if the target is being attacked from the rear, left, or right.
     // Side/rear attacks double the chance of a critical hit.
-    public bool IsFlanking(ObjectStats target)
+    public bool IsFlanking(ObjectMechanics target)
     {
         float rotation1 = target.transform.eulerAngles.y;
         float rotation2 = transform.eulerAngles.y;
@@ -212,7 +212,7 @@ public class CreatureStats : ObjectStats
 
     // Returns true if the target is being attacked from the rear.
     // Doesn't include attacks from the left or right.
-    private bool IsBackstab(ObjectStats target)
+    private bool IsBackstab(ObjectMechanics target)
     {
         float rotation1 = target.transform.eulerAngles.y;
         float rotation2 = transform.eulerAngles.y;
@@ -224,7 +224,7 @@ public class CreatureStats : ObjectStats
         return GetEffectiveIntelligence() / 5;
     }
 
-    private bool IsCrit(ObjectStats target)
+    private bool IsCrit(ObjectMechanics target)
     {
         int chance = CritChance();
         if (IsFlanking(target))
@@ -234,7 +234,7 @@ public class CreatureStats : ObjectStats
         return PercentRoll(chance);
     }
 
-    public void PerformAttackWithStatusEffect(ObjectStats target, StatusEffect.EffectType type, int duration, int powerLevel = -1)
+    public void PerformAttackWithStatusEffect(ObjectMechanics target, StatusEffect.EffectType type, int duration, int powerLevel = -1)
     {
         if(HitAndDamage(target, false))
         {
@@ -242,7 +242,7 @@ public class CreatureStats : ObjectStats
         }
     }
 
-    public void PerformBasicAttack(ObjectStats target)
+    public void PerformBasicAttack(ObjectMechanics target)
     {
         HitAndDamage(target, true);
     }
@@ -252,7 +252,7 @@ public class CreatureStats : ObjectStats
         currentConcentration += GetEffectiveIntelligence() / 3;
     }
 
-    private bool HitAndDamage(ObjectStats target, bool isConcentrationEligible)
+    private bool HitAndDamage(ObjectMechanics target, bool isConcentrationEligible)
     {
         if (isConcentrationEligible)
         {

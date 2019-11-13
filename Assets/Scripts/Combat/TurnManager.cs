@@ -29,11 +29,11 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    CreatureStats GetCurrentCreatureStats()
+    CreatureMechanics GetCurrentCreatureMechanics()
     {
         if (moveIdx == -1) return null;
         if (combatants[moveIdx] == null) return null;
-        return combatants[moveIdx].GetComponent<CreatureStats>();
+        return combatants[moveIdx].GetComponent<CreatureMechanics>();
     }
 
     CombatController GetCurrentCombatController()
@@ -166,12 +166,12 @@ public class TurnManager : MonoBehaviour
 
     public void DisplayCreatureStats(GameObject creature)
     {
-        panel.DisplayStats(creature.GetComponent<CreatureStats>());
+        panel.DisplayStats(creature.GetComponent<CreatureMechanics>());
     }
 
     public void DisplayCurrentCreatureStats()
     {
-        panel.DisplayStats(GetCurrentCreatureStats());
+        panel.DisplayStats(GetCurrentCreatureMechanics());
     }
 
     private IEnumerator BeginTurnAfterDelay(float fDuration)

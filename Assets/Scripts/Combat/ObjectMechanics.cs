@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectStats : MonoBehaviour
+public class ObjectMechanics : MonoBehaviour
 {
 
     protected int maxHealth = 1;

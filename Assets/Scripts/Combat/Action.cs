@@ -12,6 +12,7 @@ public class Action : MonoBehaviour
     protected bool inProgress = false;
 
     private CombatController combatController;
+    protected CreatureMechanics mechanics;
 
     protected enum phase
     {
@@ -28,6 +29,7 @@ public class Action : MonoBehaviour
     {
         combatController = GetComponent<CombatController>();
         anim = GetComponentInChildren<Animator>();
+        mechanics = GetComponent<CreatureMechanics>();
     }
 
     virtual public void BeginAction(Tile targetTile)

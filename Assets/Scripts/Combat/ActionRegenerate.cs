@@ -29,13 +29,13 @@ public class ActionRegenerate : Action
         }
         if (currentPhase == phase.NONE)
         {
-            GetComponent<CreatureStats>().Animate("IsCastingSpell");
+            mechanics.Animate("IsCastingSpell");
             spentActionPoints += FIXED_COST;
             currentPhase = phase.CASTING;
             new StatusEffect(
                 (int)StatusEffect.EffectType.REGENERATION,
                 2,
-                GetComponent<CreatureStats>()
+                mechanics
             );
             StartCoroutine(WaitForRegenerationAnimations(1.0f));
         }

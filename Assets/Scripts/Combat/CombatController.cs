@@ -45,12 +45,12 @@ public class CombatController : TileBlockerController
 
     public void BeginTurn()
     {
-        CreatureStats creatureStats = GetComponent<CreatureStats>();
-        actionPoints = creatureStats.BeginTurnAndGetMaxActionPoints();
+        CreatureMechanics creatureMechanics = GetComponent<CreatureMechanics>();
+        actionPoints = creatureMechanics.BeginTurnAndGetMaxActionPoints();
         if (DoesGUI())
         {
             panel.SetActionPoints(actionPoints);
-            gameSignal?.Raise(creatureStats.GetConcentrationPercent());
+            gameSignal?.Raise(creatureMechanics.GetConcentrationPercent());
         }
         isTurn = true;
         FindSelectableBasicTiles();
@@ -196,9 +196,9 @@ public class CombatController : TileBlockerController
     {
         if (DoesGUI())
         {
-            CreatureStats creatureStats = GetComponent<CreatureStats>();
+            CreatureMechanics creatureMechanics = GetComponent<CreatureMechanics>();
             panel.SpendActionPoints(spentActionPoints);
-            gameSignal?.Raise(creatureStats.GetConcentrationPercent());
+            gameSignal?.Raise(creatureMechanics.GetConcentrationPercent());
         }
         isActing = false;
         actionPoints -= spentActionPoints;
