@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 
-public class CreatureStats : ObjectStats
+public class CreatureMechanics : ObjectMechanics
 {
     System.Random rng;
 
@@ -24,6 +24,8 @@ public class CreatureStats : ObjectStats
     protected int currentStamina = 1;
     protected int currentConcentration = 0;
 
+    private bool firstBlood = false;
+
     private List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     // Start is called before the first frame update
@@ -36,6 +38,7 @@ public class CreatureStats : ObjectStats
         maxStamina = endurance + 10;
         currentStamina = maxStamina;
         currentHealth = maxHealth;
+        maxConcentration = GetEffectiveIntelligence() * 2;
         base.Start();
     }
 
@@ -123,6 +126,11 @@ public class CreatureStats : ObjectStats
         }
         else
         {
+            if (!firstBlood)
+            {
+                firstBlood = true;
+                BoostConcentration();
+            }
             currentHealth -= (amount - currentStamina);
             currentStamina = 0;
         }
@@ -195,7 +203,7 @@ public class CreatureStats : ObjectStats
 
     // Returns true if the target is being attacked from the rear, left, or right.
     // Side/rear attacks double the chance of a critical hit.
-    public bool IsFlanking(ObjectStats target)
+    public bool IsFlanking(ObjectMechanics target)
     {
         float rotation1 = target.transform.eulerAngles.y;
         float rotation2 = transform.eulerAngles.y;
@@ -204,7 +212,7 @@ public class CreatureStats : ObjectStats
 
     // Returns true if the target is being attacked from the rear.
     // Doesn't include attacks from the left or right.
-    private bool IsBackstab(ObjectStats target)
+    private bool IsBackstab(ObjectMechanics target)
     {
         float rotation1 = target.transform.eulerAngles.y;
         float rotation2 = transform.eulerAngles.y;
@@ -216,7 +224,7 @@ public class CreatureStats : ObjectStats
         return GetEffectiveIntelligence() / 5;
     }
 
-    private bool IsCrit(ObjectStats target)
+    private bool IsCrit(ObjectMechanics target)
     {
         int chance = CritChance();
         if (IsFlanking(target))
@@ -226,21 +234,30 @@ public class CreatureStats : ObjectStats
         return PercentRoll(chance);
     }
 
-    public void PerformAttackWithStatusEffect(ObjectStats target, StatusEffect.EffectType type, int duration, int powerLevel = -1)
+    public void PerformAttackWithStatusEffect(ObjectMechanics target, StatusEffect.EffectType type, int duration, int powerLevel = -1)
     {
-        if(HitAndDamage(target))
+        if(HitAndDamage(target, false))
         {
             new StatusEffect(type, duration, target, powerLevel);
         }
     }
 
-    public void PerformAttack(ObjectStats target)
+    public void PerformBasicAttack(ObjectMechanics target)
     {
-        HitAndDamage(target);
+        HitAndDamage(target, true);
     }
 
-    private bool HitAndDamage(ObjectStats target)
+    private void BoostConcentration()
     {
+        currentConcentration += GetEffectiveIntelligence() / 3;
+    }
+
+    private bool HitAndDamage(ObjectMechanics target, bool isConcentrationEligible)
+    {
+        if (isConcentrationEligible)
+        {
+            BoostConcentration();
+        }
         Animate("IsAttacking");
         if (!PercentRoll(HitChance())) {
             target.Animate("IsDodging");
@@ -257,6 +274,9 @@ public class CreatureStats : ObjectStats
         bool backstab = false;
         if (IsBackstab(target))
         {
+            if (isConcentrationEligible) {
+                BoostConcentration();
+            }
             backstab = true;
             dam += BonusRearDamage();
         }

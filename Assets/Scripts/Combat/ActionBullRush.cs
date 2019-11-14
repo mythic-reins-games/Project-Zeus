@@ -5,9 +5,9 @@ using UnityEngine;
 public class ActionBullRush : ActionBasicAttack
 {
 
-    override protected void AttackEffects(ObjectStats targetStats)
+    override protected void AttackEffects(ObjectMechanics targetMechanics)
     {
-        GetComponent<CreatureStats>().PerformAttackWithStatusEffect(targetStats, StatusEffect.EffectType.KNOCKDOWN, 1);
+        mechanics.PerformAttackWithStatusEffect(targetMechanics, StatusEffect.EffectType.KNOCKDOWN, 1);
     }
 
     override public void BeginAction(Tile targetTile)

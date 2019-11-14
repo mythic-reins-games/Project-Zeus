@@ -14,7 +14,7 @@ public class StatusEffect
 
     EffectType type;
     int roundsRemaining = 0;
-    CreatureStats target;
+    CreatureMechanics target;
     int powerLevel;
     public bool expired = false;
 
@@ -31,21 +31,21 @@ public class StatusEffect
     }
 
     // Some status effects have varying power levels, others default to -1
-    public StatusEffect(EffectType effectType, int durationRounds, ObjectStats effectTarget, int effectPowerLevel = -1)
+    public StatusEffect(EffectType effectType, int durationRounds, ObjectMechanics effectTarget, int effectPowerLevel = -1)
     {
-        // Only CreatureStats can get status effects.
-        if (effectTarget.GetType() == typeof(ObjectStats))
+        // Only CreatureMechanics can get status effects.
+        if (effectTarget.GetType() == typeof(ObjectMechanics))
         {
             return;
         }
         roundsRemaining = durationRounds;
         type = effectType;
-        target = (CreatureStats)effectTarget;
+        target = (CreatureMechanics)effectTarget;
         powerLevel = effectPowerLevel;
         target.RegisterStatusEffect(this);
     }
 
-    // The CreatureStats is responsible for calling this every round before its action.
+    // The CreatureMechanics is responsible for calling this every round before its action.
     // It can change the creature's action points.
     public int PerRoundEffect(int ap)
     {
