@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ActionRegenerate : Action
 {
-
-    public int FIXED_COST = 2;
+    override public int CONCENTRATION_COST { get { return 3; } }
+    override public int MIN_AP_COST { get { return 2; } }
+    override public TargetType TARGET_TYPE { get { return TargetType.SELF_ONLY; } }
 
     private IEnumerator WaitForRegenerationAnimations(float fDuration)
     {
@@ -15,7 +16,7 @@ public class ActionRegenerate : Action
             elapsed += Time.deltaTime;
             yield return null;
         }
-        currentPhase = phase.NONE;
+        currentPhase = Phase.NONE;
         EndAction();
         yield break;
     }
@@ -27,11 +28,11 @@ public class ActionRegenerate : Action
         {
             return;
         }
-        if (currentPhase == phase.NONE)
+        if (currentPhase == Phase.NONE)
         {
             mechanics.Animate("IsCastingSpell");
-            spentActionPoints += FIXED_COST;
-            currentPhase = phase.CASTING;
+            spentActionPoints += MIN_AP_COST;
+            currentPhase = Phase.CASTING;
             new StatusEffect(
                 (int)StatusEffect.EffectType.REGENERATION,
                 2,

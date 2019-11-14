@@ -25,13 +25,13 @@ public class ActionMove : Action
         {
             return;
         }
-        if (currentPhase == phase.MOVING)
+        if (currentPhase == Phase.MOVING)
         {
             Move();
         }
         else
         {
-            currentPhase = phase.NONE;
+            currentPhase = Phase.NONE;
             EndAction();
         }
     }
@@ -69,7 +69,7 @@ public class ActionMove : Action
         else
         {
             anim.SetBool("IsWalking", false);
-            currentPhase = phase.ATTACKING;
+            currentPhase = Phase.ATTACKING;
         }
     }
 
@@ -92,7 +92,7 @@ public class ActionMove : Action
 
     override public void BeginAction(Tile targetTile)
     {
-        currentPhase = phase.MOVING;
+        currentPhase = Phase.MOVING;
         CalculatePath(targetTile);
         base.BeginAction(targetTile);
     }
