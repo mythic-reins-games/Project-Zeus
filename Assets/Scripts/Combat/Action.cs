@@ -17,6 +17,7 @@ public class Action : MonoBehaviour
         NONE,
         SELF_ONLY,
         CHARGE,
+        MELEE,
     };
 
     protected Animator anim;

@@ -2,20 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionRegenerate : Action
+public class ActionRage : Action
 {
     override public int CONCENTRATION_COST { get { return 3; } }
     override public int MIN_AP_COST { get { return 2; } }
     override public TargetType TARGET_TYPE { get { return TargetType.SELF_ONLY; } }
 
-    private IEnumerator WaitForRegenerationAnimations(float fDuration)
+    private IEnumerator WaitForSpellCastAnimations(float fDuration)
     {
-        float elapsed = 0f;
-        while (elapsed < fDuration)
-        {
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSeconds(fDuration);
         currentPhase = Phase.NONE;
         EndAction();
         yield break;
@@ -34,12 +29,11 @@ public class ActionRegenerate : Action
             spentActionPoints += MIN_AP_COST;
             currentPhase = Phase.CASTING;
             new StatusEffect(
-                (int)StatusEffect.EffectType.REGENERATION,
+                StatusEffect.EffectType.RAGE,
                 2,
                 mechanics
             );
-            StartCoroutine(WaitForRegenerationAnimations(1.0f));
+            StartCoroutine(WaitForSpellCastAnimations(1.0f));
         }
     }
-
 }

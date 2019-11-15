@@ -13,6 +13,8 @@ public class ActionBasicAttack : ActionMove
         base.Start();
     }
 
+    virtual protected float ATTACK_DURATION { get { return 1.0f; } }
+
     // Update is called once per frame
     void Update()
     {
@@ -72,7 +74,7 @@ public class ActionBasicAttack : ActionMove
         else
         {
             currentPhase = Phase.NONE;
-            StartCoroutine(WaitForAttackAnimations(1.0f));
+            StartCoroutine(WaitForAttackAnimations(ATTACK_DURATION));
         }
     }
 

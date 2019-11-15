@@ -2391,6 +2391,8 @@ GameObject:
   - component: {fileID: 98393260}
   - component: {fileID: 98393271}
   - component: {fileID: 98393272}
+  - component: {fileID: 98393273}
+  - component: {fileID: 98393274}
   m_Layer: 0
   m_Name: Player Character 3
   m_TagString: Untagged
@@ -2436,6 +2438,7 @@ MonoBehaviour:
   intelligence: 30
   maxConcentration: 10
   displayName: Bruiser
+  currentConcentration: 0
 --- !u!114 &98393261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2795,7 +2798,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1899a183c0749648b7b8e26bb1234c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FIXED_COST: 2
 --- !u!114 &98393272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2809,6 +2811,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+--- !u!114 &98393273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98393258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd445f02b30f6d408c8e06c676eda6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &98393274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98393258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 099edc9a767d0f344b6b876fe2fbcdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &99567266
 GameObject:
   m_ObjectHideFlags: 0
@@ -6511,6 +6538,8 @@ GameObject:
   - component: {fileID: 231315687}
   - component: {fileID: 231315698}
   - component: {fileID: 231315699}
+  - component: {fileID: 231315700}
+  - component: {fileID: 231315701}
   m_Layer: 0
   m_Name: Player Character 4
   m_TagString: Untagged
@@ -6556,6 +6585,7 @@ MonoBehaviour:
   intelligence: 30
   maxConcentration: 10
   displayName: Tank
+  currentConcentration: 0
 --- !u!114 &231315688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6915,7 +6945,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1899a183c0749648b7b8e26bb1234c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FIXED_COST: 2
 --- !u!114 &231315699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6929,6 +6958,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+--- !u!114 &231315700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231315685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd445f02b30f6d408c8e06c676eda6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &231315701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231315685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 099edc9a767d0f344b6b876fe2fbcdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &233271831
 GameObject:
   m_ObjectHideFlags: 0
@@ -9427,6 +9481,7 @@ MonoBehaviour:
   intelligence: 10
   maxConcentration: 10
   displayName: Enemy
+  currentConcentration: 0
 --- !u!114 &330945249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18981,6 +19036,8 @@ GameObject:
   - component: {fileID: 662700921}
   - component: {fileID: 662700922}
   - component: {fileID: 662700923}
+  - component: {fileID: 662700924}
+  - component: {fileID: 662700925}
   m_Layer: 0
   m_Name: Player Character 2
   m_TagString: Untagged
@@ -19373,6 +19430,7 @@ MonoBehaviour:
   intelligence: 70
   maxConcentration: 10
   displayName: Rogue
+  currentConcentration: 0
 --- !u!114 &662700922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19385,7 +19443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1899a183c0749648b7b8e26bb1234c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FIXED_COST: 2
 --- !u!114 &662700923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19399,6 +19456,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+--- !u!114 &662700924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662700909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd445f02b30f6d408c8e06c676eda6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &662700925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662700909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 099edc9a767d0f344b6b876fe2fbcdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &662887152
 GameObject:
   m_ObjectHideFlags: 0
@@ -39194,6 +39276,8 @@ GameObject:
   - component: {fileID: 1425522887}
   - component: {fileID: 1425522888}
   - component: {fileID: 1425522889}
+  - component: {fileID: 1425522890}
+  - component: {fileID: 1425522891}
   m_Layer: 0
   m_Name: Player Character 1
   m_TagString: Untagged
@@ -39586,6 +39670,7 @@ MonoBehaviour:
   intelligence: 30
   maxConcentration: 10
   displayName: Speedster
+  currentConcentration: 0
 --- !u!114 &1425522888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39598,7 +39683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1899a183c0749648b7b8e26bb1234c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FIXED_COST: 2
 --- !u!114 &1425522889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39612,6 +39696,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+--- !u!114 &1425522890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425522875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd445f02b30f6d408c8e06c676eda6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &1425522891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425522875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 099edc9a767d0f344b6b876fe2fbcdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1427171464
 GameObject:
   m_ObjectHideFlags: 0
@@ -42279,6 +42388,7 @@ MonoBehaviour:
   intelligence: 10
   maxConcentration: 10
   displayName: Enemy
+  currentConcentration: 0
 --- !u!114 &1559494460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45298,6 +45408,7 @@ MonoBehaviour:
   intelligence: 10
   maxConcentration: 10
   displayName: Enemy
+  currentConcentration: 0
 --- !u!114 &1664680876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49879,6 +49990,7 @@ MonoBehaviour:
   intelligence: 30
   maxConcentration: 10
   displayName: Leader
+  currentConcentration: 0
 --- !u!114 &1813236729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55103,6 +55215,7 @@ MonoBehaviour:
   intelligence: 10
   maxConcentration: 10
   displayName: Enemy
+  currentConcentration: 0
 --- !u!1 &2018803935
 GameObject:
   m_ObjectHideFlags: 0

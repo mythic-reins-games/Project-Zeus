@@ -36,6 +36,8 @@ public class CombatController : TileBlockerController
     {
         if (GetComponent<ActionRegenerate>() != null) specialMoves.Add(GetComponent<ActionRegenerate>());
         if (GetComponent<ActionBullRush>() != null) specialMoves.Add(GetComponent<ActionBullRush>());
+        if (GetComponent<ActionSlaughter>() != null) specialMoves.Add(GetComponent<ActionSlaughter>());
+        if (GetComponent<ActionRage>() != null) specialMoves.Add(GetComponent<ActionRage>());
     }
 
     override protected void Start()
@@ -100,6 +102,17 @@ public class CombatController : TileBlockerController
     protected bool FindSelectableChargeTiles()
     {
         FindSelectableTiles(TileSearchType.CHARGE_ATTACK);
+        if (selectableTiles.Count == 0)
+        {
+            FindSelectableBasicTiles();
+            return false;
+        }
+        return true;
+    }
+
+    protected bool FindSelectableAttackTiles()
+    {
+        FindSelectableTiles(TileSearchType.ATTACK_ONLY);
         if (selectableTiles.Count == 0)
         {
             FindSelectableBasicTiles();

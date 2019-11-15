@@ -26,7 +26,7 @@ public class CreatureMechanics : ObjectMechanics
 
     private bool firstBlood = false;
 
-    private List<StatusEffect> statusEffects = new List<StatusEffect>();
+    public List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     // Start is called before the first frame update
     override protected void Start()
@@ -163,11 +163,15 @@ public class CreatureMechanics : ObjectMechanics
 
     public int MaxDamage()
     {
+        if (StatusEffect.HasEffectType(this, StatusEffect.EffectType.RAGE))
+            return 21 + GetEffectiveStrength() / 2;
         return 11 + GetEffectiveStrength() / 2;
     }
 
     public int MinDamage()
     {
+        if (StatusEffect.HasEffectType(this, StatusEffect.EffectType.RAGE))
+            return 11 + GetEffectiveStrength() / 2;
         return 1 + GetEffectiveStrength() / 2;
     }
 
@@ -242,9 +246,10 @@ public class CreatureMechanics : ObjectMechanics
         }
     }
 
-    public void PerformBasicAttack(ObjectMechanics target)
+    // Public wrapper for HitAndDamage
+    public void PerformBasicAttack(ObjectMechanics target, bool isConcentrationEligible = true)
     {
-        HitAndDamage(target, true);
+        HitAndDamage(target, isConcentrationEligible);
     }
 
     private void BoostConcentration()
