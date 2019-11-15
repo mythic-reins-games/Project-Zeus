@@ -32,7 +32,7 @@ public class CombatController : TileBlockerController
         RANGED_ATTACK
     };
 
-    private void PopulateMoves()
+    private void RegisterMoves()
     {
         if (GetComponent<ActionRegenerate>() != null) specialMoves.Add(GetComponent<ActionRegenerate>());
         if (GetComponent<ActionBullRush>() != null) specialMoves.Add(GetComponent<ActionBullRush>());
@@ -45,7 +45,7 @@ public class CombatController : TileBlockerController
         creatureMechanics = GetComponent<CreatureMechanics>();
         panel = Object.FindObjectOfType<GUIPanel>();
         PopupTextController.Initialize();
-        PopulateMoves();
+        RegisterMoves();
         base.Start();
     }
     
