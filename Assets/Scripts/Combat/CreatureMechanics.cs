@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 
+// This class implements the high-level game rules for creatures.
 public class CreatureMechanics : ObjectMechanics
 {
     System.Random rng;
@@ -163,14 +164,14 @@ public class CreatureMechanics : ObjectMechanics
 
     public int MaxDamage()
     {
-        if (StatusEffect.HasEffectType(this, StatusEffect.EffectType.RAGE))
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.RAGE))
             return 21 + GetEffectiveStrength() / 2;
         return 11 + GetEffectiveStrength() / 2;
     }
 
     public int MinDamage()
     {
-        if (StatusEffect.HasEffectType(this, StatusEffect.EffectType.RAGE))
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.RAGE))
             return 11 + GetEffectiveStrength() / 2;
         return 1 + GetEffectiveStrength() / 2;
     }

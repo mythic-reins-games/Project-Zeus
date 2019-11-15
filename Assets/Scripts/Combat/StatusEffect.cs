@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Status effect that will automatically apply itself to a target creature upon instantiation.
+// Can buff or debuff the target.
 public class StatusEffect
 {
     public enum EffectType
@@ -19,9 +21,9 @@ public class StatusEffect
     int powerLevel;
     public bool expired = false;
 
-    static public bool HasEffectType(CreatureMechanics check, EffectType effectType)
+    static public bool HasEffectType(ref List<StatusEffect> check, EffectType effectType)
     {
-        foreach (StatusEffect effect in check.statusEffects)
+        foreach (StatusEffect effect in check)
         {
             if (effect.type == effectType) return true;
         }
