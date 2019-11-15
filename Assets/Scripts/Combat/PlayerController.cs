@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+// PlayerControllers are intended to be a fairly thin interface between CombatController and
+// the UI for Player-Controlled characters.
 public class PlayerController : CombatController
 {
     private static readonly KeyCode[] KEY_CODES = {
@@ -141,6 +143,24 @@ public class PlayerController : CombatController
         }
     }
 
+    private void TargetMeleeSpecialMove(Action action)
+    {
+        if (selectedAction.GetType() == action.GetType()) // If we've already selected the action, unselect it.
+        {
+            FindSelectableBasicTiles();
+            action = GetComponent<ActionBasicAttack>();
+            return;
+        }
+        if (FindSelectableAttackTiles())
+        {
+            selectedAction = action;
+        }
+        else
+        {
+            creatureMechanics.DisplayPopup("Nothing in range");
+        }
+    }
+
     public void ActionClicked(Action action)
     {
         if (actionPoints < action.MIN_AP_COST)
@@ -160,6 +180,9 @@ public class PlayerController : CombatController
                 break;
             case Action.TargetType.CHARGE:
                 TargetChargeSpecialMove(action);
+                break;
+            case Action.TargetType.MELEE:
+                TargetMeleeSpecialMove(action);
                 break;
         }
     }

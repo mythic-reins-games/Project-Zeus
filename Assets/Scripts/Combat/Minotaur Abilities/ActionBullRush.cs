@@ -2,21 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionBullRush : ActionBasicAttack
+// Charges toward a target and attacks it, possibly inflicting status effect knockdown.
+public class ActionBullRush : ActionCharge
 {
-
     override public int CONCENTRATION_COST { get { return 12; } }
-    override public int MIN_AP_COST { get { return 4; } }
-    override public TargetType TARGET_TYPE { get { return TargetType.CHARGE; } }
+    override public int MIN_AP_COST { get { return Constants.ATTACK_AP_COST; } }
 
     override protected void AttackEffects(ObjectMechanics targetMechanics)
     {
         mechanics.PerformAttackWithStatusEffect(targetMechanics, StatusEffect.EffectType.KNOCKDOWN, 1);
-    }
-
-    override public void BeginAction(Tile targetTile)
-    {
-        freeMoves += 4;
-        base.BeginAction(targetTile);
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// This covers the mechanics for basic attacks, and special moves that include an attack should inherit from it.
 public class ActionBasicAttack : ActionMove
 {
-
     override protected void Start()
     {
         // Save one tile at the end of the movement path:
@@ -12,6 +12,8 @@ public class ActionBasicAttack : ActionMove
         reserveTiles = 1;
         base.Start();
     }
+
+    virtual protected float ATTACK_DURATION { get { return 1.0f; } }
 
     // Update is called once per frame
     void Update()
@@ -36,7 +38,7 @@ public class ActionBasicAttack : ActionMove
 
     void ResolveAttack(GameObject target)
     {
-        spentActionPoints += 4;
+        spentActionPoints += Constants.ATTACK_AP_COST;
         ObjectMechanics targetMechanics = target.GetComponent<CreatureMechanics>();
         if (targetMechanics == null) targetMechanics = target.GetComponent<ObjectMechanics>();
         AttackEffects(targetMechanics);
@@ -47,17 +49,6 @@ public class ActionBasicAttack : ActionMove
         mechanics.PerformBasicAttack(targetStats);
     }
 
-    private IEnumerator WaitForAttackAnimations(float fDuration)
-    {
-        float elapsed = 0f;
-        while (elapsed < fDuration)
-        {
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        EndAction();
-        yield break;
-    }
 
     void AttackPhase()
     {
@@ -72,7 +63,7 @@ public class ActionBasicAttack : ActionMove
         else
         {
             currentPhase = Phase.NONE;
-            StartCoroutine(WaitForAttackAnimations(1.0f));
+            StartCoroutine(EndActionAfterDelay(ATTACK_DURATION));
         }
     }
 

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Status effect that will automatically apply itself to a target creature upon instantiation.
+// Can buff or debuff the target.
 public class StatusEffect
 {
     public enum EffectType
     {
         REGENERATION,
-        KNOCKDOWN
+        KNOCKDOWN,
+        RAGE
     };
 
     const string LYING_DOWN = "IsLyingDown";
@@ -18,6 +21,15 @@ public class StatusEffect
     int powerLevel;
     public bool expired = false;
 
+    static public bool HasEffectType(ref List<StatusEffect> check, EffectType effectType)
+    {
+        foreach (StatusEffect effect in check)
+        {
+            if (effect.type == effectType) return true;
+        }
+        return false;
+    }
+
     public string GetAnimationName()
     {
         switch (type)
@@ -26,6 +38,8 @@ public class StatusEffect
                 return null;
             case EffectType.KNOCKDOWN:
                 return LYING_DOWN;
+            case EffectType.RAGE:
+                return null;
         }
         return null;
     }

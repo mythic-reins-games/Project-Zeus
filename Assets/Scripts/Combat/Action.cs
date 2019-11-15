@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// This is a base class that all other types of actions inherit from.
 public class Action : MonoBehaviour
 {
     protected enum Phase
@@ -17,6 +18,7 @@ public class Action : MonoBehaviour
         NONE,
         SELF_ONLY,
         CHARGE,
+        MELEE,
     };
 
     protected Animator anim;
@@ -35,6 +37,14 @@ public class Action : MonoBehaviour
     virtual public TargetType TARGET_TYPE { get { return TargetType.NONE; } }
 
     protected Phase currentPhase = Phase.NONE;
+
+    protected IEnumerator EndActionAfterDelay(float fDuration)
+    {
+        yield return new WaitForSeconds(fDuration);
+        currentPhase = Phase.NONE;
+        EndAction();
+        yield break;
+    }
 
     // Start is called before the first frame update
     virtual protected void Start()

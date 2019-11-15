@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+// CombatControllers are in charge of determining which moves are valid moves for a unit to take,
+// and initializing the execution of those moves.
 public class CombatController : TileBlockerController
 {
     private HashSet<Tile> visitedTiles = new HashSet<Tile>();
@@ -16,8 +18,6 @@ public class CombatController : TileBlockerController
     protected bool isActing = false;
     [SerializeField] protected int actionPoints = 0;
 
-    const int ATTACK_COST = 4;
-
     private enum TileSearchType
     {
         // Default means unit can move at normal per-tile costs and attack at normal attack cost.
@@ -25,17 +25,19 @@ public class CombatController : TileBlockerController
         // Attack only means unit can move at normal per-tile costs and attack at normal attack cost.
         // But, moves are only valid if they end in an attack.
         ATTACK_ONLY,
-        // Charges get 'free' movement points equal to ATTACK_COST before the character starts paying for movement.
+        // Charges get 'free' movement points equal to Constants.ATTACK_AP_COST before the character starts paying for movement.
         // But, moves are only valid if they end in an attack.
         CHARGE_ATTACK,
         // Ranged attacks wil raycast to the target, 
         RANGED_ATTACK
     };
 
-    private void PopulateMoves()
+    private void RegisterMoves()
     {
         if (GetComponent<ActionRegenerate>() != null) specialMoves.Add(GetComponent<ActionRegenerate>());
         if (GetComponent<ActionBullRush>() != null) specialMoves.Add(GetComponent<ActionBullRush>());
+        if (GetComponent<ActionSlaughter>() != null) specialMoves.Add(GetComponent<ActionSlaughter>());
+        if (GetComponent<ActionRage>() != null) specialMoves.Add(GetComponent<ActionRage>());
     }
 
     override protected void Start()
@@ -43,7 +45,7 @@ public class CombatController : TileBlockerController
         creatureMechanics = GetComponent<CreatureMechanics>();
         panel = Object.FindObjectOfType<GUIPanel>();
         PopupTextController.Initialize();
-        PopulateMoves();
+        RegisterMoves();
         base.Start();
     }
     
@@ -108,6 +110,17 @@ public class CombatController : TileBlockerController
         return true;
     }
 
+    protected bool FindSelectableAttackTiles()
+    {
+        FindSelectableTiles(TileSearchType.ATTACK_ONLY);
+        if (selectableTiles.Count == 0)
+        {
+            FindSelectableBasicTiles();
+            return false;
+        }
+        return true;
+    }
+
     protected void FindSelectableBasicTiles()
     {
         FindSelectableTiles(TileSearchType.DEFAULT);
@@ -121,11 +134,11 @@ public class CombatController : TileBlockerController
         {
             return;
         }
-        if (actionPoints < ATTACK_COST && searchType == TileSearchType.ATTACK_ONLY)
+        if (actionPoints < Constants.ATTACK_AP_COST && searchType == TileSearchType.ATTACK_ONLY)
         {
             return;
         }
-        if (actionPoints < ATTACK_COST && searchType == TileSearchType.CHARGE_ATTACK)
+        if (actionPoints < Constants.ATTACK_AP_COST && searchType == TileSearchType.CHARGE_ATTACK)
         {
             return;
         }
@@ -155,13 +168,13 @@ public class CombatController : TileBlockerController
                     {
                         if (searchType == TileSearchType.CHARGE_ATTACK && tile.distance <= actionPoints && ContainsEnemy(adjacentTile))
                         {
-                            AttachTile(ATTACK_COST > tile.distance ? ATTACK_COST : tile.distance, adjacentTile, tile);
+                            AttachTile(Constants.ATTACK_AP_COST > tile.distance ? Constants.ATTACK_AP_COST : tile.distance, adjacentTile, tile);
                             selectableTiles.Add(adjacentTile);
                             adjacentTile.isSelectable = true;
                         }
-                        else if (tile.distance + ATTACK_COST <= actionPoints && ContainsEnemy(adjacentTile))
+                        else if (tile.distance + Constants.ATTACK_AP_COST <= actionPoints && ContainsEnemy(adjacentTile))
                         {
-                            AttachTile(ATTACK_COST, adjacentTile, tile);
+                            AttachTile(Constants.ATTACK_AP_COST, adjacentTile, tile);
                             selectableTiles.Add(adjacentTile);
                             adjacentTile.isSelectable = true;
                         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// EnemyControllers handle the AI decision-making for creatures on the enemy side.
 public class EnemyController : CombatController
 {
 
