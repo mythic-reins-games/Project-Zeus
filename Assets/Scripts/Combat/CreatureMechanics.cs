@@ -22,7 +22,7 @@ public class CreatureMechanics : ObjectMechanics
 
     protected int maxStamina = 1;
     protected int currentStamina = 1;
-    protected int currentConcentration = 0;
+    public int currentConcentration = 0;
 
     private bool firstBlood = false;
 

@@ -20,17 +20,17 @@ public class ActionBasicAttack : ActionMove
         {
             return;
         }
-        if (currentPhase == phase.MOVING)
+        if (currentPhase == Phase.MOVING)
         {
             Move();
         }
-        else if (currentPhase == phase.ATTACKING)
+        else if (currentPhase == Phase.ATTACKING)
         {
             AttackPhase();
         }
         else
         {
-            currentPhase = phase.NONE;
+            currentPhase = Phase.NONE;
         }
     }
 
@@ -71,7 +71,7 @@ public class ActionBasicAttack : ActionMove
         }
         else
         {
-            currentPhase = phase.NONE;
+            currentPhase = Phase.NONE;
             StartCoroutine(WaitForAttackAnimations(1.0f));
         }
     }

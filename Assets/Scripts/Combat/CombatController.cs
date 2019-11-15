@@ -7,6 +7,10 @@ public class CombatController : TileBlockerController
     protected List<Tile> selectableTiles = new List<Tile>();
     [SerializeField] protected GameSignalOneObject gameSignal;
 
+    protected List<Action> specialMoves = new List<Action> { };
+
+    protected CreatureMechanics creatureMechanics = null;
+
     protected GUIPanel panel;
 
     protected bool isActing = false;
@@ -28,10 +32,18 @@ public class CombatController : TileBlockerController
         RANGED_ATTACK
     };
 
+    private void PopulateMoves()
+    {
+        if (GetComponent<ActionRegenerate>() != null) specialMoves.Add(GetComponent<ActionRegenerate>());
+        if (GetComponent<ActionBullRush>() != null) specialMoves.Add(GetComponent<ActionBullRush>());
+    }
+
     override protected void Start()
     {
+        creatureMechanics = GetComponent<CreatureMechanics>();
         panel = Object.FindObjectOfType<GUIPanel>();
         PopupTextController.Initialize();
+        PopulateMoves();
         base.Start();
     }
     
@@ -45,7 +57,7 @@ public class CombatController : TileBlockerController
 
     public void BeginTurn()
     {
-        CreatureMechanics creatureMechanics = GetComponent<CreatureMechanics>();
+        
         actionPoints = creatureMechanics.BeginTurnAndGetMaxActionPoints();
         if (DoesGUI())
         {

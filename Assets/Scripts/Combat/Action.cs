@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class Action : MonoBehaviour
 {
+    protected enum Phase
+    {
+        NONE,
+        MOVING,
+        CASTING,
+        ATTACKING,
+    };
+
+    public enum TargetType
+    {
+        NONE,
+        SELF_ONLY,
+        CHARGE,
+    };
 
     protected Animator anim;
 
@@ -14,15 +28,13 @@ public class Action : MonoBehaviour
     private CombatController combatController;
     protected CreatureMechanics mechanics;
 
-    protected enum phase
-    {
-        NONE,
-        MOVING,
-        CASTING,
-        ATTACKING,
-    };
+    virtual public int CONCENTRATION_COST { get { return 0; } }
+    // Lets UI/AI know to ignore the move if fewer than this many AP.
+    virtual public int MIN_AP_COST { get { return 0; } }
+    // Target type for special moves, lets UI/AI know when it can use special moves.
+    virtual public TargetType TARGET_TYPE { get { return TargetType.NONE; } }
 
-    protected phase currentPhase = phase.NONE;
+    protected Phase currentPhase = Phase.NONE;
 
     // Start is called before the first frame update
     virtual protected void Start()
@@ -42,6 +54,7 @@ public class Action : MonoBehaviour
 
     protected void EndAction()
     {
+        mechanics.currentConcentration -= CONCENTRATION_COST;
         combatController.EndAction(spentActionPoints);
         inProgress = false;
     }

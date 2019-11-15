@@ -2,6 +2,17 @@
 
 public class PlayerController : CombatController
 {
+    private static readonly KeyCode[] KEY_CODES = {
+         KeyCode.Alpha1,
+         KeyCode.Alpha2,
+         KeyCode.Alpha3,
+         KeyCode.Alpha4,
+         KeyCode.Alpha5,
+         KeyCode.Alpha6,
+         KeyCode.Alpha7,
+         KeyCode.Alpha8,
+         KeyCode.Alpha9,
+     };
 
     private Tile hoverTile = null;
     private TurnManager manager = null;
@@ -107,6 +118,52 @@ public class PlayerController : CombatController
         }
     }
 
+    private void ActivateSelfSpecialMove(Action action)
+    {
+        action.BeginAction(null);
+    }
+
+    private void TargetChargeSpecialMove(Action action)
+    {
+        if (selectedAction.GetType() == action.GetType()) // If we've already selected the action, unselect it.
+        {
+            FindSelectableBasicTiles();
+            action = GetComponent<ActionBasicAttack>();
+            return;
+        }
+        if (FindSelectableChargeTiles())
+        {
+            selectedAction = action;
+        }
+        else
+        {
+            creatureMechanics.DisplayPopup("Nothing in range");
+        }
+    }
+
+    public void ActionClicked(Action action)
+    {
+        if (actionPoints < action.MIN_AP_COST)
+        {
+            creatureMechanics.DisplayPopup("Not enough AP");
+            return;
+        }
+        if (creatureMechanics.currentConcentration < action.CONCENTRATION_COST)
+        {
+            creatureMechanics.DisplayPopup("Not enough concentration");
+            return;
+        }
+        switch (action.TARGET_TYPE)
+        {
+            case Action.TargetType.SELF_ONLY:
+                ActivateSelfSpecialMove(action);
+                break;
+            case Action.TargetType.CHARGE:
+                TargetChargeSpecialMove(action);
+                break;
+        }
+    }
+
     private void CheckMouseClick()
     {
         if (Input.GetMouseButtonUp(0))
@@ -135,36 +192,14 @@ public class PlayerController : CombatController
                 SetMouseHover();
             }
         }
-        // Eventually, custom abilities will be proceduralized.
-        if (Input.GetKeyDown("r"))
+
+        for (int i = 0; i < 9; i++)
         {
-            ActionRegenerate regen = GetComponent<ActionRegenerate>();
-            if (regen == null || actionPoints < regen.FIXED_COST) return;
-            regen.BeginAction(null);
-            return;
-        }
-        if (Input.GetKeyDown("b"))
-        {
-            if (selectedAction.GetType() == typeof(ActionBullRush)) // Toggle off the special move.
+            if (Input.GetKeyDown(KEY_CODES[i]) && specialMoves.Count > i)
             {
-                FindSelectableBasicTiles();
-                selectedAction = GetComponent<ActionBasicAttack>();
+                ActionClicked(specialMoves[i]);
                 return;
             }
-            ActionBullRush bullRush = GetComponent<ActionBullRush>();
-            if (bullRush == null)
-            {
-                return;
-            }
-            if(FindSelectableChargeTiles())
-            {
-                selectedAction = bullRush;
-            }
-            else
-            {
-                Debug.Log("No valid charge tiles.");
-            }
-            return;
         }
     }
 }
