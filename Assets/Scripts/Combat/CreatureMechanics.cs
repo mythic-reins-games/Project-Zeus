@@ -27,7 +27,7 @@ public class CreatureMechanics : ObjectMechanics
 
     private bool firstBlood = false;
 
-    public List<StatusEffect> statusEffects = new List<StatusEffect>();
+    override public bool canBeBackstabbed { get { return true; } }
 
     // Start is called before the first frame update
     override protected void Start()
@@ -225,8 +225,9 @@ public class CreatureMechanics : ObjectMechanics
 
     private bool IsVulnerable(ObjectMechanics target)
     {
+        if (!target.canBeBackstabbed) return false;
         if (IsBackstab(target)) return true;
-        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.KNOCKDOWN)) return true;
+        if (StatusEffect.HasEffectType(ref target.statusEffects, StatusEffect.EffectType.KNOCKDOWN)) return true;
         return false;
     }
 

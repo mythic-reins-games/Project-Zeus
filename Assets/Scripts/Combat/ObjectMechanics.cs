@@ -11,6 +11,10 @@ public class ObjectMechanics : MonoBehaviour
     [SerializeField] protected GameObject healthBar;
     protected IndicatorBar healthBarScript;
 
+    public List<StatusEffect> statusEffects = new List<StatusEffect>();
+
+    virtual public bool canBeBackstabbed { get { return false; } }
+
     private Animator anim;
 
     // Start is called before the first frame update
