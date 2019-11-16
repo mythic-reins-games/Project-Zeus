@@ -2431,13 +2431,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 914839528}
   staminaBar: {fileID: 859933796}
-  strength: 70
+  strength: 10
   speed: 10
   endurance: 10
   agility: 10
-  intelligence: 30
+  intelligence: 10
   maxConcentration: 10
-  displayName: Bruiser
+  displayName: Minotaur
   currentConcentration: 0
 --- !u!114 &98393261
 MonoBehaviour:
@@ -6536,10 +6536,10 @@ GameObject:
   - component: {fileID: 231315689}
   - component: {fileID: 231315688}
   - component: {fileID: 231315687}
-  - component: {fileID: 231315698}
-  - component: {fileID: 231315699}
-  - component: {fileID: 231315700}
   - component: {fileID: 231315701}
+  - component: {fileID: 231315700}
+  - component: {fileID: 231315699}
+  - component: {fileID: 231315698}
   m_Layer: 0
   m_Name: Player Character 4
   m_TagString: Untagged
@@ -6578,13 +6578,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1632374559}
   staminaBar: {fileID: 1164145583}
-  strength: 10
-  speed: 10
-  endurance: 70
-  agility: 10
-  intelligence: 30
+  strength: 20
+  speed: 20
+  endurance: 20
+  agility: 20
+  intelligence: 20
   maxConcentration: 10
-  displayName: Tank
+  displayName: Hero
   currentConcentration: 0
 --- !u!114 &231315688
 MonoBehaviour:
@@ -6942,7 +6942,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 231315685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1899a183c0749648b7b8e26bb1234c0, type: 3}
+  m_Script: {fileID: 11500000, guid: da8969cf19e3218499eb8171973f748a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &231315699
@@ -6954,10 +6954,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 231315685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca7cebd3bdeb5ef46b3bd9e630808ddf, type: 3}
+  m_Script: {fileID: 11500000, guid: d9a50e1c7cca44a439198138ce06aaf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
 --- !u!114 &231315700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6967,7 +6966,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 231315685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd445f02b30f6d408c8e06c676eda6e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bb2dc50a5e24dd4e9feff79d116458f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
@@ -6980,9 +6979,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 231315685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 099edc9a767d0f344b6b876fe2fbcdc9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ea96c93fe5b9d8418292f98c19186a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 2
 --- !u!1 &233271831
 GameObject:
   m_ObjectHideFlags: 0
@@ -19423,13 +19423,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 504585215}
   staminaBar: {fileID: 364998267}
-  strength: 10
-  speed: 10
-  endurance: 10
-  agility: 70
-  intelligence: 70
+  strength: 20
+  speed: 20
+  endurance: 20
+  agility: 20
+  intelligence: 20
   maxConcentration: 10
-  displayName: Rogue
+  displayName: Minotaur
   currentConcentration: 0
 --- !u!114 &662700922
 MonoBehaviour:
@@ -39274,10 +39274,10 @@ GameObject:
   - component: {fileID: 1425522885}
   - component: {fileID: 1425522886}
   - component: {fileID: 1425522887}
-  - component: {fileID: 1425522888}
-  - component: {fileID: 1425522889}
-  - component: {fileID: 1425522890}
   - component: {fileID: 1425522891}
+  - component: {fileID: 1425522890}
+  - component: {fileID: 1425522889}
+  - component: {fileID: 1425522888}
   m_Layer: 0
   m_Name: Player Character 1
   m_TagString: Untagged
@@ -39663,13 +39663,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1455555457}
   staminaBar: {fileID: 989798565}
-  strength: 10
-  speed: 70
-  endurance: 10
-  agility: 10
-  intelligence: 30
+  strength: 20
+  speed: 20
+  endurance: 20
+  agility: 20
+  intelligence: 20
   maxConcentration: 10
-  displayName: Speedster
+  displayName: Hero
   currentConcentration: 0
 --- !u!114 &1425522888
 MonoBehaviour:
@@ -39680,7 +39680,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1425522875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1899a183c0749648b7b8e26bb1234c0, type: 3}
+  m_Script: {fileID: 11500000, guid: da8969cf19e3218499eb8171973f748a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1425522889
@@ -39692,10 +39692,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1425522875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca7cebd3bdeb5ef46b3bd9e630808ddf, type: 3}
+  m_Script: {fileID: 11500000, guid: d9a50e1c7cca44a439198138ce06aaf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
 --- !u!114 &1425522890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39705,7 +39704,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1425522875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd445f02b30f6d408c8e06c676eda6e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bb2dc50a5e24dd4e9feff79d116458f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
@@ -39718,9 +39717,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1425522875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 099edc9a767d0f344b6b876fe2fbcdc9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ea96c93fe5b9d8418292f98c19186a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 2
 --- !u!1 &1427171464
 GameObject:
   m_ObjectHideFlags: 0

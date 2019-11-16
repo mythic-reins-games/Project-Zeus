@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Double-attack melee attack.
-public class ActionSlaughter : ActionBasicAttack
+// Double-attack move.
+public class ActionMultiAttack : ActionBasicAttack
 {
     override public int CONCENTRATION_COST { get { return 5; } }
     override public int MIN_AP_COST { get { return Constants.ATTACK_AP_COST; } }

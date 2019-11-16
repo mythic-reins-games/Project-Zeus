@@ -38,6 +38,10 @@ public class CombatController : TileBlockerController
         if (GetComponent<ActionBullRush>() != null) specialMoves.Add(GetComponent<ActionBullRush>());
         if (GetComponent<ActionSlaughter>() != null) specialMoves.Add(GetComponent<ActionSlaughter>());
         if (GetComponent<ActionRage>() != null) specialMoves.Add(GetComponent<ActionRage>());
+        if (GetComponent<ActionEmpower>() != null) specialMoves.Add(GetComponent<ActionEmpower>());
+        if (GetComponent<ActionOffhandAttack>() != null) specialMoves.Add(GetComponent<ActionOffhandAttack>());
+        if (GetComponent<ActionLifeOrDeath>() != null) specialMoves.Add(GetComponent<ActionLifeOrDeath>());
+        if (GetComponent<ActionMultiAttack>() != null) specialMoves.Add(GetComponent<ActionMultiAttack>());
     }
 
     override protected void Start()
@@ -51,10 +55,15 @@ public class CombatController : TileBlockerController
     
     public void AssignZonesOfControl()
     {
-        foreach (Tile adjacentTile in currentTile.adjacentTileList)
+        foreach (Tile adjacentTile in AdjacenTiles())
         {
             adjacentTile.SetIsZoneOfControl(true);
         }
+    }
+
+    public List<Tile> AdjacenTiles()
+    {
+        return currentTile.adjacentTileList;
     }
 
     public void BeginTurn()

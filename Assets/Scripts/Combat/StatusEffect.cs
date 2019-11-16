@@ -10,7 +10,9 @@ public class StatusEffect
     {
         REGENERATION,
         KNOCKDOWN,
-        RAGE
+        RAGE,
+        CANNOT_DIE,
+        EMPOWER
     };
 
     const string LYING_DOWN = "IsLyingDown";
@@ -34,12 +36,8 @@ public class StatusEffect
     {
         switch (type)
         {
-            case EffectType.REGENERATION:
-                return null;
             case EffectType.KNOCKDOWN:
                 return LYING_DOWN;
-            case EffectType.RAGE:
-                return null;
         }
         return null;
     }

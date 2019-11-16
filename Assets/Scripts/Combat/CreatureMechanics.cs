@@ -133,6 +133,8 @@ public class CreatureMechanics : ObjectMechanics
                 BoostConcentration();
             }
             currentHealth -= (amount - currentStamina);
+            if (currentHealth <= 0 && StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.CANNOT_DIE))
+                currentHealth = 1;
             currentStamina = 0;
         }
         healthBarScript.SetPercent(PercentHealth());
@@ -154,6 +156,8 @@ public class CreatureMechanics : ObjectMechanics
 
     override public int DodgeChance()
     {
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.EMPOWER))
+            return 20 + (GetEffectiveAgility() / 2);
         return 0 + (GetEffectiveAgility() / 2);
     }
 
@@ -166,6 +170,8 @@ public class CreatureMechanics : ObjectMechanics
     {
         if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.RAGE))
             return 21 + GetEffectiveStrength() / 2;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.EMPOWER))
+            return 16 + GetEffectiveStrength() / 2;
         return 11 + GetEffectiveStrength() / 2;
     }
 
@@ -173,6 +179,8 @@ public class CreatureMechanics : ObjectMechanics
     {
         if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.RAGE))
             return 11 + GetEffectiveStrength() / 2;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.EMPOWER))
+            return 6 + GetEffectiveStrength() / 2;
         return 1 + GetEffectiveStrength() / 2;
     }
 
@@ -206,15 +214,6 @@ public class CreatureMechanics : ObjectMechanics
         return false;
     }
 
-    // Returns true if the target is being attacked from the rear, left, or right.
-    // Side/rear attacks double the chance of a critical hit.
-    public bool IsFlanking(ObjectMechanics target)
-    {
-        float rotation1 = target.transform.eulerAngles.y;
-        float rotation2 = transform.eulerAngles.y;
-        return !VeryApproximateMatch(Mathf.Abs(rotation1 - rotation2), 180.0f);
-    }
-
     // Returns true if the target is being attacked from the rear.
     // Doesn't include attacks from the left or right.
     private bool IsBackstab(ObjectMechanics target)
@@ -232,25 +231,25 @@ public class CreatureMechanics : ObjectMechanics
     private bool IsCrit(ObjectMechanics target)
     {
         int chance = CritChance();
-        if (IsFlanking(target))
+        if (IsBackstab(target))
         {
             chance *= 2;
         }
         return PercentRoll(chance);
     }
 
-    public void PerformAttackWithStatusEffect(ObjectMechanics target, StatusEffect.EffectType type, int duration, int powerLevel = -1)
+    public void PerformAttackWithStatusEffect(ObjectMechanics target, StatusEffect.EffectType type, int duration, int powerLevel = -1, float damageMultiplier = 1.0f)
     {
-        if(HitAndDamage(target, false))
+        if(HitAndDamage(target, false, damageMultiplier))
         {
             new StatusEffect(type, duration, target, powerLevel);
         }
     }
 
     // Public wrapper for HitAndDamage
-    public void PerformBasicAttack(ObjectMechanics target, bool isConcentrationEligible = true)
+    public void PerformBasicAttack(ObjectMechanics target, bool isConcentrationEligible = true, float damageMultiplier = 1.0f)
     {
-        HitAndDamage(target, isConcentrationEligible);
+        HitAndDamage(target, isConcentrationEligible, damageMultiplier);
     }
 
     private void BoostConcentration()
@@ -258,7 +257,7 @@ public class CreatureMechanics : ObjectMechanics
         currentConcentration += GetEffectiveIntelligence() / 3;
     }
 
-    private bool HitAndDamage(ObjectMechanics target, bool isConcentrationEligible)
+    private bool HitAndDamage(ObjectMechanics target, bool isConcentrationEligible, float damageMultiplier)
     {
         if (isConcentrationEligible)
         {
@@ -296,6 +295,7 @@ public class CreatureMechanics : ObjectMechanics
         {
             DisplayPopup("Backstab");
         }
+        dam = (int)((float)dam * damageMultiplier);
         target.ReceiveDamage(dam);
         return true;
     }

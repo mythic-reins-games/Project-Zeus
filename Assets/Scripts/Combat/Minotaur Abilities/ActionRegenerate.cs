@@ -5,7 +5,7 @@ using UnityEngine;
 // Self healing-over-time buff.
 public class ActionRegenerate : ActionSelfCast
 {
-    override public int CONCENTRATION_COST { get { return 3; } }
+    override public int CONCENTRATION_COST { get { return 2; } }
     override public int MIN_AP_COST { get { return Constants.QUICK_AP_COST; } }
 
     override protected void ApplySelfStatusEffect()
