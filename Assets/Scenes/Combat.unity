@@ -2432,10 +2432,10 @@ MonoBehaviour:
   healthBar: {fileID: 914839528}
   staminaBar: {fileID: 859933796}
   strength: 10
-  speed: 10
+  speed: 20
   endurance: 10
   agility: 10
-  intelligence: 10
+  intelligence: 20
   maxConcentration: 10
   displayName: Minotaur
   currentConcentration: 0
@@ -6578,10 +6578,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1632374559}
   staminaBar: {fileID: 1164145583}
-  strength: 20
+  strength: 10
   speed: 20
-  endurance: 20
-  agility: 20
+  endurance: 10
+  agility: 10
   intelligence: 20
   maxConcentration: 10
   displayName: Hero
@@ -19423,10 +19423,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 504585215}
   staminaBar: {fileID: 364998267}
-  strength: 20
+  strength: 10
   speed: 20
-  endurance: 20
-  agility: 20
+  endurance: 10
+  agility: 10
   intelligence: 20
   maxConcentration: 10
   displayName: Minotaur
@@ -39663,10 +39663,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1455555457}
   staminaBar: {fileID: 989798565}
-  strength: 20
+  strength: 10
   speed: 20
-  endurance: 20
-  agility: 20
+  endurance: 10
+  agility: 10
   intelligence: 20
   maxConcentration: 10
   displayName: Hero
@@ -49983,11 +49983,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1024646756}
   staminaBar: {fileID: 1146866776}
-  strength: 30
-  speed: 30
-  endurance: 30
-  agility: 30
-  intelligence: 30
+  strength: 20
+  speed: 20
+  endurance: 20
+  agility: 20
+  intelligence: 20
   maxConcentration: 10
   displayName: Leader
   currentConcentration: 0
