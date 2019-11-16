@@ -21,6 +21,11 @@ public class ActionMultiAttack : ActionBasicAttack
         yield break;
     }
 
+    virtual protected void Start()
+    {
+        base.Start();
+    }
+
     override protected void AttackEffects(ObjectMechanics targetMechanics)
     {
         mechanics.PerformBasicAttack(targetMechanics, false);

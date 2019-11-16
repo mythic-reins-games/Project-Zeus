@@ -18,12 +18,10 @@ public class PlayerController : CombatController
 
     private Tile hoverTile = null;
     private TurnManager manager = null;
-    private Action selectedAction = null;
 
     protected override void Start()
     {
         manager = Object.FindObjectOfType<TurnManager>();
-        selectedAction = GetComponent<ActionBasicAttack>();
         base.Start();
     }
 
@@ -154,7 +152,7 @@ public class PlayerController : CombatController
         if (selectedAction.GetType() == action.GetType()) // If we've already selected the action, unselect it.
         {
             FindSelectableBasicTiles();
-            action = GetComponent<ActionBasicAttack>();
+            selectedAction = GetComponent<ActionBasicAttack>();
             return;
         }
         if (action.IsCoolingDown())

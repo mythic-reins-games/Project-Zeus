@@ -5,7 +5,7 @@ using UnityEngine;
 // This covers the mechanics for basic attacks, and special moves that include an attack should inherit from it.
 public class ActionBasicAttack : ActionMove
 {
-    virtual public int MIN_AP_COST { get { return 4; } }
+    override public int MIN_AP_COST { get { return 4; } }
 
     override protected void Start()
     {

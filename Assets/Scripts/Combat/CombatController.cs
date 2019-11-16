@@ -14,7 +14,7 @@ public class CombatController : TileBlockerController
     protected CreatureMechanics creatureMechanics = null;
 
     protected GUIPanel panel;
-
+    protected Action selectedAction = null;
     protected bool isActing = false;
     [SerializeField] protected int actionPoints = 0;
 
@@ -50,6 +50,7 @@ public class CombatController : TileBlockerController
         panel = Object.FindObjectOfType<GUIPanel>();
         PopupTextController.Initialize();
         RegisterMoves();
+        selectedAction = GetComponent<ActionBasicAttack>();
         base.Start();
     }
     
@@ -242,6 +243,7 @@ public class CombatController : TileBlockerController
             panel.SpendActionPoints(spentActionPoints);
             gameSignal?.Raise(creatureMechanics.GetConcentrationPercent());
         }
+        selectedAction = GetComponent<ActionBasicAttack>();
         isActing = false;
         actionPoints -= spentActionPoints;
         if (transform.parent.GetComponent<TurnManager>().CheckCombatOver())
