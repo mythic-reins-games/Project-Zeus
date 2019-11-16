@@ -223,6 +223,13 @@ public class CreatureMechanics : ObjectMechanics
         return VeryApproximateMatch(Mathf.Abs(rotation1 - rotation2), 0.0f) || VeryApproximateMatch(Mathf.Abs(rotation1 - rotation2), 360.0f);
     }
 
+    private bool IsVulnerable(ObjectMechanics target)
+    {
+        if (IsBackstab(target)) return true;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.KNOCKDOWN)) return true;
+        return false;
+    }
+
     public int CritChance()
     {
         return GetEffectiveIntelligence() / 5;
@@ -231,7 +238,7 @@ public class CreatureMechanics : ObjectMechanics
     private bool IsCrit(ObjectMechanics target)
     {
         int chance = CritChance();
-        if (IsBackstab(target))
+        if (IsVulnerable(target))
         {
             chance *= 2;
         }
@@ -277,7 +284,7 @@ public class CreatureMechanics : ObjectMechanics
         }
         int dam = DamageInflicted();
         bool backstab = false;
-        if (IsBackstab(target))
+        if (IsVulnerable(target))
         {
             if (isConcentrationEligible) {
                 BoostConcentration();
