@@ -55,20 +55,28 @@ public class CombatController : TileBlockerController
     
     public void AssignZonesOfControl()
     {
-        foreach (Tile adjacentTile in AdjacenTiles())
+        foreach (Tile adjacentTile in AdjacentTiles())
         {
             adjacentTile.SetIsZoneOfControl(true);
         }
     }
 
-    public List<Tile> AdjacenTiles()
+    public List<Tile> AdjacentTiles()
     {
         return currentTile.adjacentTileList;
     }
 
+    private void CooldownSpecialMoves()
+    {
+        foreach (Action a in specialMoves)
+        {
+            a.AdvanceCooldown();
+        }
+    }
+
     public void BeginTurn()
     {
-        
+        CooldownSpecialMoves();
         actionPoints = creatureMechanics.BeginTurnAndGetMaxActionPoints();
         if (DoesGUI())
         {
@@ -108,9 +116,9 @@ public class CombatController : TileBlockerController
     }
 
     // Returns true if valid charge tiles were found.
-    protected bool FindSelectableChargeTiles()
+    protected bool FindSelectableChargeTiles(int attackCost)
     {
-        FindSelectableTiles(TileSearchType.CHARGE_ATTACK);
+        FindSelectableTiles(TileSearchType.CHARGE_ATTACK, attackCost);
         if (selectableTiles.Count == 0)
         {
             FindSelectableBasicTiles();
@@ -119,9 +127,9 @@ public class CombatController : TileBlockerController
         return true;
     }
 
-    protected bool FindSelectableAttackTiles()
+    protected bool FindSelectableAttackTiles(int attackCost)
     {
-        FindSelectableTiles(TileSearchType.ATTACK_ONLY);
+        FindSelectableTiles(TileSearchType.ATTACK_ONLY, attackCost);
         if (selectableTiles.Count == 0)
         {
             FindSelectableBasicTiles();
@@ -135,7 +143,7 @@ public class CombatController : TileBlockerController
         FindSelectableTiles(TileSearchType.DEFAULT);
     }
 
-    private void FindSelectableTiles(TileSearchType searchType)
+    private void FindSelectableTiles(TileSearchType searchType, int attackCost = Constants.ATTACK_AP_COST)
     {
         ClearVisitedTiles();
         AssignCurrentTile();
@@ -143,11 +151,11 @@ public class CombatController : TileBlockerController
         {
             return;
         }
-        if (actionPoints < Constants.ATTACK_AP_COST && searchType == TileSearchType.ATTACK_ONLY)
+        if (actionPoints < attackCost && searchType == TileSearchType.ATTACK_ONLY)
         {
             return;
         }
-        if (actionPoints < Constants.ATTACK_AP_COST && searchType == TileSearchType.CHARGE_ATTACK)
+        if (actionPoints < attackCost && searchType == TileSearchType.CHARGE_ATTACK)
         {
             return;
         }
@@ -177,13 +185,13 @@ public class CombatController : TileBlockerController
                     {
                         if (searchType == TileSearchType.CHARGE_ATTACK && tile.distance <= actionPoints && ContainsEnemy(adjacentTile))
                         {
-                            AttachTile(Constants.ATTACK_AP_COST > tile.distance ? Constants.ATTACK_AP_COST : tile.distance, adjacentTile, tile);
+                            AttachTile(attackCost > tile.distance ? attackCost : tile.distance, adjacentTile, tile);
                             selectableTiles.Add(adjacentTile);
                             adjacentTile.isSelectable = true;
                         }
-                        else if (tile.distance + Constants.ATTACK_AP_COST <= actionPoints && ContainsEnemy(adjacentTile))
+                        else if (tile.distance + attackCost <= actionPoints && ContainsEnemy(adjacentTile))
                         {
-                            AttachTile(Constants.ATTACK_AP_COST, adjacentTile, tile);
+                            AttachTile(attackCost, adjacentTile, tile);
                             selectableTiles.Add(adjacentTile);
                             adjacentTile.isSelectable = true;
                         }

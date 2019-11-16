@@ -127,13 +127,7 @@ public class PlayerController : CombatController
 
     private void TargetChargeSpecialMove(Action action)
     {
-        if (selectedAction.GetType() == action.GetType()) // If we've already selected the action, unselect it.
-        {
-            FindSelectableBasicTiles();
-            action = GetComponent<ActionBasicAttack>();
-            return;
-        }
-        if (FindSelectableChargeTiles())
+        if (FindSelectableChargeTiles(action.MIN_AP_COST))
         {
             selectedAction = action;
         }
@@ -145,13 +139,7 @@ public class PlayerController : CombatController
 
     private void TargetMeleeSpecialMove(Action action)
     {
-        if (selectedAction.GetType() == action.GetType()) // If we've already selected the action, unselect it.
-        {
-            FindSelectableBasicTiles();
-            action = GetComponent<ActionBasicAttack>();
-            return;
-        }
-        if (FindSelectableAttackTiles())
+        if (FindSelectableAttackTiles(action.MIN_AP_COST))
         {
             selectedAction = action;
         }
@@ -163,6 +151,17 @@ public class PlayerController : CombatController
 
     public void ActionClicked(Action action)
     {
+        if (selectedAction.GetType() == action.GetType()) // If we've already selected the action, unselect it.
+        {
+            FindSelectableBasicTiles();
+            action = GetComponent<ActionBasicAttack>();
+            return;
+        }
+        if (action.IsCoolingDown())
+        {
+            creatureMechanics.DisplayPopup("Cooling down");
+            return;
+        }
         if (actionPoints < action.MIN_AP_COST)
         {
             creatureMechanics.DisplayPopup("Not enough AP");
