@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TileBlockerController : MonoBehaviour
 {
-
     public bool isTurn = false;
     protected Tile currentTile;
 

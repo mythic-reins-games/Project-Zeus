@@ -75,10 +75,10 @@ public class EnemyController : CombatController
     // returns 100 minus its distance from the target.
     float EvaluateMove(Tile tile, GameObject target)
     {
-        if (ContainsEnemy(tile)) {
+        if (ContainsEnemy(tile))
+        {
             return 100.0f;
         }
-        if (tile.occupant != null) return -1.0f; // Invalid choice, can't move to an occupied tile
         return 100.0f - Vector3.Distance(tile.transform.position, target.transform.position);
     }
 

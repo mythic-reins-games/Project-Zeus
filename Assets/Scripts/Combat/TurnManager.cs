@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-
     System.Random rng;
     [SerializeField] private GameObject combatCamera;
     private List<GameObject> combatants = new List<GameObject>();
@@ -101,6 +100,8 @@ public class TurnManager : MonoBehaviour
             EndDefeat();
             return true;
         }
+        ClearZonesOfControl();
+        SetZonesOfControl();
         return false;
     }
 
