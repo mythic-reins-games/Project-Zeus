@@ -10,17 +10,21 @@ public class CombatController : TileBlockerController
     [SerializeField] protected GameSignalOneObject gameSignal;
 
     protected List<Action> specialMoves = new List<Action> { };
+    protected TurnManager manager = null;
 
     protected CreatureMechanics creatureMechanics = null;
 
     protected GUIPanel panel;
     protected Action selectedAction = null;
-    protected bool isActing = false;
-    [SerializeField] protected int actionPoints = 0;
+    public bool isActing = false;
+    protected int actionPoints = 0;
+
+    [SerializeField]
+    private TileSearchType DEFAULT_ATTACK_TYPE = TileSearchType.DEFAULT;
 
     private enum TileSearchType
     {
-        // Default means unit can move at normal per-tile costs and attack at normal attack cost.
+        // Default means unit can move at normal per-tile costs and melee attack at normal attack cost.
         DEFAULT,
         // Attack only means unit can move at normal per-tile costs and attack at normal attack cost.
         // But, moves are only valid if they end in an attack.
@@ -28,9 +32,16 @@ public class CombatController : TileBlockerController
         // Charges get 'free' movement points equal to Constants.ATTACK_AP_COST before the character starts paying for movement.
         // But, moves are only valid if they end in an attack.
         CHARGE_ATTACK,
-        // Ranged attacks wil raycast to the target, 
-        RANGED_ATTACK
+        // Ranged attacks wil raycast to the target, and this move MUST end in an attack.
+        RANGED_ATTACK_ONLY,
+        // Basic ranged attack or movement.
+        DEFAULT_RANGED
     };
+
+    public bool Dead()
+    {
+        return creatureMechanics.dead;
+    }
 
     private void RegisterMoves()
     {
@@ -42,10 +53,15 @@ public class CombatController : TileBlockerController
         if (GetComponent<ActionOffhandAttack>() != null) specialMoves.Add(GetComponent<ActionOffhandAttack>());
         if (GetComponent<ActionLifeOrDeath>() != null) specialMoves.Add(GetComponent<ActionLifeOrDeath>());
         if (GetComponent<ActionMultiAttack>() != null) specialMoves.Add(GetComponent<ActionMultiAttack>());
+        if (GetComponent<ActionSnakeBite>() != null) specialMoves.Add(GetComponent<ActionSnakeBite>());
+        if (GetComponent<ActionPetrify>() != null) specialMoves.Add(GetComponent<ActionPetrify>());
+        if (GetComponent<ActionTailSweep>() != null) specialMoves.Add(GetComponent<ActionTailSweep>());
+        if (GetComponent<ActionTerrify>() != null) specialMoves.Add(GetComponent<ActionTerrify>());
     }
 
     override protected void Start()
     {
+        manager = transform.parent.GetComponent<TurnManager>();
         creatureMechanics = GetComponent<CreatureMechanics>();
         panel = Object.FindObjectOfType<GUIPanel>();
         PopupTextController.Initialize();
@@ -79,6 +95,7 @@ public class CombatController : TileBlockerController
     {
         CooldownSpecialMoves();
         actionPoints = creatureMechanics.BeginTurnAndGetMaxActionPoints();
+        if (Dead()) return;
         if (DoesGUI())
         {
             panel.SetActionPoints(actionPoints);
@@ -101,6 +118,14 @@ public class CombatController : TileBlockerController
     virtual protected bool ContainsEnemy(Tile tile)
     {
         return false;
+    }
+
+    // Defaults to false, but can be overridden by subclasses.
+    // Note that 'enemy' is from the perspective of the actor;
+    // for player-controlled, enemies are AI and vice versa.
+    virtual protected List<CombatController> AllEnemies()
+    {
+        return null;
     }
 
     private void AttachTile(int moveCostOverride, Tile adjacentTile, Tile parent)
@@ -139,9 +164,55 @@ public class CombatController : TileBlockerController
         return true;
     }
 
+    protected bool FindSelectableRangedAttackTiles(int attackCost)
+    {
+        FindSelectableTiles(TileSearchType.RANGED_ATTACK_ONLY, attackCost);
+        if (selectableTiles.Count == 0)
+        {
+            FindSelectableBasicTiles();
+            return false;
+        }
+        return true;
+    }
+
     protected void FindSelectableBasicTiles()
     {
-        FindSelectableTiles(TileSearchType.DEFAULT);
+        FindSelectableTiles(DEFAULT_ATTACK_TYPE);
+    }
+
+    private bool RangedAttackValid(Tile originTile, GameObject target)
+    {
+        Vector3 originPos = originTile.transform.position;
+        Vector3 targetPos = target.transform.position;
+        originPos.y += 0.5f;
+        targetPos.y += 0.5f;
+        RaycastHit hit;
+        if (Physics.Linecast(originPos, targetPos, out hit))
+        {
+            if (hit.collider.gameObject == target)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void AssignRangedAttackTargets(Tile tile, int attackCost)
+    {
+        if (tile.distance + attackCost > actionPoints) return;
+        if (AllEnemies() == null) return;
+        foreach (CombatController enemy in AllEnemies())
+        {
+            Tile enemyTile = enemy.currentTile;
+            if (!enemyTile.wasVisited && RangedAttackValid(tile, enemy.gameObject))
+            {
+                AttachTile(attackCost, enemyTile, tile);
+                selectableTiles.Add(enemyTile);
+                enemyTile.isSelectable = true;
+                visitedTiles.Add(enemyTile);
+                enemyTile.wasVisited = true;
+            }
+        }
     }
 
     private void FindSelectableTiles(TileSearchType searchType, int attackCost = Constants.ATTACK_AP_COST)
@@ -160,6 +231,10 @@ public class CombatController : TileBlockerController
         {
             return;
         }
+        if (actionPoints < attackCost && searchType == TileSearchType.RANGED_ATTACK_ONLY)
+        {
+            return;
+        }
 
         // TODO: Replace with PriorityQueue for performance optimization
         List<Tile> queue = new List<Tile>();
@@ -173,16 +248,23 @@ public class CombatController : TileBlockerController
             Tile tile = queue[0];
             queue.RemoveAt(0);
 
-            if (tile != currentTile && searchType == TileSearchType.DEFAULT) // Only default can select tiles that end in movement.
+            // Only default can select tiles that end in movement.
+            if (tile != currentTile && (searchType == TileSearchType.DEFAULT || searchType == TileSearchType.DEFAULT_RANGED))
             {
                 selectableTiles.Add(tile);
                 tile.isSelectable = true;
             }
 
+            // Potential ranged attacks
+            if (searchType == TileSearchType.DEFAULT_RANGED || searchType == TileSearchType.RANGED_ATTACK_ONLY)
+                AssignRangedAttackTargets(tile, attackCost);
+
             foreach (Tile adjacentTile in tile.adjacentTileList)
             {
-                if (adjacentTile.isBlocked) {
-                    if (!adjacentTile.wasVisited)
+                if (adjacentTile.isBlocked)
+                {
+                    // Potential melee attacks.
+                    if (!adjacentTile.wasVisited && searchType != TileSearchType.DEFAULT_RANGED && searchType != TileSearchType.RANGED_ATTACK_ONLY)
                     {
                         if (searchType == TileSearchType.CHARGE_ATTACK && tile.distance <= actionPoints && ContainsEnemy(adjacentTile))
                         {
@@ -201,6 +283,7 @@ public class CombatController : TileBlockerController
                     }
                     continue;
                 }
+                // Potential movement.
                 if (!adjacentTile.wasVisited || adjacentTile.IsFasterParent(tile))
                 {
                     if (adjacentTile.GetTotalDistanceWithParent(tile) <= actionPoints)
@@ -246,7 +329,7 @@ public class CombatController : TileBlockerController
         selectedAction = GetComponent<ActionBasicAttack>();
         isActing = false;
         actionPoints -= spentActionPoints;
-        if (transform.parent.GetComponent<TurnManager>().CheckCombatOver())
+        if (manager.CheckCombatOver())
         {
             isTurn = false;
             return;

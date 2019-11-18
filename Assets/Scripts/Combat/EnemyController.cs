@@ -17,6 +17,11 @@ public class EnemyController : CombatController
         return false;
     }
 
+    override protected List<CombatController> AllEnemies()
+    {
+        return manager.AllLivingPCs();
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -20,7 +20,7 @@ public class TileBlockerController : MonoBehaviour
     protected void AssignCurrentTile()
     {
         UnassignCurrentTile();
-        currentTile = GetTargetTile(gameObject);
+        currentTile = GetTargetTile();
         currentTile.isBlocked = true;
         currentTile.occupant = gameObject;
         if (isTurn)
@@ -40,11 +40,11 @@ public class TileBlockerController : MonoBehaviour
     }
 
     // Will need adjustment once there are objects that units can stand on, e.g., crates
-    private Tile GetTargetTile(GameObject target)
+    protected Tile GetTargetTile()
     {
         RaycastHit hit;
         // Return null if there is nothing below the target
-        if (!Physics.Raycast(target.transform.position, Vector3.down, out hit, Mathf.Infinity, Physics.AllLayers))
+        if (!Physics.Raycast(gameObject.transform.position, Vector3.down, out hit, Mathf.Infinity, Physics.AllLayers))
         {
             return null;
         }

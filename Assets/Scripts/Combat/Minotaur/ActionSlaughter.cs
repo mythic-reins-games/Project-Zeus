@@ -10,6 +10,11 @@ public class ActionSlaughter : ActionBasicAttack
     override public int MIN_AP_COST { get { return Constants.ATTACK_AP_COST; } }
     override public TargetType TARGET_TYPE { get { return TargetType.MELEE; } }
 
+    override public string DisplayName()
+    {
+        return "Slaughter";
+    }
+
     override protected void AttackEffects(ObjectMechanics targetMechanics)
     {
         mechanics.PerformBasicAttack(targetMechanics, false, 1.5f);

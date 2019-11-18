@@ -8,6 +8,8 @@ public class ObjectMechanics : MonoBehaviour
     protected int maxHealth = 1;
     protected int currentHealth = 1;
 
+    public bool dead = false;
+
     [SerializeField] protected GameObject healthBar;
     protected IndicatorBar healthBarScript;
 
@@ -78,6 +80,7 @@ public class ObjectMechanics : MonoBehaviour
 
     protected void Die()
     {
+        dead = true;
         GetController().UnassignCurrentTile();
         Animate("IsDying");
         Destroy(gameObject, 0.9f);

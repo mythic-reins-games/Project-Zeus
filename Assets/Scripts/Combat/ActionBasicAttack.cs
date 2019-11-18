@@ -5,7 +5,7 @@ using UnityEngine;
 // This covers the mechanics for basic attacks, and special moves that include an attack should inherit from it.
 public class ActionBasicAttack : ActionMove
 {
-    override public int MIN_AP_COST { get { return 4; } }
+    override public int MIN_AP_COST { get { return Constants.ATTACK_AP_COST; } }
 
     override protected void Start()
     {
@@ -50,7 +50,6 @@ public class ActionBasicAttack : ActionMove
     {
         mechanics.PerformBasicAttack(targetStats);
     }
-
 
     void AttackPhase()
     {

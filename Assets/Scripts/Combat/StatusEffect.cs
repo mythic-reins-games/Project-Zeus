@@ -12,7 +12,10 @@ public class StatusEffect
         KNOCKDOWN,
         RAGE,
         CANNOT_DIE,
-        EMPOWER
+        EMPOWER,
+        BLINDED,
+        PETRIFIED,
+        POISONED,
     };
 
     const string LYING_DOWN = "IsLyingDown";
@@ -68,6 +71,14 @@ public class StatusEffect
                 break;
             case EffectType.KNOCKDOWN:
                 ap = 0;
+                target.DisplayPopup("Knockdown");
+                break;
+            case EffectType.PETRIFIED:
+                ap = 0;
+                target.DisplayPopup("Petrified");
+                break;
+            case EffectType.POISONED:
+                target.ReceiveDamage(5);
                 break;
         }
         roundsRemaining--;

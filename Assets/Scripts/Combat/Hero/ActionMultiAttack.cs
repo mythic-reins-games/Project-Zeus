@@ -11,6 +11,11 @@ public class ActionMultiAttack : ActionBasicAttack
     override public TargetType TARGET_TYPE { get { return TargetType.MELEE; } }
     override protected float ATTACK_DURATION { get { return 2.0f; } }
 
+    override public string DisplayName()
+    {
+        return "Multi Attack";
+    }
+
     IEnumerator AttackAfterDelay(float time, ObjectMechanics targetMechanics)
     {
         yield return new WaitForSeconds(time);

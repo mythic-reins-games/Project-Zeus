@@ -23,6 +23,10 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
     Text staminaValueText = null;
     Text lifeValueText = null;
     Text nameValueText = null;
+    Button button0 = null;
+    Button button1 = null;
+    Button button2 = null;
+    Button button3 = null;
 
     private void OnEnable()
     {
@@ -49,6 +53,10 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
         staminaValueText = GameObject.Find("StaminaValueText").GetComponent<Text>();
         lifeValueText = GameObject.Find("LifeValueText").GetComponent<Text>();
         nameValueText = GameObject.Find("NameValueText").GetComponent<Text>();
+        button0 = GameObject.Find("Button0").GetComponent<Button>();
+        button1 = GameObject.Find("Button1").GetComponent<Button>();
+        button2 = GameObject.Find("Button2").GetComponent<Button>();
+        button3 = GameObject.Find("Button3").GetComponent<Button>();
 
         gameSignalEvent = new OneObjectEvent();
         gameSignalEvent.AddListener(SetConcentrationSlider);
@@ -59,6 +67,13 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
         if (Input.GetKey("escape"))
         {
             Application.Quit();
+        }
+        if (GetActivePlayerController() != null) {
+            string[] names = GetActivePlayerController().AbilityNames();
+            button0.GetComponentInChildren<Text>().text = names[0];
+            button1.GetComponentInChildren<Text>().text = names[1];
+            button2.GetComponentInChildren<Text>().text = names[2];
+            button3.GetComponentInChildren<Text>().text = names[3];
         }
     }
 
@@ -82,13 +97,28 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
         }
     }
 
-    public void EndTurnButtonClick()
+    private PlayerController GetActivePlayerController()
     {
         PlayerController[] controllers = Object.FindObjectsOfType<PlayerController>();
         foreach (PlayerController controller in controllers)
         {
-            controller.EndTurnButtonClick();
+            if (controller.isTurn && !controller.isActing) return controller;
         }
+        return null;
+    }
+
+    public void ButtonClick(int buttonId)
+    {
+        PlayerController controller = GetActivePlayerController();
+        if (controller == null) return;
+        controller.AbilityButtonClick(buttonId);
+    }
+
+    public void EndTurnButtonClick()
+    {
+        PlayerController controller = GetActivePlayerController();
+        if (controller == null) return;
+        controller.EndTurnButtonClick();
     }
 
     public void SetActionPoints(int amount)

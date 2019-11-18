@@ -9,6 +9,11 @@ public class ActionRegenerate : ActionSelfCast
     override public int CONCENTRATION_COST { get { return 2; } }
     override public int MIN_AP_COST { get { return Constants.QUICK_AP_COST; } }
 
+    override public string DisplayName()
+    {
+        return "Regenerate";
+    }
+
     override protected void ApplySelfStatusEffect()
     {
         new StatusEffect(

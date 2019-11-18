@@ -35,11 +35,11 @@ public class CreatureMechanics : ObjectMechanics
         rng = new System.Random();
         healthBarScript = healthBar.GetComponent<IndicatorBar>();
         staminaBarScript = staminaBar.GetComponent<IndicatorBar>();
-        maxHealth = endurance + (strength / 5) + 5;
-        maxStamina = endurance + 10;
+        maxHealth = endurance * 5 + strength * 5 + 10;
+        maxStamina = endurance * 10 + 10;
         currentStamina = maxStamina;
         currentHealth = maxHealth;
-        maxConcentration = GetEffectiveIntelligence() * 2;
+        maxConcentration = GetEffectiveIntelligence() * 10;
         base.Start();
     }
 
@@ -51,11 +51,13 @@ public class CreatureMechanics : ObjectMechanics
 
     public int BeginTurnAndGetMaxActionPoints()
     {
-        int ap = 5 + GetEffectiveSpeed() / 10;
+        int ap = 5 + GetEffectiveSpeed();
         foreach (StatusEffect effect in statusEffects)
         {
             ap = effect.PerRoundEffect(ap);
         }
+        // If dead from PerRoundEffect (like poison), take no actions.
+        if (dead) return 0;
         statusEffects.RemoveAll(e => e.expired);
         return ap;
     }
@@ -98,6 +100,21 @@ public class CreatureMechanics : ObjectMechanics
         return (float)currentStamina / (float)maxStamina;
     }
 
+    // Poison damages health but not stamina.
+    public void ReceivePureDamage(int amount)
+    {
+        amount = (int)((float)amount * DefensiveDamageMultiplier());
+        DisplayPopup(amount + " poison");
+        if (!firstBlood)
+        {
+            firstBlood = true;
+            BoostConcentration();
+        }
+        currentHealth -= amount;
+        if (currentHealth <= 0 && StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.CANNOT_DIE))
+            currentHealth = 1;
+    }
+
     // Healing heals health but not stamina.
     public void ReceiveHealing(int amount)
     {
@@ -120,6 +137,7 @@ public class CreatureMechanics : ObjectMechanics
 
     override public void ReceiveDamage(int amount)
     {
+        amount = (int)((float)amount * DefensiveDamageMultiplier());
         DisplayPopup(amount + " damage");
         if (currentStamina >= amount)
         {
@@ -149,16 +167,32 @@ public class CreatureMechanics : ObjectMechanics
         }
     }
 
+    protected int GetDodgeModifiers()
+    {
+        int m = 0;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.EMPOWER))
+            m += 20;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.BLINDED))
+            m -= 30;
+        return m;
+    }
+
+    protected int GetHitModifiers()
+    {
+        int m = 0;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.BLINDED))
+            m -= 30;
+        return m;
+    }
+
     public int HitChance()
     {
-        return 75 + (GetEffectiveAgility() / 4);
+        return 80 + GetHitModifiers() + (GetEffectiveAgility() * 2);
     }
 
     override public int DodgeChance()
     {
-        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.EMPOWER))
-            return 20 + (GetEffectiveAgility() / 2);
-        return 0 + (GetEffectiveAgility() / 2);
+        return GetDodgeModifiers() + (GetEffectiveAgility() * 5);
     }
 
     private bool PercentRoll(int percent)
@@ -166,22 +200,24 @@ public class CreatureMechanics : ObjectMechanics
         return rng.Next(0, 99) < percent;
     }
 
-    public int MaxDamage()
+    protected int GetDamageModifiers()
     {
+        int m = 0;
         if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.RAGE))
-            return 21 + GetEffectiveStrength() / 2;
+            m += 10;
         if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.EMPOWER))
-            return 16 + GetEffectiveStrength() / 2;
-        return 11 + GetEffectiveStrength() / 2;
+            m += 5;
+        return m;
     }
 
-    public int MinDamage()
+    virtual public int MaxDamage()
     {
-        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.RAGE))
-            return 11 + GetEffectiveStrength() / 2;
-        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.EMPOWER))
-            return 6 + GetEffectiveStrength() / 2;
-        return 1 + GetEffectiveStrength() / 2;
+        return 10 + GetDamageModifiers() + GetEffectiveStrength() * 4;
+    }
+
+    virtual public int MinDamage()
+    {
+        return 2 + GetDamageModifiers() + GetEffectiveStrength() * 4;
     }
 
     // Damage from a basic attack is 1-11 plus half of strength.
@@ -190,14 +226,21 @@ public class CreatureMechanics : ObjectMechanics
         return rng.Next(MinDamage(), MaxDamage());
     }
 
-    public int BonusRearDamageMin()
+    virtual public int BonusRearDamageMin()
     {
-        return 1 + GetEffectiveAgility() / 4;
+        return 2 + GetEffectiveAgility() * 2;
     }
 
-    public int BonusRearDamageMax()
+    virtual public int BonusRearDamageMax()
     {
-        return 5 + GetEffectiveAgility() / 4;
+        return 4 + GetEffectiveAgility() * 2;
+    }
+
+    private float DefensiveDamageMultiplier()
+    {
+        float m = 1.0f;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.PETRIFIED)) m /= 2.0f;
+        return m;
     }
 
     // Bonus damage from a rear attack is 1-5 plus a quarter of agility.
@@ -225,15 +268,17 @@ public class CreatureMechanics : ObjectMechanics
 
     private bool IsVulnerable(ObjectMechanics target)
     {
+        if (StatusEffect.HasEffectType(ref target.statusEffects, StatusEffect.EffectType.PETRIFIED)) return false;
         if (!target.canBeBackstabbed) return false;
         if (IsBackstab(target)) return true;
         if (StatusEffect.HasEffectType(ref target.statusEffects, StatusEffect.EffectType.KNOCKDOWN)) return true;
+        if (StatusEffect.HasEffectType(ref target.statusEffects, StatusEffect.EffectType.BLINDED)) return true;
         return false;
     }
 
     public int CritChance()
     {
-        return GetEffectiveIntelligence() / 5;
+        return GetEffectiveIntelligence() * 5;
     }
 
     private bool IsCrit(ObjectMechanics target)
@@ -262,7 +307,7 @@ public class CreatureMechanics : ObjectMechanics
 
     private void BoostConcentration()
     {
-        currentConcentration += GetEffectiveIntelligence() / 3;
+        currentConcentration += GetEffectiveIntelligence() * 2;
     }
 
     private bool HitAndDamage(ObjectMechanics target, bool isConcentrationEligible, float damageMultiplier)

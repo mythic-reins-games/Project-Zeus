@@ -19,6 +19,7 @@ public class Action : MonoBehaviour
         SELF_ONLY,
         CHARGE,
         MELEE,
+        RANGED,
     };
 
     // 0 means ready to cast, gets set to COOLDOWN when special ability used; decremented by 1 each turn.
@@ -45,6 +46,11 @@ public class Action : MonoBehaviour
         currentPhase = Phase.NONE;
         EndAction();
         yield break;
+    }
+
+    virtual public string DisplayName()
+    {
+        return "";
     }
 
     public void AdvanceCooldown()
@@ -77,6 +83,10 @@ public class Action : MonoBehaviour
 
     protected void EndAction()
     {
+        // Round rotation to nearest 90 degrees.
+        Quaternion rot = transform.rotation;
+        rot.y = Mathf.Round(rot.y / 0.7071f) * 0.7071f;
+        transform.rotation = rot;
         mechanics.currentConcentration -= CONCENTRATION_COST;
         combatController.EndAction(spentActionPoints);
         inProgress = false;
