@@ -95,6 +95,8 @@ public class CombatController : TileBlockerController
     {
         CooldownSpecialMoves();
         actionPoints = creatureMechanics.BeginTurnAndGetMaxActionPoints();
+        // creatureMechanics.BeginTurn... can kill a unit (example: poison, burning), so we need to check
+        // for death after beginning turn.
         if (Dead()) return;
         if (DoesGUI())
         {

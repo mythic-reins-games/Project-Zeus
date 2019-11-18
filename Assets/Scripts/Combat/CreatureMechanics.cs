@@ -55,9 +55,9 @@ public class CreatureMechanics : ObjectMechanics
         foreach (StatusEffect effect in statusEffects)
         {
             ap = effect.PerRoundEffect(ap);
+            // The PerRoundEffect may have killed the unit (poison, burning).
+            if (dead) return 0;
         }
-        // If dead from PerRoundEffect (like poison), take no actions.
-        if (dead) return 0;
         statusEffects.RemoveAll(e => e.expired);
         return ap;
     }
