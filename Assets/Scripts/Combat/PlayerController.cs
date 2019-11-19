@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 // PlayerControllers are intended to be a fairly thin interface between CombatController and
 // the UI for Player-Controlled characters.
@@ -17,15 +19,6 @@ public class PlayerController : CombatController
      };
 
     private Tile hoverTile = null;
-    private TurnManager manager = null;
-    private Action selectedAction = null;
-
-    protected override void Start()
-    {
-        manager = Object.FindObjectOfType<TurnManager>();
-        selectedAction = GetComponent<ActionBasicAttack>();
-        base.Start();
-    }
 
     void Update()
     {
@@ -53,6 +46,11 @@ public class PlayerController : CombatController
     {
         if (tile.occupant == null) return false;
         return tile.HasNPC() || tile.HasDestructibleBlocker();
+    }
+
+    override protected List<CombatController> AllEnemies()
+    {
+        return manager.AllLivingEnemies();
     }
 
     private Tile GetMouseTile()
@@ -112,6 +110,16 @@ public class PlayerController : CombatController
         }
     }
 
+    public string[] AbilityNames()
+    {
+        string[] names = new string[specialMoves.Count];
+        for (int i = 0; i < specialMoves.Count; i++)
+        {
+            names[i] = specialMoves[i].DisplayName();
+        }
+        return names;
+    }
+
     public void EndTurnButtonClick()
     {
         if (isTurn && !isActing)
@@ -127,13 +135,7 @@ public class PlayerController : CombatController
 
     private void TargetChargeSpecialMove(Action action)
     {
-        if (selectedAction.GetType() == action.GetType()) // If we've already selected the action, unselect it.
-        {
-            FindSelectableBasicTiles();
-            action = GetComponent<ActionBasicAttack>();
-            return;
-        }
-        if (FindSelectableChargeTiles())
+        if (FindSelectableChargeTiles(action.MIN_AP_COST))
         {
             selectedAction = action;
         }
@@ -145,13 +147,19 @@ public class PlayerController : CombatController
 
     private void TargetMeleeSpecialMove(Action action)
     {
-        if (selectedAction.GetType() == action.GetType()) // If we've already selected the action, unselect it.
+        if (FindSelectableAttackTiles(action.MIN_AP_COST))
         {
-            FindSelectableBasicTiles();
-            action = GetComponent<ActionBasicAttack>();
-            return;
+            selectedAction = action;
         }
-        if (FindSelectableAttackTiles())
+        else
+        {
+            creatureMechanics.DisplayPopup("Nothing in range");
+        }
+    }
+
+    private void TargetRangedSpecialMove(Action action)
+    {
+        if (FindSelectableRangedAttackTiles(action.MIN_AP_COST))
         {
             selectedAction = action;
         }
@@ -163,6 +171,17 @@ public class PlayerController : CombatController
 
     public void ActionClicked(Action action)
     {
+        if (selectedAction.GetType() == action.GetType()) // If we've already selected the action, unselect it.
+        {
+            FindSelectableBasicTiles();
+            selectedAction = GetComponent<ActionBasicAttack>();
+            return;
+        }
+        if (action.IsCoolingDown())
+        {
+            creatureMechanics.DisplayPopup("Cooling down");
+            return;
+        }
         if (actionPoints < action.MIN_AP_COST)
         {
             creatureMechanics.DisplayPopup("Not enough AP");
@@ -184,6 +203,17 @@ public class PlayerController : CombatController
             case Action.TargetType.MELEE:
                 TargetMeleeSpecialMove(action);
                 break;
+            case Action.TargetType.RANGED:
+                TargetRangedSpecialMove(action);
+                break;
+        }
+    }
+
+    public void AbilityButtonClick(int buttonId)
+    {
+        if (specialMoves.Count > buttonId)
+        {
+            ActionClicked(specialMoves[buttonId]);
         }
     }
 

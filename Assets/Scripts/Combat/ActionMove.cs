@@ -42,15 +42,18 @@ public class ActionMove : Action
         {
             Tile tile = path.Peek();
             Vector3 target = tile.transform.position;
-            
+
             target.y += 0.08f;
 
-            if (Vector3.Distance(transform.position, target) >= 0.1f)
+            CharacterController characterController = GetComponent<CharacterController>();
+
+            // transform.position = new Vector3(transform.position.x, target.y + 0.08f, transform.position.z);
+            if (Vector3.Distance(transform.position, target) >= 0.12f)
             {
-                CharacterController characterController = GetComponent<CharacterController>();
                 Vector3 direction = CalculateDirection(target);
+                transform.forward = new Vector3(direction.x, 0f, direction.z);
+                direction = CalculateDirection(target);
                 Vector3 velocity = SetHorizontalVelocity(direction);
-                transform.forward = direction;
                 characterController.Move(velocity * Time.deltaTime);
             }
             else

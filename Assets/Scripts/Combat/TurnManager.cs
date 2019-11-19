@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-
     System.Random rng;
     [SerializeField] private GameObject combatCamera;
     private List<GameObject> combatants = new List<GameObject>();
@@ -101,36 +100,44 @@ public class TurnManager : MonoBehaviour
             EndDefeat();
             return true;
         }
+        ClearZonesOfControl();
+        SetZonesOfControl();
         return false;
     }
 
-    private int CountPCs()
+    public List<CombatController> AllLivingEnemies()
     {
-        int count = 0;
+        List<CombatController> r = new List<CombatController>();
         foreach (GameObject pick in combatants)
         {
             if (pick == null) continue;
-            if (pick.GetComponent<PlayerController>() != null)
+            if (pick.GetComponent<EnemyController>() != null && pick.GetComponent<EnemyController>().Dead() == false)
             {
-                count++;
+                r.Add(pick.GetComponent<EnemyController>());
             }
         }
-        return count;
+        return r;
+    }
+
+    public List<CombatController> AllLivingPCs()
+    {
+        List<CombatController> r = new List<CombatController>();
+        foreach (GameObject pick in combatants)
+        {
+            if (pick == null) continue;
+            if (pick.GetComponent<PlayerController>() != null && pick.GetComponent<PlayerController>().Dead() == false)
+            {
+                r.Add(pick.GetComponent<PlayerController>());
+            }
+        }
+        return r;
     }
 
     // Picks an arbitrary/random Player controlled character
     public GameObject PickArbitraryPC()
     {
-        int randomChoice = rng.Next(0, CountPCs());
-        foreach (GameObject pick in combatants)
-        {
-            if (pick == null) continue;
-            if (pick.GetComponent<PlayerController>() != null)
-            {
-                if (randomChoice == 0) return pick;
-                randomChoice--;
-            }
-        }
+        List<CombatController> pcs = AllLivingPCs();
+        if (pcs.Count > 0) return pcs[rng.Next(pcs.Count)].gameObject;
         return null;
     }
 

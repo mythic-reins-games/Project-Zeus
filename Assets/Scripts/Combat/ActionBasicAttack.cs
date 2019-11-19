@@ -5,6 +5,8 @@ using UnityEngine;
 // This covers the mechanics for basic attacks, and special moves that include an attack should inherit from it.
 public class ActionBasicAttack : ActionMove
 {
+    override public int MIN_AP_COST { get { return Constants.ATTACK_AP_COST; } }
+
     override protected void Start()
     {
         // Save one tile at the end of the movement path:
@@ -38,7 +40,7 @@ public class ActionBasicAttack : ActionMove
 
     void ResolveAttack(GameObject target)
     {
-        spentActionPoints += Constants.ATTACK_AP_COST;
+        spentActionPoints += MIN_AP_COST;
         ObjectMechanics targetMechanics = target.GetComponent<CreatureMechanics>();
         if (targetMechanics == null) targetMechanics = target.GetComponent<ObjectMechanics>();
         AttackEffects(targetMechanics);
@@ -48,7 +50,6 @@ public class ActionBasicAttack : ActionMove
     {
         mechanics.PerformBasicAttack(targetStats);
     }
-
 
     void AttackPhase()
     {

@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Double-attack melee attack.
-public class ActionSlaughter : ActionBasicAttack
+// Double-attack move.
+public class ActionMultiAttack : ActionBasicAttack
 {
-    override public int CONCENTRATION_COST { get { return 4; } }
+    override public int COOLDOWN { get { return 2; } }
+    override public int CONCENTRATION_COST { get { return 6; } }
     override public int MIN_AP_COST { get { return Constants.ATTACK_AP_COST; } }
     override public TargetType TARGET_TYPE { get { return TargetType.MELEE; } }
     override protected float ATTACK_DURATION { get { return 2.0f; } }
+
+    override public string DisplayName()
+    {
+        return "Multi Attack";
+    }
 
     IEnumerator AttackAfterDelay(float time, ObjectMechanics targetMechanics)
     {
