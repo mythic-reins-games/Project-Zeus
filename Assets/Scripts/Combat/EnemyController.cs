@@ -22,6 +22,11 @@ public class EnemyController : CombatController
         return manager.AllLivingPCs();
     }
 
+    override public bool IsEnemy()
+    {
+        return true;
+    }
+
     // Update is called once per frame
     void Update()
     {

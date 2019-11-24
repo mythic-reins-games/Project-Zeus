@@ -3,25 +3,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class TurnManager : MonoBehaviour
 {
     #region Turn Manager Events
 
     //TODO: Maybe replace these events with the Signals Architecture.
-    public delegate void SetUpPlayersDelegate(IReadOnlyList<GameObject> players);
+    public delegate void SetUpPlayersDelegate(IReadOnlyList<CombatController> players);
     public delegate void TurnBeginDelegate(int indexCurrentPlayer);
     public static event SetUpPlayersDelegate OnSetUpPlayers = players => { };
     public static event TurnBeginDelegate OnTurnBegin = index => { };
     
     #endregion
     
-    
     System.Random rng;
     [SerializeField] private GameObject combatCamera;
     
-    //TODO: Why not change to List<CombatController> instead gameObjects?
-    private List<GameObject> combatants = new List<GameObject>();
+    private List<CombatController> combatants = new List<CombatController>();
     private int moveIdx = -1;
     private bool enemyTurn = false;
     private bool frozen = false;
@@ -33,15 +32,7 @@ public class TurnManager : MonoBehaviour
         panel = GameObject.FindObjectOfType<GUIPanel>();
         rng = new System.Random();
         
-        //TODO: Why not GetComponentsInChildren<CombatController>() ??
-        foreach (Transform child in transform)
-        {
-            if (child != transform)
-            {
-                combatants.Add(child.gameObject);
-            }
-        }
-        
+        combatants = GetComponentsInChildren<CombatController>().ToList();
         combatants.Sort(new SortCombatantDescendant());
         OnSetUpPlayers.Invoke(combatants);
     }
@@ -53,19 +44,20 @@ public class TurnManager : MonoBehaviour
         return combatants[moveIdx].GetComponent<CreatureMechanics>();
     }
 
+    // Also sets enemyTurn appropriately.
     CombatController GetCurrentCombatController()
     {
         if (moveIdx == -1) return null;
         if (combatants[moveIdx] == null) return null;
-        if (combatants[moveIdx].GetComponent<PlayerController>() != null)
+        if (combatants[moveIdx].IsPC() && !combatants[moveIdx].Dead())
         {
             enemyTurn = false;
-            return combatants[moveIdx].GetComponent<PlayerController>();
+            return combatants[moveIdx];
         }
-        if (combatants[moveIdx].GetComponent<EnemyController>() != null)
+        if (combatants[moveIdx].IsEnemy() && !combatants[moveIdx].Dead())
         {
             enemyTurn = true;
-            return combatants[moveIdx].GetComponent<EnemyController>();
+            return combatants[moveIdx];
         }
         return null;
     }
@@ -88,20 +80,20 @@ public class TurnManager : MonoBehaviour
 
     bool EnemyWon()
     {
-        foreach (GameObject pick in combatants)
+        foreach (CombatController pick in combatants)
         {
             if (pick == null) continue;
-            if (pick.GetComponent<PlayerController>() != null) return false;
+            if (pick.IsPC() && !pick.Dead()) return false;
         }
         return true;
     }
 
     bool PlayerWon()
     {
-        foreach (GameObject pick in combatants)
+        foreach (CombatController pick in combatants)
         {
             if (pick == null) continue;
-            if (pick.GetComponent<EnemyController>() != null) return false;
+            if (pick.IsEnemy() && !pick.Dead()) return false;
         }
         return true;
     }
@@ -126,12 +118,12 @@ public class TurnManager : MonoBehaviour
     public List<CombatController> AllLivingEnemies()
     {
         List<CombatController> r = new List<CombatController>();
-        foreach (GameObject pick in combatants)
+        foreach (CombatController pick in combatants)
         {
             if (pick == null) continue;
-            if (pick.GetComponent<EnemyController>() != null && pick.GetComponent<EnemyController>().Dead() == false)
+            if (pick.IsEnemy() && !pick.Dead())
             {
-                r.Add(pick.GetComponent<EnemyController>());
+                r.Add(pick);
             }
         }
         return r;
@@ -140,12 +132,12 @@ public class TurnManager : MonoBehaviour
     public List<CombatController> AllLivingPCs()
     {
         List<CombatController> r = new List<CombatController>();
-        foreach (GameObject pick in combatants)
+        foreach (CombatController pick in combatants)
         {
             if (pick == null) continue;
-            if (pick.GetComponent<PlayerController>() != null && pick.GetComponent<PlayerController>().Dead() == false)
+            if (pick.IsPC() && !pick.Dead())
             {
-                r.Add(pick.GetComponent<PlayerController>());
+                r.Add(pick);
             }
         }
         return r;
@@ -169,14 +161,12 @@ public class TurnManager : MonoBehaviour
 
     void SetZonesOfControl()
     {
-        foreach (GameObject combatant in combatants)
+        foreach (CombatController combatant in combatants)
         {
             if (combatant == null) continue;
-            CombatController opponent = null;
-            if (enemyTurn) opponent = combatant.GetComponent<PlayerController>();
-            if (!enemyTurn) opponent = combatant.GetComponent<EnemyController>();
-            if (opponent == null) continue;
-            opponent.AssignZonesOfControl();
+            if (enemyTurn && combatant.IsEnemy()) continue;
+            if (!enemyTurn && combatant.IsPC()) continue;
+            combatant.AssignZonesOfControl();
         }
     }
 

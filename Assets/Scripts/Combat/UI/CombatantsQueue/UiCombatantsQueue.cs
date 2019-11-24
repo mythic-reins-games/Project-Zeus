@@ -5,13 +5,13 @@ namespace Battle.Ui.CombatantsQueue
 {
     public class UiCombatantsQueue : MonoBehaviour
     {
-        IReadOnlyList<GameObject> _players;
+        IReadOnlyList<CombatController> _players;
         [SerializeField] UiCombatantWindow[] windows;
 
         void Awake() => Subscribe();
         void OnDestroy() => UnSubscribe();
 
-        void OnSetUpPlayers(IReadOnlyList<GameObject> players) => _players = players;
+        void OnSetUpPlayers(IReadOnlyList<CombatController> players) => _players = players;
 
         void OnTurnBegin(int index) => UpdateView(index);
 

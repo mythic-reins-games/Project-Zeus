@@ -32,6 +32,11 @@ public class PlayerController : CombatController
         }
     }
 
+    override public bool IsPC()
+    {
+        return true;
+    }
+
     override public bool IsStaticBlocker()
     {
         return false;

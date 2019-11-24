@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class SortCombatantDescendant : IComparer<GameObject>
+public class SortCombatantDescendant : IComparer<CombatController>
 {
-    //TODO: Using GameObject to make it compatible with TurnManager
-    public int Compare(GameObject x, GameObject y)
+    public int Compare(CombatController x, CombatController y)
     {
         var xMechanic = x?.GetComponent<CreatureMechanics>();
         var yMechanic = y?.GetComponent<CreatureMechanics>();

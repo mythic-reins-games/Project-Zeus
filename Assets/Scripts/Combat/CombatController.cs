@@ -43,6 +43,16 @@ public class CombatController : TileBlockerController
         return creatureMechanics.dead;
     }
 
+    virtual public bool IsEnemy()
+    {
+        return false;
+    }
+
+    virtual public bool IsPC()
+    {
+        return false;
+    }
+
     private void RegisterMoves()
     {
         if (GetComponent<ActionRegenerate>() != null) specialMoves.Add(GetComponent<ActionRegenerate>());
