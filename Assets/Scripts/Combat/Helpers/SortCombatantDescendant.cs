@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SortCombatantDescendant : IComparer<GameObject>
 {
+    //TODO: Using GameObject to make it compatible with TurnManager
     public int Compare(GameObject x, GameObject y)
     {
         var xMechanic = x?.GetComponent<CreatureMechanics>();

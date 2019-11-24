@@ -8,6 +8,7 @@ public class TurnManager : MonoBehaviour
 {
     #region Turn Manager Events
 
+    //TODO: Maybe replace these events with the Signals Architecture.
     public delegate void SetUpPlayersDelegate(IReadOnlyList<GameObject> players);
     public delegate void TurnBeginDelegate(int indexCurrentPlayer);
     public static event SetUpPlayersDelegate OnSetUpPlayers = players => { };
@@ -18,6 +19,8 @@ public class TurnManager : MonoBehaviour
     
     System.Random rng;
     [SerializeField] private GameObject combatCamera;
+    
+    //TODO: Why not change to List<CombatController> instead gameObjects?
     private List<GameObject> combatants = new List<GameObject>();
     private int moveIdx = -1;
     private bool enemyTurn = false;
@@ -29,6 +32,8 @@ public class TurnManager : MonoBehaviour
     {
         panel = GameObject.FindObjectOfType<GUIPanel>();
         rng = new System.Random();
+        
+        //TODO: Why not GetComponentsInChildren<CombatController>() ??
         foreach (Transform child in transform)
         {
             if (child != transform)
