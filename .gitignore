@@ -72,6 +72,8 @@ crashlytics-build.properties
 
 # Icon must end with two \r
 Icon
+# Rider Files
+.idea/*
 
 # Thumbnails
 ._*
