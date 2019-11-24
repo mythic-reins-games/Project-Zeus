@@ -12,6 +12,11 @@ public class CreatureMechanics : ObjectMechanics
     [SerializeField] GameObject staminaBar;
     IndicatorBar staminaBarScript;
 
+    // TODO:
+    // Create a Scriptable Object to hold the "Shared Data State" among all 
+    // instances of this class. Then setup the default values inside the scriptable object.
+    // The Attributes below are runtime data state that may change during the course of a battle.
+    // It's very critical to not tangle runtime state with shared state.
     [SerializeField] private int strength = 10;
     [SerializeField] private int speed = 10;
     [SerializeField] private int endurance = 10;
@@ -26,6 +31,8 @@ public class CreatureMechanics : ObjectMechanics
     public int currentConcentration = 0;
 
     private bool firstBlood = false;
+
+    public int Speed => speed;
 
     override public bool canBeBackstabbed { get { return true; } }
 

@@ -6,6 +6,16 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
+    #region Turn Manager Events
+
+    public delegate void SetUpPlayersDelegate(IReadOnlyList<GameObject> players);
+    public delegate void TurnBeginDelegate(int indexCurrentPlayer);
+    public static event SetUpPlayersDelegate OnSetUpPlayers = players => { };
+    public static event TurnBeginDelegate OnTurnBegin = index => { };
+    
+    #endregion
+    
+    
     System.Random rng;
     [SerializeField] private GameObject combatCamera;
     private List<GameObject> combatants = new List<GameObject>();
@@ -26,6 +36,9 @@ public class TurnManager : MonoBehaviour
                 combatants.Add(child.gameObject);
             }
         }
+        
+        combatants.Sort(new SortCombatantDescendant());
+        OnSetUpPlayers.Invoke(combatants);
     }
 
     CreatureMechanics GetCurrentCreatureMechanics()
@@ -169,6 +182,7 @@ public class TurnManager : MonoBehaviour
         SetZonesOfControl();
         controller.BeginTurn();
         DisplayCurrentCreatureStats();
+        OnTurnBegin.Invoke(moveIdx);
     }
 
     public void DisplayCreatureStats(GameObject creature)
