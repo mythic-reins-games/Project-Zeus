@@ -341,11 +341,6 @@ public class CombatController : TileBlockerController
         selectedAction = GetComponent<ActionBasicAttack>();
         isActing = false;
         actionPoints -= spentActionPoints;
-        if (manager.CheckCombatOver())
-        {
-            isTurn = false;
-            return;
-        }
         FindSelectableBasicTiles();
         if (selectableTiles.Count <= 0)
         {

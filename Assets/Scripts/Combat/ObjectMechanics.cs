@@ -78,7 +78,7 @@ public class ObjectMechanics : MonoBehaviour
         return null;
     }
 
-    protected void Die()
+    protected virtual void Die()
     {
         dead = true;
         GetController().UnassignCurrentTile();

@@ -98,6 +98,7 @@ public class TurnManager : MonoBehaviour
         return true;
     }
 
+    // Run whenever a creature dies.
     public bool CheckCombatOver()
     {
         if (PlayerWon())
@@ -110,6 +111,7 @@ public class TurnManager : MonoBehaviour
             EndDefeat();
             return true;
         }
+        // Dead units should cease exerting zone of control.
         ClearZonesOfControl();
         SetZonesOfControl();
         return false;

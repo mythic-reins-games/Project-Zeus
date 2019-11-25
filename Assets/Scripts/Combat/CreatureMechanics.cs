@@ -283,6 +283,12 @@ public class CreatureMechanics : ObjectMechanics
         return false;
     }
 
+    override protected void Die()
+    {
+        base.Die();
+        GameObject.FindObjectOfType<TurnManager>().CheckCombatOver();
+    }
+
     public int CritChance()
     {
         return GetEffectiveIntelligence() * 5;
