@@ -66,7 +66,8 @@ public class TurnManager : MonoBehaviour
     {
         MusicManager m = GameObject.Find("MusicManager").GetComponent<MusicManager>();
         gameOver = true;
-        GetCurrentCombatController().isTurn = false;
+        if (GetCurrentCombatController() != null)
+            GetCurrentCombatController().isTurn = false;
         m.SetDefeat();
     }
 
@@ -74,7 +75,8 @@ public class TurnManager : MonoBehaviour
     {
         MusicManager m = GameObject.Find("MusicManager").GetComponent<MusicManager>();
         gameOver = true;
-        GetCurrentCombatController().isTurn = false;
+        if (GetCurrentCombatController() != null)
+            GetCurrentCombatController().isTurn = false;
         m.SetVictory();
     }
 
