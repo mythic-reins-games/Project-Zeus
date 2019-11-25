@@ -2,9 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Mixin for validating actions in PlayerController and EnemyController
+// Mixin for special moves used in PlayerController and EnemyController
 public class ActionValidator : CombatController
 {
+
+    private void RegisterMoves()
+    {
+        if (GetComponent<ActionBullRush>() != null) specialMoves.Add(GetComponent<ActionBullRush>());
+        if (GetComponent<ActionRage>() != null) specialMoves.Add(GetComponent<ActionRage>());
+        if (GetComponent<ActionSlaughter>() != null) specialMoves.Add(GetComponent<ActionSlaughter>());
+        if (GetComponent<ActionRegenerate>() != null) specialMoves.Add(GetComponent<ActionRegenerate>());
+        if (GetComponent<ActionEmpower>() != null) specialMoves.Add(GetComponent<ActionEmpower>());
+        if (GetComponent<ActionMultiAttack>() != null) specialMoves.Add(GetComponent<ActionMultiAttack>());
+        if (GetComponent<ActionOffhandAttack>() != null) specialMoves.Add(GetComponent<ActionOffhandAttack>());
+        if (GetComponent<ActionLifeOrDeath>() != null) specialMoves.Add(GetComponent<ActionLifeOrDeath>());
+        if (GetComponent<ActionPetrify>() != null) specialMoves.Add(GetComponent<ActionPetrify>());
+        if (GetComponent<ActionSnakeBite>() != null) specialMoves.Add(GetComponent<ActionSnakeBite>());
+        if (GetComponent<ActionTerrify>() != null) specialMoves.Add(GetComponent<ActionTerrify>());
+        if (GetComponent<ActionTailSweep>() != null) specialMoves.Add(GetComponent<ActionTailSweep>());
+    }
+
+    override protected void Start()
+    {
+        RegisterMoves();
+        base.Start();
+    }
 
     private bool ActivateSelfSpecialMove(Action action, bool displayReason)
     {

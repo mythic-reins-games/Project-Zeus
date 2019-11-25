@@ -323,6 +323,14 @@ public class CreatureMechanics : ObjectMechanics
         currentConcentration += GetEffectiveIntelligence() * 2;
     }
 
+    private float HeightAdvantageMultiplier(ObjectMechanics target)
+    {
+        float relativeHeight = transform.position.y - target.transform.position.y;
+        if (relativeHeight > 0.25f) return 1.2f;
+        if (relativeHeight > 0f) return 1.1f;
+        return 1.0f;
+    }
+
     private bool HitAndDamage(ObjectMechanics target, bool isConcentrationEligible, float damageMultiplier)
     {
         if (isConcentrationEligible)
@@ -361,6 +369,7 @@ public class CreatureMechanics : ObjectMechanics
         {
             DisplayPopupAfterDelay(0.2f, "Backstab");
         }
+        damageMultiplier *= HeightAdvantageMultiplier(target);
         dam = (int)((float)dam * damageMultiplier);
         target.ReceiveDamage(dam);
         return true;
