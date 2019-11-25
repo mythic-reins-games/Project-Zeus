@@ -1958,12 +1958,12 @@ MonoBehaviour:
   healthBar: {fileID: 1658453887}
   staminaBar: {fileID: 86359215}
   strength: 1
-  speed: 5
+  speed: 2
   endurance: 1
   agility: 1
   intelligence: 1
   maxConcentration: 10
-  displayName: Enemy 2
+  displayName: Enemy Minion
   currentConcentration: 0
 --- !u!114 &72612899
 MonoBehaviour:
@@ -9374,6 +9374,8 @@ GameObject:
   - component: {fileID: 358183805}
   - component: {fileID: 358183804}
   - component: {fileID: 358183803}
+  - component: {fileID: 358183816}
+  - component: {fileID: 358183815}
   m_Layer: 0
   m_Name: Enemy Character 1
   m_TagString: Untagged
@@ -9414,12 +9416,12 @@ MonoBehaviour:
   healthBar: {fileID: 1603287894}
   staminaBar: {fileID: 429126709}
   strength: 2
-  speed: 4
+  speed: 1
   endurance: 1
   agility: 1
   intelligence: 1
   maxConcentration: 10
-  displayName: Enemy 1
+  displayName: Enemy Minotaur
   currentConcentration: 0
 --- !u!114 &358183804
 MonoBehaviour:
@@ -9783,6 +9785,31 @@ MonoBehaviour:
     verticalSpeed: 0
     normal: {x: 0, y: 0, z: 0}
   save: 0
+--- !u!114 &358183815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358183801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 099edc9a767d0f344b6b876fe2fbcdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &358183816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358183801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7cebd3bdeb5ef46b3bd9e630808ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
 --- !u!1 &360919797
 GameObject:
   m_ObjectHideFlags: 0
@@ -16817,12 +16844,12 @@ MonoBehaviour:
   healthBar: {fileID: 1706933425}
   staminaBar: {fileID: 1604232736}
   strength: 1
-  speed: 6
-  endurance: 2
+  speed: 1
+  endurance: 1
   agility: 1
   intelligence: 1
   maxConcentration: 10
-  displayName: Enemy 3
+  displayName: Enemy Minion
   currentConcentration: 0
 --- !u!114 &589221501
 MonoBehaviour:
@@ -19478,7 +19505,7 @@ MonoBehaviour:
   strength: 3
   speed: 2
   endurance: 2
-  agility: 1
+  agility: 2
   intelligence: 1
   maxConcentration: 10
   displayName: Minotaur
@@ -32729,6 +32756,8 @@ GameObject:
   - component: {fileID: 1222959370}
   - component: {fileID: 1222959369}
   - component: {fileID: 1222959368}
+  - component: {fileID: 1222959380}
+  - component: {fileID: 1222959379}
   - component: {fileID: 1222959367}
   m_Layer: 0
   m_Name: Enemy Character 4
@@ -32763,20 +32792,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1222959365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c89537a004adc24bbbf788a02a75297, type: 3}
+  m_Script: {fileID: 11500000, guid: a8441ab85269c9e489d4f9057e801d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dead: 0
-  healthBar: {fileID: 370796583}
-  staminaBar: {fileID: 841715061}
-  strength: 1
-  speed: 7
-  endurance: 1
-  agility: 2
-  intelligence: 1
-  maxConcentration: 10
-  displayName: Enemy 4
-  currentConcentration: 0
+  moveSpeed: 2
 --- !u!114 &1222959368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32792,7 +32811,7 @@ MonoBehaviour:
   isTurn: 0
   gameSignal: {fileID: 0}
   isActing: 0
-  DEFAULT_ATTACK_TYPE: 0
+  DEFAULT_ATTACK_TYPE: 4
 --- !u!136 &1222959369
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33139,6 +33158,42 @@ MonoBehaviour:
     verticalSpeed: 0
     normal: {x: 0, y: 0, z: 0}
   save: 0
+--- !u!114 &1222959379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222959365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22ece37a38c9954fada12b814042966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &1222959380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222959365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8ad9ca39fc50c4895d0ecf1c2c1bdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dead: 0
+  healthBar: {fileID: 370796583}
+  staminaBar: {fileID: 841715061}
+  strength: 1
+  speed: 1
+  endurance: 1
+  agility: 2
+  intelligence: 1
+  maxConcentration: 10
+  displayName: Enemy Medusa
+  currentConcentration: 0
 --- !u!1 &1224118539
 GameObject:
   m_ObjectHideFlags: 0
@@ -38117,8 +38172,8 @@ MonoBehaviour:
   strength: 2
   speed: 1
   endurance: 1
-  agility: 2
-  intelligence: 2
+  agility: 3
+  intelligence: 3
   maxConcentration: 10
   displayName: Medusa
   currentConcentration: 0
@@ -54458,6 +54513,8 @@ GameObject:
   - component: {fileID: 2080017647}
   - component: {fileID: 2080017646}
   - component: {fileID: 2080017645}
+  - component: {fileID: 2080017658}
+  - component: {fileID: 2080017657}
   m_Layer: 0
   m_Name: Enemy Character 5
   m_TagString: Untagged
@@ -54498,12 +54555,12 @@ MonoBehaviour:
   healthBar: {fileID: 371332203}
   staminaBar: {fileID: 45239446}
   strength: 2
-  speed: 8
+  speed: 3
   endurance: 2
   agility: 2
   intelligence: 2
   maxConcentration: 10
-  displayName: Leader
+  displayName: Enemy Hero
   currentConcentration: 0
 --- !u!114 &2080017646
 MonoBehaviour:
@@ -54867,6 +54924,31 @@ MonoBehaviour:
     verticalSpeed: 0
     normal: {x: 0, y: 0, z: 0}
   save: 0
+--- !u!114 &2080017657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080017643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a50e1c7cca44a439198138ce06aaf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2080017658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080017643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea96c93fe5b9d8418292f98c19186a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
 --- !u!1 &2084157368
 GameObject:
   m_ObjectHideFlags: 0

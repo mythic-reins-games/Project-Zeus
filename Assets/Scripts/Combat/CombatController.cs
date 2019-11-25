@@ -55,17 +55,17 @@ public class CombatController : TileBlockerController
 
     private void RegisterMoves()
     {
-        if (GetComponent<ActionRegenerate>() != null) specialMoves.Add(GetComponent<ActionRegenerate>());
         if (GetComponent<ActionBullRush>() != null) specialMoves.Add(GetComponent<ActionBullRush>());
         if (GetComponent<ActionSlaughter>() != null) specialMoves.Add(GetComponent<ActionSlaughter>());
         if (GetComponent<ActionRage>() != null) specialMoves.Add(GetComponent<ActionRage>());
+        if (GetComponent<ActionRegenerate>() != null) specialMoves.Add(GetComponent<ActionRegenerate>());
+        if (GetComponent<ActionMultiAttack>() != null) specialMoves.Add(GetComponent<ActionMultiAttack>());
         if (GetComponent<ActionEmpower>() != null) specialMoves.Add(GetComponent<ActionEmpower>());
         if (GetComponent<ActionOffhandAttack>() != null) specialMoves.Add(GetComponent<ActionOffhandAttack>());
         if (GetComponent<ActionLifeOrDeath>() != null) specialMoves.Add(GetComponent<ActionLifeOrDeath>());
-        if (GetComponent<ActionMultiAttack>() != null) specialMoves.Add(GetComponent<ActionMultiAttack>());
-        if (GetComponent<ActionSnakeBite>() != null) specialMoves.Add(GetComponent<ActionSnakeBite>());
         if (GetComponent<ActionPetrify>() != null) specialMoves.Add(GetComponent<ActionPetrify>());
         if (GetComponent<ActionTailSweep>() != null) specialMoves.Add(GetComponent<ActionTailSweep>());
+        if (GetComponent<ActionSnakeBite>() != null) specialMoves.Add(GetComponent<ActionSnakeBite>());
         if (GetComponent<ActionTerrify>() != null) specialMoves.Add(GetComponent<ActionTerrify>());
     }
 

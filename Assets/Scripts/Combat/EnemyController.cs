@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // EnemyControllers handle the AI decision-making for creatures on the enemy side.
-public class EnemyController : CombatController
+public class EnemyController : ActionValidator
 {
 
     override protected bool ContainsEnemy(Tile tile)
@@ -46,8 +46,7 @@ public class EnemyController : CombatController
             {
                 if (choice.occupant != null)
                 {
-                    Action atk = GetComponent<ActionBasicAttack>();
-                    atk.BeginAction(choice);
+                    selectedAction.BeginAction(choice);
                 }
                 else
                 {
@@ -66,6 +65,12 @@ public class EnemyController : CombatController
 
     Tile AIChooseMove()
     {
+        foreach (Action specialMove in specialMoves)
+        {
+            if (!IsValid(specialMove, false)) continue;
+            if (FindAllValidTargets(specialMove, false)) break;
+        }
+        if (selectedAction.TARGET_TYPE == Action.TargetType.SELF_ONLY) return null;
         float bestScore = 0.0f;
         Tile bestChoice = null;
         GameObject target = pickTarget();

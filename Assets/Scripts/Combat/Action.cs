@@ -78,6 +78,7 @@ public class Action : MonoBehaviour
         spentActionPoints = 0;
         inProgress = true;
         cooldownProgress = COOLDOWN;
+        if (DisplayName() != "") mechanics.DisplayPopup(DisplayName());
         combatController.BeginAction();
     }
 

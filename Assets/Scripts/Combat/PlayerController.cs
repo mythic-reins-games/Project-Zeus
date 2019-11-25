@@ -4,7 +4,7 @@ using UnityEngine;
 
 // PlayerControllers are intended to be a fairly thin interface between CombatController and
 // the UI for Player-Controlled characters.
-public class PlayerController : CombatController
+public class PlayerController : ActionValidator
 {
     private static readonly KeyCode[] KEY_CODES = {
          KeyCode.Alpha1,
@@ -133,47 +133,6 @@ public class PlayerController : CombatController
         }
     }
 
-    private void ActivateSelfSpecialMove(Action action)
-    {
-        action.BeginAction(null);
-    }
-
-    private void TargetChargeSpecialMove(Action action)
-    {
-        if (FindSelectableChargeTiles(action.MIN_AP_COST))
-        {
-            selectedAction = action;
-        }
-        else
-        {
-            creatureMechanics.DisplayPopup("Nothing in range");
-        }
-    }
-
-    private void TargetMeleeSpecialMove(Action action)
-    {
-        if (FindSelectableAttackTiles(action.MIN_AP_COST))
-        {
-            selectedAction = action;
-        }
-        else
-        {
-            creatureMechanics.DisplayPopup("Nothing in range");
-        }
-    }
-
-    private void TargetRangedSpecialMove(Action action)
-    {
-        if (FindSelectableRangedAttackTiles(action.MIN_AP_COST))
-        {
-            selectedAction = action;
-        }
-        else
-        {
-            creatureMechanics.DisplayPopup("Nothing in range");
-        }
-    }
-
     public void ActionClicked(Action action)
     {
         if (selectedAction.GetType() == action.GetType()) // If we've already selected the action, unselect it.
@@ -182,36 +141,8 @@ public class PlayerController : CombatController
             selectedAction = GetComponent<ActionBasicAttack>();
             return;
         }
-        if (action.IsCoolingDown())
-        {
-            creatureMechanics.DisplayPopup("Cooling down");
-            return;
-        }
-        if (actionPoints < action.MIN_AP_COST)
-        {
-            creatureMechanics.DisplayPopup("Not enough AP");
-            return;
-        }
-        if (creatureMechanics.currentConcentration < action.CONCENTRATION_COST)
-        {
-            creatureMechanics.DisplayPopup("Not enough concentration");
-            return;
-        }
-        switch (action.TARGET_TYPE)
-        {
-            case Action.TargetType.SELF_ONLY:
-                ActivateSelfSpecialMove(action);
-                break;
-            case Action.TargetType.CHARGE:
-                TargetChargeSpecialMove(action);
-                break;
-            case Action.TargetType.MELEE:
-                TargetMeleeSpecialMove(action);
-                break;
-            case Action.TargetType.RANGED:
-                TargetRangedSpecialMove(action);
-                break;
-        }
+        if (!IsValid(action, true)) return;
+        FindAllValidTargets(action, true);
     }
 
     public void AbilityButtonClick(int buttonId)
