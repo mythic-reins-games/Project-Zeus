@@ -145,7 +145,7 @@ public class CreatureMechanics : ObjectMechanics
     override public void ReceiveDamage(int amount)
     {
         amount = (int)((float)amount * DefensiveDamageMultiplier());
-        DisplayPopup(amount + " damage");
+        DisplayPopupAfterDelay(0.2f, amount + " damage");
         if (currentStamina >= amount)
         {
             currentStamina -= amount;
@@ -283,6 +283,12 @@ public class CreatureMechanics : ObjectMechanics
         return false;
     }
 
+    override protected void Die()
+    {
+        base.Die();
+        GameObject.FindObjectOfType<TurnManager>().CheckCombatOver();
+    }
+
     public int CritChance()
     {
         return GetEffectiveIntelligence() * 5;
@@ -317,6 +323,14 @@ public class CreatureMechanics : ObjectMechanics
         currentConcentration += GetEffectiveIntelligence() * 2;
     }
 
+    private float HeightAdvantageMultiplier(ObjectMechanics target)
+    {
+        float relativeHeight = transform.position.y - target.transform.position.y;
+        if (relativeHeight > 0.25f) return 1.2f;
+        if (relativeHeight > 0f) return 1.1f;
+        return 1.0f;
+    }
+
     private bool HitAndDamage(ObjectMechanics target, bool isConcentrationEligible, float damageMultiplier)
     {
         if (isConcentrationEligible)
@@ -326,13 +340,13 @@ public class CreatureMechanics : ObjectMechanics
         Animate("IsAttacking");
         if (!PercentRoll(HitChance())) {
             target.Animate("IsDodging");
-            DisplayPopup("Miss");
+            DisplayPopupAfterDelay(0.2f, "Miss");
             return false;
         }
         if (PercentRoll(target.DodgeChance()))
         {
             target.Animate("IsDodging");
-            target.DisplayPopup("Dodge");
+            target.DisplayPopupAfterDelay(0.2f, "Dodge");
             return false;
         }
         int dam = DamageInflicted();
@@ -345,16 +359,17 @@ public class CreatureMechanics : ObjectMechanics
             backstab = true;
             dam += BonusRearDamage();
         }
-        // Critical hits apply a +50% multiplier, after all other modifiers are considered.
+        // Critical hits apply a +100% multiplier, after all other modifiers are considered.
         if (IsCrit(target))
         {
-            dam += (dam / 2);
-            DisplayPopup("Crit");
+            dam += dam;
+            DisplayPopupAfterDelay(0.2f, "Crit");
         }
         else if (backstab) // Only display the backstab popup if it's not a crit.
         {
-            DisplayPopup("Backstab");
+            DisplayPopupAfterDelay(0.2f, "Backstab");
         }
+        damageMultiplier *= HeightAdvantageMultiplier(target);
         dam = (int)((float)dam * damageMultiplier);
         target.ReceiveDamage(dam);
         return true;

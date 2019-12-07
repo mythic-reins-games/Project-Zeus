@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Charges toward a target and attacks it, possibly inflicting status effect knockdown.
-public class ActionBullRush : ActionBasicAttack
+public class ActionBullRush : ActionCharge
 {
     override public int COOLDOWN { get { return 3; } }
     override public int CONCENTRATION_COST { get { return 10; } }

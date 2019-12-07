@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // EnemyControllers handle the AI decision-making for creatures on the enemy side.
-public class EnemyController : CombatController
+public class EnemyController : ActionValidator
 {
 
     override protected bool ContainsEnemy(Tile tile)
@@ -46,8 +46,7 @@ public class EnemyController : CombatController
             {
                 if (choice.occupant != null)
                 {
-                    Action atk = GetComponent<ActionBasicAttack>();
-                    atk.BeginAction(choice);
+                    selectedAction.BeginAction(choice);
                 }
                 else
                 {
@@ -66,6 +65,12 @@ public class EnemyController : CombatController
 
     Tile AIChooseMove()
     {
+        foreach (Action specialMove in specialMoves)
+        {
+            if (!IsValid(specialMove, false)) continue;
+            if (FindAllValidTargets(specialMove, false)) break;
+        }
+        if (selectedAction.TARGET_TYPE == Action.TargetType.SELF_ONLY) return currentTile;
         float bestScore = 0.0f;
         Tile bestChoice = null;
         GameObject target = pickTarget();
@@ -83,13 +88,14 @@ public class EnemyController : CombatController
 
     // If the tile can be attacked, returns 100. Otherwise,
     // returns 100 minus its distance from the target.
+    // AI also prefers high ground.
     float EvaluateMove(Tile tile, GameObject target)
     {
         if (ContainsEnemy(tile))
         {
             return 100.0f;
         }
-        return 100.0f - Vector3.Distance(tile.transform.position, target.transform.position);
+        return 100.0f - (Vector3.Distance(tile.transform.position, target.transform.position) + (tile.transform.position.y * 4f));
     }
 
 }

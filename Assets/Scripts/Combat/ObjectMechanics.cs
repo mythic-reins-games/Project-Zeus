@@ -42,7 +42,7 @@ public class ObjectMechanics : MonoBehaviour
 
     public virtual void ReceiveDamage(int amount)
     {
-        DisplayPopup(amount + " damage");
+        DisplayPopupAfterDelay(0.2f, amount + " damage");
         currentHealth -= (amount);
         if (currentHealth <= 0)
         {
@@ -78,7 +78,7 @@ public class ObjectMechanics : MonoBehaviour
         return null;
     }
 
-    protected void Die()
+    protected virtual void Die()
     {
         dead = true;
         GetController().UnassignCurrentTile();
@@ -91,14 +91,22 @@ public class ObjectMechanics : MonoBehaviour
         PopupTextController.CreatePopupText(text, transform);
     }
 
-    protected IEnumerator ClearAnimationsAfterDelay(float fDuration)
+    private IEnumerator RunPopupDelay(float time, string text)
     {
-        float elapsed = 0f;
-        while (elapsed < fDuration)
-        {
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSeconds(time);
+        DisplayPopup(text);
+        yield break;
+    }
+
+    // Public wrapper for the enumerator.
+    public void DisplayPopupAfterDelay(float time, string text)
+    {
+        StartCoroutine(RunPopupDelay(time, text));
+    }
+
+    protected IEnumerator ClearAnimationsAfterDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
         ClearAnimations();
         yield break;
     }

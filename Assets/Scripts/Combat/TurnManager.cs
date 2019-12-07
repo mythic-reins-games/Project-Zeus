@@ -66,7 +66,8 @@ public class TurnManager : MonoBehaviour
     {
         MusicManager m = GameObject.Find("MusicManager").GetComponent<MusicManager>();
         gameOver = true;
-        GetCurrentCombatController().isTurn = false;
+        if (GetCurrentCombatController() != null)
+            GetCurrentCombatController().isTurn = false;
         m.SetDefeat();
     }
 
@@ -74,7 +75,8 @@ public class TurnManager : MonoBehaviour
     {
         MusicManager m = GameObject.Find("MusicManager").GetComponent<MusicManager>();
         gameOver = true;
-        GetCurrentCombatController().isTurn = false;
+        if (GetCurrentCombatController() != null)
+            GetCurrentCombatController().isTurn = false;
         m.SetVictory();
     }
 
@@ -98,6 +100,7 @@ public class TurnManager : MonoBehaviour
         return true;
     }
 
+    // Run whenever a creature dies.
     public bool CheckCombatOver()
     {
         if (PlayerWon())
@@ -110,6 +113,7 @@ public class TurnManager : MonoBehaviour
             EndDefeat();
             return true;
         }
+        // Dead units should cease exerting zone of control.
         ClearZonesOfControl();
         SetZonesOfControl();
         return false;

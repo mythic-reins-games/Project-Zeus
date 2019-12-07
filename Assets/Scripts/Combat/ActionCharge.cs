@@ -9,7 +9,7 @@ public class ActionCharge : ActionBasicAttack
 
     override public void BeginAction(Tile targetTile)
     {
-        freeMoves += Constants.ATTACK_AP_COST; // Charge actions should all get this many free moves.
+        freeMoves = Constants.ATTACK_AP_COST; // Charge actions should all get this many free moves.
         base.BeginAction(targetTile);
     }
 }

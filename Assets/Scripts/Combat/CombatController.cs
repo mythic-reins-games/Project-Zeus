@@ -10,6 +10,7 @@ public class CombatController : TileBlockerController
     [SerializeField] protected GameSignalOneObject gameSignal;
 
     protected List<Action> specialMoves = new List<Action> { };
+
     protected TurnManager manager = null;
 
     protected CreatureMechanics creatureMechanics = null;
@@ -53,29 +54,12 @@ public class CombatController : TileBlockerController
         return false;
     }
 
-    private void RegisterMoves()
-    {
-        if (GetComponent<ActionRegenerate>() != null) specialMoves.Add(GetComponent<ActionRegenerate>());
-        if (GetComponent<ActionBullRush>() != null) specialMoves.Add(GetComponent<ActionBullRush>());
-        if (GetComponent<ActionSlaughter>() != null) specialMoves.Add(GetComponent<ActionSlaughter>());
-        if (GetComponent<ActionRage>() != null) specialMoves.Add(GetComponent<ActionRage>());
-        if (GetComponent<ActionEmpower>() != null) specialMoves.Add(GetComponent<ActionEmpower>());
-        if (GetComponent<ActionOffhandAttack>() != null) specialMoves.Add(GetComponent<ActionOffhandAttack>());
-        if (GetComponent<ActionLifeOrDeath>() != null) specialMoves.Add(GetComponent<ActionLifeOrDeath>());
-        if (GetComponent<ActionMultiAttack>() != null) specialMoves.Add(GetComponent<ActionMultiAttack>());
-        if (GetComponent<ActionSnakeBite>() != null) specialMoves.Add(GetComponent<ActionSnakeBite>());
-        if (GetComponent<ActionPetrify>() != null) specialMoves.Add(GetComponent<ActionPetrify>());
-        if (GetComponent<ActionTailSweep>() != null) specialMoves.Add(GetComponent<ActionTailSweep>());
-        if (GetComponent<ActionTerrify>() != null) specialMoves.Add(GetComponent<ActionTerrify>());
-    }
-
     override protected void Start()
     {
         manager = transform.parent.GetComponent<TurnManager>();
         creatureMechanics = GetComponent<CreatureMechanics>();
         panel = Object.FindObjectOfType<GUIPanel>();
         PopupTextController.Initialize();
-        RegisterMoves();
         selectedAction = GetComponent<ActionBasicAttack>();
         base.Start();
     }
@@ -156,9 +140,11 @@ public class CombatController : TileBlockerController
     // Returns true if valid charge tiles were found.
     protected bool FindSelectableChargeTiles(int attackCost)
     {
+        Debug.Log("Finding charge tiles");
         FindSelectableTiles(TileSearchType.CHARGE_ATTACK, attackCost);
         if (selectableTiles.Count == 0)
         {
+            Debug.Log("No charge tiles found");
             FindSelectableBasicTiles();
             return false;
         }
@@ -341,11 +327,6 @@ public class CombatController : TileBlockerController
         selectedAction = GetComponent<ActionBasicAttack>();
         isActing = false;
         actionPoints -= spentActionPoints;
-        if (manager.CheckCombatOver())
-        {
-            isTurn = false;
-            return;
-        }
         FindSelectableBasicTiles();
         if (selectableTiles.Count <= 0)
         {
