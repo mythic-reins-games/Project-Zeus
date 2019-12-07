@@ -8,6 +8,8 @@ public class ActionValidator : CombatController
 
     private void RegisterMoves()
     {
+        // Finds the special moves components attached to the gameobject and adds them to special moves.
+        // Importantly, special moves NOT attached to the game object are skipped.
         if (GetComponent<ActionBullRush>() != null) specialMoves.Add(GetComponent<ActionBullRush>());
         if (GetComponent<ActionRage>() != null) specialMoves.Add(GetComponent<ActionRage>());
         if (GetComponent<ActionSlaughter>() != null) specialMoves.Add(GetComponent<ActionSlaughter>());

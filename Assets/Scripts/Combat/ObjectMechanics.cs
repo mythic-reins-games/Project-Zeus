@@ -88,6 +88,7 @@ public class ObjectMechanics : MonoBehaviour
 
     public void DisplayPopup(string text)
     {
+        if (text == "") return;
         PopupTextController.CreatePopupText(text, transform);
     }
 
