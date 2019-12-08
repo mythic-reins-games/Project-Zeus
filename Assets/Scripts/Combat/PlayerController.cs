@@ -66,7 +66,7 @@ public class PlayerController : ActionValidator
         hits = Physics.RaycastAll(ray, 100.0f);
 
         foreach (RaycastHit hit in hits)
-        { 
+        {
             if (hit.collider.tag == "Tile")
             {
                 Tile mouseTile = hit.collider.GetComponent<Tile>();

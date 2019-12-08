@@ -124,6 +124,13 @@ public class CombatController : TileBlockerController
         return null;
     }
 
+    override public void HandleDeath()
+    {
+        manager.CheckCombatOver();
+        manager.ResetZonesOfControl();
+        base.HandleDeath();
+    }
+
     private void AttachTile(int moveCostOverride, Tile adjacentTile, Tile parent)
     {
         adjacentTile.parent = parent;

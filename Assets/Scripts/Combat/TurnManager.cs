@@ -113,9 +113,6 @@ public class TurnManager : MonoBehaviour
             EndDefeat();
             return true;
         }
-        // Dead units should cease exerting zone of control.
-        ClearZonesOfControl();
-        SetZonesOfControl();
         return false;
     }
 
@@ -167,18 +164,23 @@ public class TurnManager : MonoBehaviour
     {
         foreach (CombatController combatant in combatants)
         {
-            if (combatant == null) continue;
+            if (combatant == null || combatant.Dead()) continue;
             if (enemyTurn && combatant.IsEnemy()) continue;
             if (!enemyTurn && combatant.IsPC()) continue;
             combatant.AssignZonesOfControl();
         }
     }
 
+    public void ResetZonesOfControl()
+    {
+        ClearZonesOfControl();
+        SetZonesOfControl();
+    }
+
     void BeginTurn()
     {
         CombatController controller = GetCurrentCombatController();
-        ClearZonesOfControl();
-        SetZonesOfControl();
+        ResetZonesOfControl();
         controller.BeginTurn();
         DisplayCurrentCreatureStats();
         OnTurnBegin.Invoke(moveIdx);

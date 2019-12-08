@@ -81,7 +81,7 @@ public class ObjectMechanics : MonoBehaviour
     protected virtual void Die()
     {
         dead = true;
-        GetController().UnassignCurrentTile();
+        GetController().HandleDeath();
         Animate("IsDying");
         Destroy(gameObject, 0.9f);
     }

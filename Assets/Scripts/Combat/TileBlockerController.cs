@@ -17,6 +17,10 @@ public class TileBlockerController : MonoBehaviour
         return true;
     }
 
+    virtual public void HandleDeath() {
+        UnassignCurrentTile();
+    }
+
     protected void AssignCurrentTile()
     {
         UnassignCurrentTile();

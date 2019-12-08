@@ -286,7 +286,6 @@ public class CreatureMechanics : ObjectMechanics
     override protected void Die()
     {
         base.Die();
-        GameObject.FindObjectOfType<TurnManager>().CheckCombatOver();
     }
 
     public int CritChance()
