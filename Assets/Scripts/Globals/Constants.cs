@@ -7,5 +7,6 @@ public static class Constants
 {
     public const int QUICK_AP_COST = 2;
     public const int ATTACK_AP_COST = 4;
-    public const int SCENE_ARENA_COMBAT = 0;
+    public const string SCENE_TOWN_MENU = "Town";
+    public const string SCENE_ARENA_COMBAT = "Combat";
 }

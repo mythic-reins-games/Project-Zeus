@@ -23,7 +23,7 @@ public class CombatController : TileBlockerController
     [SerializeField]
     private TileSearchType DEFAULT_ATTACK_TYPE = TileSearchType.DEFAULT;
 
-    private enum TileSearchType
+    public enum TileSearchType
     {
         // Default means unit can move at normal per-tile costs and melee attack at normal attack cost.
         DEFAULT,
@@ -38,6 +38,11 @@ public class CombatController : TileBlockerController
         // Basic ranged attack or movement.
         DEFAULT_RANGED
     };
+
+    public void SetTileSearchType(TileSearchType t)
+    {
+        DEFAULT_ATTACK_TYPE = t;
+    }
 
     public bool Dead()
     {
