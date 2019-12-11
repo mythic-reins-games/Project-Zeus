@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class CanvasPrefabs : MonoBehaviour
 {
-    [SerializeField] public PopupText popupTextPrefab;
+    [SerializeField]
+    public PopupText popupTextPrefab;
 }

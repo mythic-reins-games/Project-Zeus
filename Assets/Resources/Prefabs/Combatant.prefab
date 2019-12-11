@@ -868,7 +868,6 @@ GameObject:
   - component: {fileID: 5026621074291796728}
   - component: {fileID: 5026621074291796729}
   - component: {fileID: 5026621074291796730}
-  - component: {fileID: 5026621074291796731}
   - component: {fileID: 5026621074291796613}
   - component: {fileID: 5026621074291796614}
   - component: {fileID: 5026621074291796611}
@@ -878,7 +877,7 @@ GameObject:
   - component: {fileID: 5026621074291796619}
   m_Layer: 0
   m_Name: Combatant
-  m_TagString: Untagged
+  m_TagString: CombatantTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1021,22 +1020,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &5026621074291796731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5026621074291796732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc6f0000e8cb81448abf5b11f49df207, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTurn: 0
-  gameSignal: {fileID: 11400000, guid: 2d2568bfd7c28cd41b1c9fb7d263322d, type: 2}
-  isActing: 0
-  DEFAULT_ATTACK_TYPE: 0
 --- !u!114 &5026621074291796613
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 // CombatControllers are in charge of determining which moves are valid moves for a unit to take,
@@ -38,6 +39,11 @@ public class CombatController : TileBlockerController
         // Basic ranged attack or movement.
         DEFAULT_RANGED
     };
+    
+    public void SetSpecialMoves(List<Action> moves)
+    {
+        specialMoves = moves;
+    }
 
     public void SetTileSearchType(TileSearchType t)
     {
@@ -61,11 +67,12 @@ public class CombatController : TileBlockerController
 
     override protected void Start()
     {
-        manager = transform.parent.GetComponent<TurnManager>();
-        creatureMechanics = GetComponent<CreatureMechanics>();
+        manager = Object.FindObjectOfType<TurnManager>();
         panel = Object.FindObjectOfType<GUIPanel>();
         PopupTextController.Initialize();
+        creatureMechanics = GetComponent<CreatureMechanics>();
         selectedAction = GetComponent<ActionBasicAttack>();
+        gameSignal = (GameSignalOneObject)Resources.Load("Game Signals/SetConcentration", typeof(GameSignalOneObject));
         base.Start();
     }
     

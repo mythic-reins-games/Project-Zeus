@@ -9,25 +9,20 @@ public class CreatureMechanics : ObjectMechanics
 {
     System.Random rng;
 
-    [SerializeField] GameObject staminaBar;
     IndicatorBar staminaBarScript;
+    IndicatorBar healthBarScript;
 
-    // TODO:
-    // Create a Scriptable Object to hold the "Shared Data State" among all 
-    // instances of this class. Then setup the default values inside the scriptable object.
-    // The Attributes below are runtime data state that may change during the course of a battle.
-    // It's very critical to not tangle runtime state with shared state.
-    [SerializeField] private int strength = 10;
-    [SerializeField] private int speed = 10;
-    [SerializeField] private int endurance = 10;
-    [SerializeField] private int agility = 10;
-    [SerializeField] private int intelligence = 10;
-    [SerializeField] private int maxConcentration = 10;
+    [SerializeField] private int strength;
+    [SerializeField] private int speed;
+    [SerializeField] private int endurance;
+    [SerializeField] private int agility;
+    [SerializeField] private int intelligence;
+    [SerializeField] private int maxConcentration;
 
-    [SerializeField] public string displayName = "";
+    [SerializeField] public string displayName;
 
-    protected int maxStamina = 1;
-    protected int currentStamina = 1;
+    protected int maxStamina;
+    protected int currentStamina;
     public int currentConcentration = 0;
 
     private bool firstBlood = false;
@@ -36,18 +31,22 @@ public class CreatureMechanics : ObjectMechanics
 
     override public bool canBeBackstabbed { get { return true; } }
 
-    // Start is called before the first frame update
-    override protected void Start()
+    public void Init(int inputMaxHealth, int inputCurrentHealth, int spe, int end, int str, int agi, int intel, string name)
     {
+        displayName = name;
+        speed = spe;
+        endurance = end;
+        strength = str;
+        agility = agi;
+        intelligence = intel;
         rng = new System.Random();
-        healthBarScript = healthBar.GetComponent<IndicatorBar>();
-        staminaBarScript = staminaBar.GetComponent<IndicatorBar>();
-        maxHealth = endurance * 5 + strength * 5 + 10;
-        maxStamina = endurance * 10 + 10;
+        healthBarScript = transform.Find("HealthBar").GetComponent<IndicatorBar>();
+        staminaBarScript = transform.Find("StaminaBar").GetComponent<IndicatorBar>();
+        maxHealth = inputMaxHealth;
+        maxStamina = endurance * 15 + 10;
         currentStamina = maxStamina;
-        currentHealth = maxHealth;
+        currentHealth = inputCurrentHealth;
         maxConcentration = GetEffectiveIntelligence() * 10;
-        base.Start();
     }
 
     public void RegisterStatusEffect(StatusEffect effect)

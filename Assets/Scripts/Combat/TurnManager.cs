@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class TurnManager : MonoBehaviour
 {
@@ -27,8 +28,18 @@ public class TurnManager : MonoBehaviour
     private bool gameOver = false;
     private GUIPanel panel = null;
 
-    void Start()
+    public void Start()
     {
+        EnemyParty.SpawnPartyMembers();
+        PlayerParty.SpawnPartyMembers();
+
+        // Find all the combatants and set them to be children of the Combat Manager.
+        GameObject[] children = GameObject.FindGameObjectsWithTag("CombatantTag");
+        foreach (GameObject child in children)
+        {
+            child.transform.SetParent(transform);
+        }
+
         panel = GameObject.FindObjectOfType<GUIPanel>();
         rng = new System.Random();
         
@@ -62,6 +73,22 @@ public class TurnManager : MonoBehaviour
         return null;
     }
 
+    private IEnumerator ExitDefeatAfterDelay(float fDuration)
+    {
+        yield return new WaitForSeconds(fDuration);
+        SceneManager.LoadScene(Constants.SCENE_TOWN_MENU);
+        yield break;
+    }
+
+    private IEnumerator ExitVictoryAfterDelay(float fDuration)
+    {
+        yield return new WaitForSeconds(fDuration);
+        SceneManager.LoadScene(Constants.SCENE_COMBAT_REWARDS);
+        PlayerParty.BoostFromVictoriousArenaCombat();
+        EnemyParty.difficulty += 1;
+        yield break;
+    }
+
     void EndDefeat()
     {
         MusicManager m = GameObject.Find("MusicManager").GetComponent<MusicManager>();
@@ -69,6 +96,7 @@ public class TurnManager : MonoBehaviour
         if (GetCurrentCombatController() != null)
             GetCurrentCombatController().isTurn = false;
         m.SetDefeat();
+        StartCoroutine(ExitDefeatAfterDelay(6f));
     }
 
     void EndVictory()
@@ -78,6 +106,7 @@ public class TurnManager : MonoBehaviour
         if (GetCurrentCombatController() != null)
             GetCurrentCombatController().isTurn = false;
         m.SetVictory();
+        StartCoroutine(ExitVictoryAfterDelay(6f));
     }
 
     bool EnemyWon()

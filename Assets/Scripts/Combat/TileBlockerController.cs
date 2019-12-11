@@ -7,9 +7,16 @@ public class TileBlockerController : MonoBehaviour
     public bool isTurn = false;
     protected Tile currentTile;
 
+    private IEnumerator WaitOneFrameAndAssignCurrentTile()
+    {
+        yield return new WaitForEndOfFrame();
+        AssignCurrentTile();
+        yield break;
+    }
+
     virtual protected void Start()
     {
-        AssignCurrentTile();
+        StartCoroutine(WaitOneFrameAndAssignCurrentTile());
     }
 
     virtual public bool IsStaticBlocker()
@@ -25,6 +32,7 @@ public class TileBlockerController : MonoBehaviour
     {
         UnassignCurrentTile();
         currentTile = GetTargetTile();
+        if (currentTile == null) return;
         currentTile.isBlocked = true;
         currentTile.occupant = gameObject;
         if (isTurn)
