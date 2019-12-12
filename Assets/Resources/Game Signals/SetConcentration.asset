@@ -12,4 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f56d8850ee2ac8c43b5ed365ac23be96, type: 3}
   m_Name: SetConcentration
   m_EditorClassIdentifier: 
-  listeners: []

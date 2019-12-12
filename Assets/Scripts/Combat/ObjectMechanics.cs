@@ -10,9 +10,6 @@ public class ObjectMechanics : MonoBehaviour
 
     public bool dead = false;
 
-    [SerializeField] protected GameObject healthBar;
-    protected IndicatorBar healthBarScript;
-
     public List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     virtual public bool canBeBackstabbed { get { return false; } }
@@ -20,7 +17,7 @@ public class ObjectMechanics : MonoBehaviour
     private Animator anim;
 
     // Start is called before the first frame update
-    virtual protected void Start()
+    protected void Start()
     {
         anim = GetComponentInChildren<Animator>();
     }
@@ -81,7 +78,7 @@ public class ObjectMechanics : MonoBehaviour
     protected virtual void Die()
     {
         dead = true;
-        GetController().UnassignCurrentTile();
+        GetController().HandleDeath();
         Animate("IsDying");
         Destroy(gameObject, 0.9f);
     }

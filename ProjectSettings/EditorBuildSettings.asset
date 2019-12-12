@@ -6,9 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: f1f9ddf82355bdb439d69a58cfd57617
+  - enabled: 1
+    path: Assets/Scenes/Town.unity
+    guid: c3c0813ff5c665a428940b00ac6e93ea
+  - enabled: 1
     path: Assets/Scenes/Combat.unity
     guid: 33dd00f5a0763114288e8b8607bcb6ea
   - enabled: 0
     path: Assets/Scenes/Xera.unity
     guid: d05743459be534fa085227f7ada638e0
+  - enabled: 1
+    path: Assets/Scenes/CombatRewards.unity
+    guid: d0aa519280ea42f4081b9a1118b7dcb2
+  - enabled: 1
+    path: Assets/Scenes/PreCombat.unity
+    guid: 3ae254681225edd4c85ba8a1c20abd7b
   m_configObjects: {}

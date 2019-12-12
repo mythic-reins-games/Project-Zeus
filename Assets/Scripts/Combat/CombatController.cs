@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 // CombatControllers are in charge of determining which moves are valid moves for a unit to take,
@@ -23,7 +24,7 @@ public class CombatController : TileBlockerController
     [SerializeField]
     private TileSearchType DEFAULT_ATTACK_TYPE = TileSearchType.DEFAULT;
 
-    private enum TileSearchType
+    public enum TileSearchType
     {
         // Default means unit can move at normal per-tile costs and melee attack at normal attack cost.
         DEFAULT,
@@ -38,6 +39,16 @@ public class CombatController : TileBlockerController
         // Basic ranged attack or movement.
         DEFAULT_RANGED
     };
+    
+    public void SetSpecialMoves(List<Action> moves)
+    {
+        specialMoves = moves;
+    }
+
+    public void SetTileSearchType(TileSearchType t)
+    {
+        DEFAULT_ATTACK_TYPE = t;
+    }
 
     public bool Dead()
     {
@@ -56,11 +67,12 @@ public class CombatController : TileBlockerController
 
     override protected void Start()
     {
-        manager = transform.parent.GetComponent<TurnManager>();
-        creatureMechanics = GetComponent<CreatureMechanics>();
+        manager = Object.FindObjectOfType<TurnManager>();
         panel = Object.FindObjectOfType<GUIPanel>();
         PopupTextController.Initialize();
+        creatureMechanics = GetComponent<CreatureMechanics>();
         selectedAction = GetComponent<ActionBasicAttack>();
+        gameSignal = (GameSignalOneObject)Resources.Load("Game Signals/SetConcentration", typeof(GameSignalOneObject));
         base.Start();
     }
     
@@ -124,6 +136,13 @@ public class CombatController : TileBlockerController
         return null;
     }
 
+    override public void HandleDeath()
+    {
+        manager.CheckCombatOver();
+        manager.ResetZonesOfControl();
+        base.HandleDeath();
+    }
+
     private void AttachTile(int moveCostOverride, Tile adjacentTile, Tile parent)
     {
         adjacentTile.parent = parent;
@@ -140,11 +159,9 @@ public class CombatController : TileBlockerController
     // Returns true if valid charge tiles were found.
     protected bool FindSelectableChargeTiles(int attackCost)
     {
-        Debug.Log("Finding charge tiles");
         FindSelectableTiles(TileSearchType.CHARGE_ATTACK, attackCost);
         if (selectableTiles.Count == 0)
         {
-            Debug.Log("No charge tiles found");
             FindSelectableBasicTiles();
             return false;
         }

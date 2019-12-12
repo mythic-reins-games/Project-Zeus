@@ -44,6 +44,7 @@ public class IndicatorBar : MonoBehaviour
     void LateUpdate()
     {
         Vector3 lookTarget;
+        if (combatCamera == null) return;
         if (combatCamera.IsFacingEastOrWest())
         {
             lookTarget = Camera.main.transform.position;

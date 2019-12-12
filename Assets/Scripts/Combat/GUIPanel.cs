@@ -70,10 +70,10 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
         }
         if (GetActivePlayerController() != null) {
             string[] names = GetActivePlayerController().AbilityNames();
-            button0.GetComponentInChildren<Text>().text = names[0];
-            button1.GetComponentInChildren<Text>().text = names[1];
-            button2.GetComponentInChildren<Text>().text = names[2];
-            button3.GetComponentInChildren<Text>().text = names[3];
+            if (names.Length > 0) button0.GetComponentInChildren<Text>().text = names[0];
+            if (names.Length > 1) button1.GetComponentInChildren<Text>().text = names[1];
+            if (names.Length > 2) button2.GetComponentInChildren<Text>().text = names[2];
+            if (names.Length > 3) button3.GetComponentInChildren<Text>().text = names[3];
         }
     }
 
