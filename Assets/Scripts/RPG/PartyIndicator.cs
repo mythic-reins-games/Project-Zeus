@@ -8,7 +8,7 @@ public class PartyIndicator : MonoBehaviour
 
     private GameObject charIndicatorPrefab;
 
-    void ClearCharacterIndicators()
+    protected void ClearCharacterIndicators()
     {
         foreach (Transform child in transform)
         {
@@ -16,21 +16,33 @@ public class PartyIndicator : MonoBehaviour
         }
     }
 
+    virtual protected bool isPC()
+    {
+        return true;
+    }
+
+    protected void UpdateSingleSheet(CharacterSheet c, float xPos)
+    {
+        Vector3 location = new Vector3(transform.position.x + xPos, transform.position.y, 0f);
+        GameObject indicator = GameObject.Instantiate(charIndicatorPrefab, location, Quaternion.identity, transform) as GameObject;
+        indicator.transform.Find("Text").GetComponent<Text>().text = c.name;
+        indicator.GetComponent<CharacterIndicatorClick>().toDisplay = c;
+        indicator.GetComponent<CharacterIndicatorClick>().isPC = isPC();
+    }
+
     void Start()
     {
         charIndicatorPrefab = (GameObject)Resources.Load("Prefabs/CharacterIndicator", typeof(GameObject));
+        PartyCompositionChanged();
     }
 
-    // Update is called once per frame
-    void Update()
+    virtual public void PartyCompositionChanged()
     {
         ClearCharacterIndicators();
         float xPos = 0f;
         foreach (CharacterSheet c in PlayerParty.partyMembers)
         {
-            Vector3 location = new Vector3(transform.position.x + xPos, transform.position.y, 0f);
-            GameObject combatant = GameObject.Instantiate(charIndicatorPrefab, location, Quaternion.identity, transform) as GameObject;
-            combatant.transform.Find("Text").GetComponent<Text>().text = c.name;
+            UpdateSingleSheet(c, xPos);
             xPos += 100f;
         }
     }

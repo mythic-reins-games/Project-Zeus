@@ -46,7 +46,7 @@ public class CreatureMechanics : ObjectMechanics
         maxStamina = endurance * 15 + 10;
         currentStamina = maxStamina;
         currentHealth = inputCurrentHealth;
-        maxConcentration = GetEffectiveIntelligence() * 10;
+        maxConcentration = 20 + GetEffectiveIntelligence() * 3;
     }
 
     public void RegisterStatusEffect(StatusEffect effect)
@@ -119,6 +119,14 @@ public class CreatureMechanics : ObjectMechanics
         currentHealth -= amount;
         if (currentHealth <= 0 && StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.CANNOT_DIE))
             currentHealth = 1;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            Animate("IsGettingDamaged");
+        }
     }
 
     // Healing heals health but not stamina.
@@ -289,7 +297,7 @@ public class CreatureMechanics : ObjectMechanics
 
     public int CritChance()
     {
-        return GetEffectiveIntelligence() * 5;
+        return GetEffectiveIntelligence() * 2;
     }
 
     private bool IsCrit(ObjectMechanics target)

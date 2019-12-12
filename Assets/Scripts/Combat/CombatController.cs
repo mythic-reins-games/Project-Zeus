@@ -159,11 +159,9 @@ public class CombatController : TileBlockerController
     // Returns true if valid charge tiles were found.
     protected bool FindSelectableChargeTiles(int attackCost)
     {
-        Debug.Log("Finding charge tiles");
         FindSelectableTiles(TileSearchType.CHARGE_ATTACK, attackCost);
         if (selectableTiles.Count == 0)
         {
-            Debug.Log("No charge tiles found");
             FindSelectableBasicTiles();
             return false;
         }

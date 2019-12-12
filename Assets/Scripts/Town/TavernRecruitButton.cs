@@ -9,10 +9,12 @@ public class TavernRecruitButton : MonoBehaviour
 
     public void Recruit()
     {
-        if (PlayerParty.gold >= 15 && PlayerParty.partyMembers.Count < 3)
+        if (PlayerParty.gold >= 15 && PlayerParty.partyMembers.Count < Constants.MAX_PARTY_SIZE)
         {
             PlayerParty.AddToParty(characterClass);
             PlayerParty.gold -= 15;
+            PartyIndicator toUpdate = (PartyIndicator)FindObjectOfType(typeof(PartyIndicator));
+            toUpdate.PartyCompositionChanged();
         }
     }
 }

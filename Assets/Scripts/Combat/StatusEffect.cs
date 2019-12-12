@@ -78,7 +78,7 @@ public class StatusEffect
                 target.DisplayPopup("Petrified");
                 break;
             case EffectType.POISONED:
-                target.ReceiveDamage(5);
+                target.ReceivePureDamage(5);
                 break;
         }
         roundsRemaining--;

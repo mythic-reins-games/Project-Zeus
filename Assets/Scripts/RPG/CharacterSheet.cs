@@ -22,17 +22,17 @@ public class CharacterSheet
 
     private CharacterClass characterClass;
 
-    private int currentHealth;
-    private int maxHealth;
+    public int currentHealth;
+    public int maxHealth;
 
     public string name;
     public string boostStatText;
 
-    private int speed;
-    private int endurance;
-    private int strength;
-    private int agility;
-    private int intelligence;
+    public int speed;
+    public int endurance;
+    public int strength;
+    public int agility;
+    public int intelligence;
 
     public bool selected = true;
 

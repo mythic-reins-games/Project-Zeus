@@ -8,7 +8,7 @@ public class TavernLeaveButton : MonoBehaviour
 
     public void LeaveTavern()
     {
-        GameObject.Find("TavernMenu").SetActive(false);
+        gameObject.transform.parent.gameObject.SetActive(false);
         townMenu.SetActive(true);
     }
 }

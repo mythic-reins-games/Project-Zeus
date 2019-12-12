@@ -8,41 +8,70 @@ public static class EnemyParty
 
     public static int difficulty = 1;
 
+    private static System.Random rng;
+    
+    public static void Reset()
+    {
+        rng = new System.Random();
+    }
+
+    private static int DifficultyJitter()
+    {
+        return rng.Next(-1, 2);
+    }
+
+    private static CharacterSheet.CharacterClass RandomNormalClass()
+    {
+        switch(rng.Next(1, 4))
+        {
+            case 1:
+                return CharacterSheet.CharacterClass.CLASS_MINOTAUR;
+            case 2:
+                return CharacterSheet.CharacterClass.CLASS_HERO;
+            case 3:
+                return CharacterSheet.CharacterClass.CLASS_MEDUSA;
+        }
+        return CharacterSheet.CharacterClass.CLASS_HERO; ;
+    }
+
     // Sets up an enemy party at a particular diffulty.
     // Any old/obsolete enemy party is overwritten.
     public static void SetArenaFoes()
     {
         partyMembers = new List<CharacterSheet> { };
-        switch(difficulty)
+        switch(difficulty + DifficultyJitter())
         {
+            case 0:
+                AddToParty(RandomNormalClass());
+                break;
             case 1:
                 AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
-                AddToParty(CharacterSheet.CharacterClass.CLASS_MINOTAUR);
+                AddToParty(RandomNormalClass());
                 break;
             case 2:
                 AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
                 AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
-                AddToParty(CharacterSheet.CharacterClass.CLASS_HERO);
+                AddToParty(RandomNormalClass());
                 break;
             case 3:
                 AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
-                AddToParty(CharacterSheet.CharacterClass.CLASS_MEDUSA);
-                AddToParty(CharacterSheet.CharacterClass.CLASS_MINOTAUR);
+                AddToParty(RandomNormalClass());
+                AddToParty(RandomNormalClass());
                 break;
             case 4:
                 AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
                 AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
-                AddToParty(CharacterSheet.CharacterClass.CLASS_MEDUSA);
-                AddToParty(CharacterSheet.CharacterClass.CLASS_HERO);
+                AddToParty(RandomNormalClass());
+                AddToParty(RandomNormalClass());
                 break;
             default:
                 AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
-                AddToParty(CharacterSheet.CharacterClass.CLASS_MINOTAUR);
-                AddToParty(CharacterSheet.CharacterClass.CLASS_MEDUSA);
-                AddToParty(CharacterSheet.CharacterClass.CLASS_HERO);
+                AddToParty(RandomNormalClass());
+                AddToParty(RandomNormalClass());
+                AddToParty(RandomNormalClass());
                 break;
         }
-        for (int i = 5; i < difficulty; i++)
+        for (int i = 5; i < difficulty; i += 2)
         {
             foreach (CharacterSheet c in partyMembers)
             {

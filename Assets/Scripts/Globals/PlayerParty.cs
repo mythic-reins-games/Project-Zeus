@@ -23,9 +23,20 @@ public static class PlayerParty
         int pow = 0;
         foreach (CharacterSheet c in partyMembers)
         {
-            pow += c.GetTotalPower();
+            if (c.selected)
+                pow += c.GetTotalPower();
         }
         return pow;
+    }
+
+    public static int CountActivePartyMembers()
+    {
+        int count = 0;
+        foreach (CharacterSheet c in partyMembers)
+        {
+            if (c.selected) count++;
+        }
+        return count;
     }
 
     public static void AddToParty(CharacterSheet.CharacterClass c)
@@ -40,9 +51,7 @@ public static class PlayerParty
         foreach (CharacterSheet c in partyMembers)
         {
             if (c.selected)
-            {
                 c.CreateCombatAvatar(new Vector3(xPos++, 0.08f, -5.5f), facing, true);
-            }
         }
     }
 
@@ -66,7 +75,7 @@ public static class PlayerParty
         percent -= 50f;
         foreach (CharacterSheet c in partyMembers)
         {
-            if (PercentRoll((int)percent))
+            if (c.selected && PercentRoll((int)percent))
             {
                 c.PowerUp();
             }

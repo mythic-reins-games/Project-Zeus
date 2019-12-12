@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CombatRewards.unity
     guid: d0aa519280ea42f4081b9a1118b7dcb2
+  - enabled: 1
+    path: Assets/Scenes/PreCombat.unity
+    guid: 3ae254681225edd4c85ba8a1c20abd7b
   m_configObjects: {}

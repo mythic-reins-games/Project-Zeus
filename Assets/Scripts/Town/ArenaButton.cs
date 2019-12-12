@@ -8,6 +8,6 @@ public class ArenaButton : MonoBehaviour
     public void EnterCombat()
     {
         EnemyParty.SetArenaFoes();
-        SceneManager.LoadScene(Constants.SCENE_ARENA_COMBAT);
+        SceneManager.LoadScene(Constants.SCENE_PRE_COMBAT);
     }
 }
