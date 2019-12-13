@@ -49,6 +49,7 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         currentStamina = maxStamina;
         currentHealth = inputCurrentHealth;
         maxConcentration = 20 + GetEffectiveIntelligence() * 3;
+        healthBarScript.SetPercent(PercentHealth());
     }
 
     public void RegisterStatusEffect(StatusEffect effect)

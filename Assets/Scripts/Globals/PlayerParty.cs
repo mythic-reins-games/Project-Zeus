@@ -29,6 +29,15 @@ public static class PlayerParty
         return pow;
     }
 
+    public static void AfterCombatEffects()
+    {
+        foreach (CharacterSheet c in partyMembers)
+        {
+            if (c.selected)
+                c.HandleCombatEffects();
+        }
+    }
+
     public static int CountActivePartyMembers()
     {
         int count = 0;

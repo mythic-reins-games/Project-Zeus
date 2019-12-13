@@ -96,6 +96,7 @@ public class TurnManager : MonoBehaviour
         if (GetCurrentCombatController() != null)
             GetCurrentCombatController().isTurn = false;
         m.SetDefeat();
+        PlayerParty.AfterCombatEffects();
         StartCoroutine(ExitDefeatAfterDelay(6f));
     }
 
@@ -106,6 +107,7 @@ public class TurnManager : MonoBehaviour
         if (GetCurrentCombatController() != null)
             GetCurrentCombatController().isTurn = false;
         m.SetVictory();
+        PlayerParty.AfterCombatEffects();
         StartCoroutine(ExitVictoryAfterDelay(6f));
     }
 

@@ -19,6 +19,7 @@ public class CharacterSheet
 
     private static System.Random rng;
     private GameObject combatPrefab;
+    private GameObject avatar;
 
     private CharacterClass characterClass;
 
@@ -94,6 +95,11 @@ public class CharacterSheet
         return speed + endurance + strength + agility + intelligence;
     }
 
+    public void Heal(int amount)
+    {
+        currentHealth = currentHealth + amount < maxHealth ? currentHealth + amount : maxHealth;
+    }
+
     public void PowerUp()
     {
         switch (rng.Next(1, 6))
@@ -140,6 +146,21 @@ public class CharacterSheet
             default:
                 break;
          }
+    }
+
+    // If the avatar was injured, register those effects.
+    // Remember that stamina losses are transient - only health losses last past combat.
+    public void HandleCombatEffects()
+    {
+        // Unit fell in combat. Set to one health.
+        if (avatar == null)
+        {
+            currentHealth = 1;
+            return;
+        }
+        // Otherwise, however many health points the avatar has.
+        currentHealth = avatar.GetComponent<CreatureMechanics>().currentHealth;
+        currentHealth = currentHealth < 1 ? 1 : currentHealth;
     }
 
     // Creates the combat avatar for the character in a combat scene.
@@ -200,7 +221,8 @@ public class CharacterSheet
                 break;
         }
         string displayName = asPC ? name : "Enemy " + name;
-        combatant.GetComponent<CreatureMechanics>().Init(currentHealth, maxHealth, speed, endurance, strength, agility, intelligence, displayName);
+        avatar = combatant;
+        combatant.GetComponent<CreatureMechanics>().Init(maxHealth, currentHealth, speed, endurance, strength, agility, intelligence, displayName);
         combatant.GetComponent<CombatController>().SetSpecialMoves(specialMoves);
     }
 }
