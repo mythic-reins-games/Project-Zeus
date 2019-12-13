@@ -4,11 +4,11 @@ using UnityEngine;
 
 // CombatControllers are in charge of determining which moves are valid moves for a unit to take,
 // and initializing the execution of those moves.
+[RequireComponent(typeof(CreatureMechanics))]
 public class CombatController : TileBlockerController
 {
     private HashSet<Tile> visitedTiles = new HashSet<Tile>();
     protected List<Tile> selectableTiles = new List<Tile>();
-    [SerializeField] protected GameSignalOneObject gameSignal;
 
     protected List<Action> specialMoves = new List<Action> { };
 
@@ -72,7 +72,7 @@ public class CombatController : TileBlockerController
         PopupTextController.Initialize();
         creatureMechanics = GetComponent<CreatureMechanics>();
         selectedAction = GetComponent<ActionBasicAttack>();
-        gameSignal = (GameSignalOneObject)Resources.Load("Game Signals/SetConcentration", typeof(GameSignalOneObject));
+        //gameSignal = (GameSignalOneObject)Resources.Load("Game Signals/SetConcentration", typeof(GameSignalOneObject));
         base.Start();
     }
     
@@ -107,7 +107,7 @@ public class CombatController : TileBlockerController
         if (DoesGUI())
         {
             panel.SetActionPoints(actionPoints);
-            gameSignal?.Raise(creatureMechanics.GetConcentrationPercent());
+            creatureMechanics.UpdateUI();
         }
         isTurn = true;
         FindSelectableBasicTiles();
@@ -327,7 +327,7 @@ public class CombatController : TileBlockerController
         if (DoesGUI())
         {
             panel.ClearActionPoints();
-            gameSignal?.Raise(0);
+            creatureMechanics.UpdateUI(0);
         }
         isTurn = false;
         currentTile.isCurrent = false;
@@ -337,9 +337,8 @@ public class CombatController : TileBlockerController
     {
         if (DoesGUI())
         {
-            CreatureMechanics creatureMechanics = GetComponent<CreatureMechanics>();
             panel.SpendActionPoints(spentActionPoints);
-            gameSignal?.Raise(creatureMechanics.GetConcentrationPercent());
+            creatureMechanics.UpdateUI();
         }
         selectedAction = GetComponent<ActionBasicAttack>();
         isActing = false;

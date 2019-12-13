@@ -17,13 +17,15 @@ public class CreatureMechanics : ObjectMechanics
     [SerializeField] private int endurance;
     [SerializeField] private int agility;
     [SerializeField] private int intelligence;
-    [SerializeField] private int maxConcentration;
 
     [SerializeField] public string displayName;
 
+    [SerializeField] private GameSignalOneObject gameSignal;
+
     protected int maxStamina;
     protected int currentStamina;
-    public int currentConcentration = 0;
+    protected int maxConcentration;
+    protected int currentConcentration = 0;
 
     private bool firstBlood = false;
 
@@ -379,5 +381,17 @@ public class CreatureMechanics : ObjectMechanics
         dam = (int)((float)dam * damageMultiplier);
         target.ReceiveDamage(dam);
         return true;
+    }
+
+    public void UpdateUI(object value = null)
+    {
+        value = value ?? GetConcentrationPercent();
+        gameSignal?.Raise(value);
+    }
+
+    public int CurrentConcentration
+    {
+        get => currentConcentration;
+        set => currentConcentration = value;
     }
 }
