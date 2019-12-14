@@ -18,7 +18,7 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
     [SerializeField] private int agility;
     [SerializeField] private int intelligence;
 
-    [SerializeField] public string displayName;
+    public string displayName;
 
     [SerializeField] private GameSignalOneObject gameSignal;
 
@@ -60,7 +60,7 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
 
     public int BeginTurnAndGetMaxActionPoints()
     {
-        int ap = 5 + GetEffectiveSpeed();
+        int ap = 4 + GetEffectiveSpeed();
         foreach (StatusEffect effect in statusEffects)
         {
             ap = effect.PerRoundEffect(ap);
@@ -267,7 +267,7 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
     }
 
     // Returns true if floats are within 15.0f of each other.
-    // compare Mathf.Approximately, this has a much larger tolerance window.
+    // Compared Mathf.Approximately, this has a much larger tolerance window.
     private bool VeryApproximateMatch(float f1, float f2)
     {
         if (Mathf.Abs(f1 - f2) < 15.0f) return true;
@@ -303,10 +303,10 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         return GetEffectiveIntelligence() * 2;
     }
 
-    private bool IsCrit(ObjectMechanics target)
+    private bool IsCrit(ObjectMechanics target, bool isBackstab)
     {
         int chance = CritChance();
-        if (IsVulnerable(target))
+        if (isBackstab)
         {
             chance *= 2;
         }
@@ -340,6 +340,8 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         return 1.0f;
     }
 
+    // Main attack function. Applies damage and returns true if there is a hit.
+    // Returns false if there is a miss.
     private bool HitAndDamage(ObjectMechanics target, bool isConcentrationEligible, float damageMultiplier)
     {
         if (isConcentrationEligible)
@@ -370,8 +372,8 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
             backstab = true;
             dam += BonusRearDamage();
         }
-        // Critical hits apply a +100% multiplier, after all other modifiers are considered.
-        if (IsCrit(target))
+        // Critical hits apply a +100% multiplier, after all fixed modifiers are considered.
+        if (IsCrit(target, backstab))
         {
             dam += dam;
             DisplayPopupAfterDelay(0.2f, "Crit");

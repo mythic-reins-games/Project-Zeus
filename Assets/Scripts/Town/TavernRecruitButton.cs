@@ -9,12 +9,19 @@ public class TavernRecruitButton : MonoBehaviour
 
     public void Recruit()
     {
-        if (PlayerParty.gold >= 15 && PlayerParty.partyMembers.Count < Constants.MAX_PARTY_SIZE)
+        if (PlayerParty.gold < 15)
         {
-            PlayerParty.AddToParty(characterClass);
-            PlayerParty.gold -= 15;
-            PartyIndicator toUpdate = (PartyIndicator)FindObjectOfType(typeof(PartyIndicator));
-            toUpdate.PartyCompositionChanged();
+            NotificationPopupSystem.PopupText("Not enough gold");
+            return;
         }
+        if (PlayerParty.partyMembers.Count >= Constants.MAX_PARTY_SIZE)
+        {
+            NotificationPopupSystem.PopupText("Party already full");
+            return;
+        }
+        PlayerParty.AddToParty(characterClass);
+        PlayerParty.gold -= 15;
+        PartyIndicator toUpdate = (PartyIndicator)FindObjectOfType(typeof(PartyIndicator));
+        toUpdate.PartyCompositionChanged();
     }
 }

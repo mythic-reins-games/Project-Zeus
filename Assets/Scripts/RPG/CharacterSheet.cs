@@ -14,7 +14,8 @@ public class CharacterSheet
         CLASS_SLAVE,
         CLASS_ARCHER,
         CLASS_MYRMADON,
-        CLASS_SORCERER
+        CLASS_SORCERER,
+        CLASS_GOBLIN
     };
 
     private static System.Random rng;
@@ -35,7 +36,16 @@ public class CharacterSheet
     public int agility;
     public int intelligence;
 
+    public int bonusSpeed = 0;
+    public int bonusEndurance = 0;
+    public int bonusStrength = 0;
+    public int bonusAgility = 0;
+    public int bonusIntelligence = 0;
+
     public bool selected = true;
+
+    public Item ringLeftEquipped;
+    public Item ringRightEquipped;
 
     public CharacterSheet(CharacterClass c)
     {
@@ -71,6 +81,10 @@ public class CharacterSheet
                 name = "Slave";
                 InitStats(1, 1, 1, 1, 1);
                 break;
+            case CharacterClass.CLASS_GOBLIN:
+                name = "Goblin";
+                InitStats(2, 1, 2, 3, 2);
+                break;
         }
         InitHealth();
     }
@@ -88,6 +102,25 @@ public class CharacterSheet
         strength = str;
         agility = agi;
         intelligence = intel;
+    }
+
+    public void UnequipSlot(Item.ItemSlot slot)
+    {
+        switch (slot)
+        {
+            case Item.ItemSlot.ringLeft:
+                if (ringLeftEquipped == null) return;
+                PlayerParty.inventory.Add(ringLeftEquipped);
+                ringLeftEquipped.UnequipSelf(this, slot);
+                ringLeftEquipped = null;
+                break;
+            case Item.ItemSlot.ringRight:
+                if (ringRightEquipped == null) return;
+                PlayerParty.inventory.Add(ringRightEquipped);
+                ringRightEquipped.UnequipSelf(this, slot);
+                ringRightEquipped = null;
+                break;
+        }
     }
 
     public int GetTotalPower()
@@ -109,6 +142,7 @@ public class CharacterSheet
                 {
                     speed += 1;
                     boostStatText = "+1 speed";
+                    if (speed + bonusSpeed > 10) bonusSpeed -= 1;
                 }
                 break;
             case 2:
@@ -118,6 +152,7 @@ public class CharacterSheet
                     maxHealth += Constants.HEALTH_PER_ENDURANCE;
                     currentHealth += Constants.HEALTH_PER_ENDURANCE;
                     boostStatText = "+1 endurance";
+                    if (endurance + bonusEndurance > 10) bonusEndurance -= 1;
                 }
                 break;
             case 3:
@@ -127,6 +162,7 @@ public class CharacterSheet
                     maxHealth += Constants.HEALTH_PER_STRENGTH;
                     currentHealth += Constants.HEALTH_PER_STRENGTH;
                     boostStatText = "+1 strength";
+                    if (strength + bonusStrength > 10) bonusStrength -= 1;
                 }
                 break;
             case 4:
@@ -134,6 +170,7 @@ public class CharacterSheet
                 {
                     agility += 1;
                     boostStatText = "+1 agility";
+                    if (agility + bonusAgility > 10) bonusAgility -= 1;
                 }
                 break;
             case 5:
@@ -141,6 +178,7 @@ public class CharacterSheet
                 {
                     intelligence += 1;
                     boostStatText = "+1 intelligence";
+                    if (intelligence + bonusIntelligence > 10) bonusIntelligence -= 1;
                 }
                 break;
             default:
@@ -214,6 +252,9 @@ public class CharacterSheet
                 combatant.AddComponent<CreatureMechanics>();
                 break;
             case CharacterClass.CLASS_SORCERER:
+                combatant.AddComponent<CreatureMechanics>();
+                break;
+            case CharacterClass.CLASS_GOBLIN:
                 combatant.AddComponent<CreatureMechanics>();
                 break;
             case CharacterClass.CLASS_SLAVE:

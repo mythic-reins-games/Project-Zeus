@@ -8,11 +8,13 @@ public static class PlayerParty
     public static List<CharacterSheet> partyMembers;
     public static int gold;
     private static System.Random rng;
+    public static List<Item> inventory;
 
     // Resets the party to only contain the main character/hero.
     public static void Reset()
     {
         partyMembers = new List<CharacterSheet> { };
+        inventory = new List<Item> { };
         partyMembers.Add(new CharacterSheet(CharacterSheet.CharacterClass.CLASS_HERO));
         gold = 25;
         rng = new System.Random();

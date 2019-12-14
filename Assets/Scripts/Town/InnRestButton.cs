@@ -6,7 +6,11 @@ public class InnRestButton : MonoBehaviour
 {
     public void RestParty()
     {
-        if (PlayerParty.gold < 5) return;
+        if (PlayerParty.gold < 5)
+        {
+            NotificationPopupSystem.PopupText("Not enough gold");
+            return;
+        }
         PlayerParty.gold -= 5;
         foreach (CharacterSheet c in PlayerParty.partyMembers)
         {

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TavernEnterButton : MonoBehaviour
+public class ShopEnterButton : MonoBehaviour
 {
     [SerializeField]
-    GameObject tavernMenu;
+    GameObject shopMenu;
 
-    public void EnterTavern()
+    public void EnterShop()
     {
-        tavernMenu.SetActive(true);
+        shopMenu.SetActive(true);
         GameObject.Find("MainTownMenu").SetActive(false);
     }
 }

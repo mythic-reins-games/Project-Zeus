@@ -25,6 +25,21 @@ public class CharsheetUIManager : MonoBehaviour
     GameObject IntValueText;
 
     [SerializeField]
+    GameObject BonusStrValueText;
+
+    [SerializeField]
+    GameObject BonusSpeValueText;
+
+    [SerializeField]
+    GameObject BonusEndValueText;
+
+    [SerializeField]
+    GameObject BonusAgiValueText;
+
+    [SerializeField]
+    GameObject BonusIntValueText;
+
+    [SerializeField]
     GameObject NameText;
 
     [SerializeField]
