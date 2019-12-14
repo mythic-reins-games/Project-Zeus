@@ -42,23 +42,26 @@ public static class EnemyParty
         switch(difficulty + DifficultyJitter())
         {
             case 0:
-                AddToParty(RandomNormalClass());
+                AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
                 break;
             case 1:
-                AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
                 AddToParty(RandomNormalClass());
                 break;
             case 2:
-                AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
                 AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
                 AddToParty(RandomNormalClass());
                 break;
             case 3:
                 AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
-                AddToParty(RandomNormalClass());
+                AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
                 AddToParty(RandomNormalClass());
                 break;
             case 4:
+                AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
+                AddToParty(RandomNormalClass());
+                AddToParty(RandomNormalClass());
+                break;
+            case 5:
                 AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
                 AddToParty(CharacterSheet.CharacterClass.CLASS_SLAVE);
                 AddToParty(RandomNormalClass());
@@ -71,7 +74,7 @@ public static class EnemyParty
                 AddToParty(RandomNormalClass());
                 break;
         }
-        for (int i = 5; i < difficulty; i += 2)
+        for (int i = 6; i < difficulty; i += 2)
         {
             foreach (CharacterSheet c in partyMembers)
             {

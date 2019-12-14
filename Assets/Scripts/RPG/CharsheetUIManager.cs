@@ -50,7 +50,6 @@ public class CharsheetUIManager : MonoBehaviour
     public void Start()
     {
         characterBeingDisplayed = CharsheetUIInitializer.characterBeingDisplayed;
-        LifeText.GetComponent<Text>().text = characterBeingDisplayed.currentHealth.ToString() + "/" + characterBeingDisplayed.maxHealth.ToString();
         StrValueText.GetComponent<Text>().text = characterBeingDisplayed.strength.ToString();
         EndValueText.GetComponent<Text>().text = characterBeingDisplayed.endurance.ToString();
         SpeValueText.GetComponent<Text>().text = characterBeingDisplayed.speed.ToString();
@@ -63,7 +62,25 @@ public class CharsheetUIManager : MonoBehaviour
             Destroy(transform.Find("CharRenameBox").gameObject);
             Destroy(transform.Find("ConfirmRenameButton").gameObject);
             Destroy(transform.Find("StatusToggleButton").gameObject);
+            Destroy(transform.Find("Equipment").gameObject);
         }
+        UpdateBonuses();
+    }
+
+    private string ClearIfZero(int toProcess)
+    {
+        if (toProcess == 0) return "";
+        return "+" + toProcess.ToString();
+    }
+
+    public void UpdateBonuses()
+    {
+        BonusStrValueText.GetComponent<Text>().text = ClearIfZero(characterBeingDisplayed.bonusStrength);
+        BonusEndValueText.GetComponent<Text>().text = ClearIfZero(characterBeingDisplayed.bonusEndurance);
+        BonusSpeValueText.GetComponent<Text>().text = ClearIfZero(characterBeingDisplayed.bonusSpeed);
+        BonusAgiValueText.GetComponent<Text>().text = ClearIfZero(characterBeingDisplayed.bonusAgility);
+        BonusIntValueText.GetComponent<Text>().text = ClearIfZero(characterBeingDisplayed.bonusIntelligence);
+        LifeText.GetComponent<Text>().text = characterBeingDisplayed.currentHealth.ToString() + "/" + characterBeingDisplayed.maxHealth.ToString();
     }
 
     public void RenameActiveCharacter(string NewName)

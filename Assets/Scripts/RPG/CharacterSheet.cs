@@ -104,25 +104,6 @@ public class CharacterSheet
         intelligence = intel;
     }
 
-    public void UnequipSlot(Item.ItemSlot slot)
-    {
-        switch (slot)
-        {
-            case Item.ItemSlot.ringLeft:
-                if (ringLeftEquipped == null) return;
-                PlayerParty.inventory.Add(ringLeftEquipped);
-                ringLeftEquipped.UnequipSelf(this, slot);
-                ringLeftEquipped = null;
-                break;
-            case Item.ItemSlot.ringRight:
-                if (ringRightEquipped == null) return;
-                PlayerParty.inventory.Add(ringRightEquipped);
-                ringRightEquipped.UnequipSelf(this, slot);
-                ringRightEquipped = null;
-                break;
-        }
-    }
-
     public int GetTotalPower()
     {
         return speed + endurance + strength + agility + intelligence;
@@ -142,7 +123,6 @@ public class CharacterSheet
                 {
                     speed += 1;
                     boostStatText = "+1 speed";
-                    if (speed + bonusSpeed > 10) bonusSpeed -= 1;
                 }
                 break;
             case 2:
@@ -152,7 +132,6 @@ public class CharacterSheet
                     maxHealth += Constants.HEALTH_PER_ENDURANCE;
                     currentHealth += Constants.HEALTH_PER_ENDURANCE;
                     boostStatText = "+1 endurance";
-                    if (endurance + bonusEndurance > 10) bonusEndurance -= 1;
                 }
                 break;
             case 3:
@@ -162,7 +141,6 @@ public class CharacterSheet
                     maxHealth += Constants.HEALTH_PER_STRENGTH;
                     currentHealth += Constants.HEALTH_PER_STRENGTH;
                     boostStatText = "+1 strength";
-                    if (strength + bonusStrength > 10) bonusStrength -= 1;
                 }
                 break;
             case 4:
@@ -170,7 +148,6 @@ public class CharacterSheet
                 {
                     agility += 1;
                     boostStatText = "+1 agility";
-                    if (agility + bonusAgility > 10) bonusAgility -= 1;
                 }
                 break;
             case 5:
@@ -178,7 +155,6 @@ public class CharacterSheet
                 {
                     intelligence += 1;
                     boostStatText = "+1 intelligence";
-                    if (intelligence + bonusIntelligence > 10) bonusIntelligence -= 1;
                 }
                 break;
             default:
@@ -263,7 +239,7 @@ public class CharacterSheet
         }
         string displayName = asPC ? name : "Enemy " + name;
         avatar = combatant;
-        combatant.GetComponent<CreatureMechanics>().Init(maxHealth, currentHealth, speed, endurance, strength, agility, intelligence, displayName);
+        combatant.GetComponent<CreatureMechanics>().Init(maxHealth, currentHealth, speed + bonusSpeed, endurance + bonusEndurance, strength + bonusStrength, agility + bonusAgility, intelligence + bonusIntelligence, displayName);
         combatant.GetComponent<CombatController>().SetSpecialMoves(specialMoves);
     }
 }

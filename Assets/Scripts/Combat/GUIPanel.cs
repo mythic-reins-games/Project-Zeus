@@ -124,14 +124,17 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
 
     public void SetActionPoints(int amount)
     {
-        if (amount > actionPointImages.Count)
+        if (amount > actionPointImages.Count * 2)
         {
             Debug.LogWarning("Warning! Not enough action point images in GUI.");
             return;
         }
         for (numPoints = 0; numPoints < amount; numPoints++)
         {
-            actionPointImages[numPoints].color = new Color32(0, 255, 0, 255);
+            if (numPoints >= actionPointImages.Count)
+                actionPointImages[numPoints - actionPointImages.Count].color = new Color32(60, 0, 200, 255);
+            else
+                actionPointImages[numPoints].color = new Color32(0, 255, 0, 255);
         }
     }
 
@@ -140,7 +143,10 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
         for (int i = 0; i < amount; i++)
         {
             numPoints -= 1;
-            actionPointImages[numPoints].color = new Color32(255, 0, 0, 255);
+            if (numPoints >= actionPointImages.Count)
+                actionPointImages[numPoints - actionPointImages.Count].color = new Color32(0, 255, 0, 255);
+            else
+                actionPointImages[numPoints].color = new Color32(255, 0, 0, 255);
         }
     }
     

@@ -16,7 +16,7 @@ public static class PlayerParty
         partyMembers = new List<CharacterSheet> { };
         inventory = new List<Item> { };
         partyMembers.Add(new CharacterSheet(CharacterSheet.CharacterClass.CLASS_HERO));
-        gold = 25;
+        gold = 28;
         rng = new System.Random();
     }
 

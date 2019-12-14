@@ -34,10 +34,12 @@ public class Item
         {
             case ItemType.ring2Str:
                 target.currentHealth -= 2 * Constants.HEALTH_PER_STRENGTH;
+                target.maxHealth -= 2 * Constants.HEALTH_PER_STRENGTH;
                 target.bonusStrength -= 2;
                 break;
             case ItemType.ring2End:
-                target.currentHealth -= 2 * Constants.HEALTH_PER_STRENGTH;
+                target.currentHealth -= 2 * Constants.HEALTH_PER_ENDURANCE;
+                target.maxHealth -= 2 * Constants.HEALTH_PER_ENDURANCE;
                 target.bonusEndurance -= 2;
                 break;
             case ItemType.ring2Spe:
@@ -52,7 +54,17 @@ public class Item
         }
         // In case we were taken below 0 health by unequipping item, restore to 1.
         if (target.currentHealth < 0) target.currentHealth = 1;
-        target.UnequipSlot(slot);
+        switch (slot)
+        {
+            case ItemSlot.ringLeft:
+                target.ringLeftEquipped = null;
+                break;
+            case ItemSlot.ringRight:
+                target.ringRightEquipped = null;
+                break;
+        }
+        PlayerParty.inventory.Add(this);
+        GameObject.FindObjectOfType<CharsheetUIManager>().UpdateBonuses();
     }
 
     public string DisplayName()
@@ -75,14 +87,29 @@ public class Item
 
     public void EquipSelf(CharacterSheet target, ItemSlot slot)
     {
+        switch (slot)
+        {
+            case ItemSlot.ringLeft:
+                if (target.ringLeftEquipped != null)
+                    target.ringLeftEquipped.UnequipSelf(target, slot);
+                target.ringLeftEquipped = this;
+                break;
+            case ItemSlot.ringRight:
+                if (target.ringRightEquipped != null)
+                    target.ringRightEquipped.UnequipSelf(target, slot);
+                target.ringRightEquipped = this;
+                break;
+        }
         switch (type)
         {
             case ItemType.ring2Str:
                 target.currentHealth += 2 * Constants.HEALTH_PER_STRENGTH;
+                target.maxHealth += 2 * Constants.HEALTH_PER_STRENGTH;
                 target.bonusStrength += 2;
                 break;
             case ItemType.ring2End:
-                target.currentHealth += 2 * Constants.HEALTH_PER_STRENGTH;
+                target.currentHealth += 2 * Constants.HEALTH_PER_ENDURANCE;
+                target.maxHealth += 2 * Constants.HEALTH_PER_ENDURANCE;
                 target.bonusEndurance += 2;
                 break;
             case ItemType.ring2Spe:
@@ -95,18 +122,7 @@ public class Item
                 target.bonusIntelligence += 2;
                 break;
         }
-        switch (slot)
-        {
-            case ItemSlot.ringLeft:
-                if (target.ringLeftEquipped != null)
-                    target.ringLeftEquipped.UnequipSelf(target, slot);
-                target.ringLeftEquipped = this;
-                break;
-            case ItemSlot.ringRight:
-                if (target.ringLeftEquipped != null)
-                    target.ringRightEquipped.UnequipSelf(target, slot);
-                target.ringLeftEquipped = this;
-                break;
-        }
+        PlayerParty.inventory.Remove(this);
+        GameObject.FindObjectOfType<CharsheetUIManager>().UpdateBonuses();
     }
 }
