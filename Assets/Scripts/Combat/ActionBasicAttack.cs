@@ -58,7 +58,8 @@ public class ActionBasicAttack : ActionMove
             Tile targetTile = path.Pop();
             Vector3 direction = CalculateDirection(targetTile.transform.position);
             direction.y = 0f;
-            transform.forward = direction;
+            if (direction != Vector3.zero)
+                transform.forward = direction;
             ResolveAttack(targetTile.occupant);
         }
         else

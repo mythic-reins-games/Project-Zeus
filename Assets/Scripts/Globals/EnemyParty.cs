@@ -22,7 +22,7 @@ public static class EnemyParty
 
     private static CharacterSheet.CharacterClass RandomNormalClass()
     {
-        switch(rng.Next(1, 4))
+        switch(rng.Next(1, 8))
         {
             case 1:
                 return CharacterSheet.CharacterClass.CLASS_MINOTAUR;
@@ -30,8 +30,16 @@ public static class EnemyParty
                 return CharacterSheet.CharacterClass.CLASS_HERO;
             case 3:
                 return CharacterSheet.CharacterClass.CLASS_MEDUSA;
+            case 4:
+                return CharacterSheet.CharacterClass.CLASS_GOBLIN;
+            case 5:
+                return CharacterSheet.CharacterClass.CLASS_SORCERER;
+            case 6:
+                return CharacterSheet.CharacterClass.CLASS_ARCHER;
+            case 7:
+                return CharacterSheet.CharacterClass.CLASS_MYRMADON;
         }
-        return CharacterSheet.CharacterClass.CLASS_HERO; ;
+        return CharacterSheet.CharacterClass.CLASS_SLAVE;
     }
 
     // Sets up an enemy party at a particular diffulty.
@@ -74,7 +82,7 @@ public static class EnemyParty
                 AddToParty(RandomNormalClass());
                 break;
         }
-        for (int i = 6; i < difficulty; i += 2)
+        for (int i = 7; i < difficulty; i += 2)
         {
             foreach (CharacterSheet c in partyMembers)
             {
@@ -101,7 +109,7 @@ public static class EnemyParty
     public static void SpawnPartyMembers()
     {
         float xPos = -2.5f;
-        Quaternion facing = new Quaternion(0f, 0f, 0f, 0f);
+        Quaternion facing = new Quaternion(0f, 180f, 0f, 0f);
         foreach (CharacterSheet c in partyMembers)
         {
             if (c.selected)

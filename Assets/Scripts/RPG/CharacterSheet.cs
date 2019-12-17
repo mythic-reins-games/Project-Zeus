@@ -223,15 +223,34 @@ public class CharacterSheet
             case CharacterClass.CLASS_ARCHER:
                 combatant.AddComponent<CreatureMechanics>();
                 combatant.GetComponent<CombatController>().SetTileSearchType(CombatController.TileSearchType.DEFAULT_RANGED);
+                specialMoves.Add(combatant.AddComponent<ActionCrippleShot>());
+                specialMoves.Add(combatant.AddComponent<ActionPoisonArrow>());
+                specialMoves.Add(combatant.AddComponent<ActionBurningArrow>());
+                specialMoves.Add(combatant.AddComponent<ActionFastShot>());
                 break;
             case CharacterClass.CLASS_MYRMADON:
                 combatant.AddComponent<CreatureMechanics>();
+                combatant.GetComponent<CombatController>().SetTileSearchType(CombatController.TileSearchType.DEFAULT_REACH);
+                specialMoves.Add(combatant.AddComponent<ActionSweep>());
+                specialMoves.Add(combatant.AddComponent<ActionCrippleStrike>());
+                specialMoves.Add(combatant.AddComponent<ActionShieldBash>());
+                specialMoves.Add(combatant.AddComponent<ActionBulwark>());
                 break;
             case CharacterClass.CLASS_SORCERER:
                 combatant.AddComponent<CreatureMechanics>();
+                combatant.GetComponent<CombatController>().SetTileSearchType(CombatController.TileSearchType.DEFAULT_REACH);
+                // At some point we may want to replace this with some sort of 'skill learning' system where the unit can learn new skills? But for now just add all the skills.
+                specialMoves.Add(combatant.AddComponent<ActionFreeze>());
+                specialMoves.Add(combatant.AddComponent<ActionIgnite>());
+                specialMoves.Add(combatant.AddComponent<ActionBloodlust>());
+                specialMoves.Add(combatant.AddComponent<ActionOffhandAttack>());
                 break;
             case CharacterClass.CLASS_GOBLIN:
                 combatant.AddComponent<CreatureMechanics>();
+                specialMoves.Add(combatant.AddComponent<ActionPerfidy>());
+                specialMoves.Add(combatant.AddComponent<ActionCausticPowder>());
+                specialMoves.Add(combatant.AddComponent<ActionKneecap>());
+                specialMoves.Add(combatant.AddComponent<ActionMobility>());
                 break;
             case CharacterClass.CLASS_SLAVE:
                 combatant.AddComponent<CreatureMechanics>();

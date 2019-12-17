@@ -3117,6 +3117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feca3608964a05445981625b72ba9503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 1
   dead: 0
 --- !u!136 &282963407
 CapsuleCollider:
@@ -17015,6 +17016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feca3608964a05445981625b72ba9503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 1
   dead: 0
 --- !u!136 &1403649703
 CapsuleCollider:
@@ -19064,6 +19066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feca3608964a05445981625b72ba9503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 1
   dead: 0
 --- !u!136 &1620200126
 CapsuleCollider:
@@ -20316,6 +20319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feca3608964a05445981625b72ba9503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 1
   dead: 0
 --- !u!136 &1717619699
 CapsuleCollider:
@@ -21084,7 +21088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4add185b313dcf6479df3af1070fb1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CombatSongs:
+  Songs:
   - {fileID: 8300000, guid: e867d782e18fbdc48afa0585eb2f8efc, type: 3}
   VictorySong: {fileID: 8300000, guid: 747c1f922b782984c91ab9e12a6e89ef, type: 3}
   DefeatSong: {fileID: 8300000, guid: 472303f044f37b8468424ba1198df094, type: 3}

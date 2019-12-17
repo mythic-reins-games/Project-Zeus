@@ -59,6 +59,11 @@ public class PlayerController : ActionValidator
         return manager.AllLivingEnemies();
     }
 
+    override protected List<CombatController> AllAllies()
+    {
+        return manager.AllLivingPCs();
+    }
+
     private Tile GetMouseTile()
     {
         // IsPointerOverGameObject checks to see if the cursor is over a GUI object

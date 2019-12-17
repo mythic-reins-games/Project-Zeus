@@ -59,13 +59,14 @@ public class TurnManager : MonoBehaviour
     CombatController GetCurrentCombatController()
     {
         if (moveIdx == -1) return null;
-        if (combatants[moveIdx] == null) return null;
-        if (combatants[moveIdx].IsPC() && !combatants[moveIdx].Dead())
+        if (combatants[moveIdx] == null)
+            return null;
+        else if (combatants[moveIdx].IsPC() && !combatants[moveIdx].Dead())
         {
             enemyTurn = false;
             return combatants[moveIdx];
         }
-        if (combatants[moveIdx].IsEnemy() && !combatants[moveIdx].Dead())
+        else if (combatants[moveIdx].IsEnemy() && !combatants[moveIdx].Dead())
         {
             enemyTurn = true;
             return combatants[moveIdx];

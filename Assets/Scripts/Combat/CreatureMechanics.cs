@@ -128,6 +128,7 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         }
         else
         {
+            healthBarScript.SetPercent(PercentHealth());
             Animate("IsGettingDamaged");
         }
     }
@@ -190,15 +191,35 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.EMPOWER))
             m += 20;
         if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.BLINDED))
-            m -= 30;
+            m -= 25;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.KNOCKDOWN))
+            m -= 25;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.PETRIFIED))
+            m -= 100;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.FROZEN))
+            m -= 100;
         return m;
+    }
+
+    public bool IgnoresTerrainCosts()
+    {
+        return StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.MOBILITY);
+    }
+
+    public bool ExertsZoc()
+    {
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.PETRIFIED) ||
+            StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.FROZEN) ||
+            StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.KNOCKDOWN))
+            return false;
+        return true;
     }
 
     protected int GetHitModifiers()
     {
         int m = 0;
         if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.BLINDED))
-            m -= 30;
+            m -= 25;
         return m;
     }
 
@@ -215,6 +236,14 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
     private bool PercentRoll(int percent)
     {
         return rng.Next(0, 99) < percent;
+    }
+
+    protected int GetBackstabModifiers()
+    {
+        int m = 0;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.PERFIDY))
+            m += 15;
+        return m;
     }
 
     protected int GetDamageModifiers()
@@ -245,18 +274,19 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
 
     virtual public int BonusRearDamageMin()
     {
-        return 2 + GetEffectiveAgility() * 2;
+        return 2 + GetBackstabModifiers() + GetEffectiveAgility() * 2;
     }
 
     virtual public int BonusRearDamageMax()
     {
-        return 4 + GetEffectiveAgility() * 2;
+        return 4 + GetBackstabModifiers() + GetEffectiveAgility() * 2;
     }
 
     private float DefensiveDamageMultiplier()
     {
         float m = 1.0f;
         if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.PETRIFIED)) m /= 2.0f;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.BULWARK)) m /= 2.0f;
         return m;
     }
 

@@ -5,7 +5,7 @@ public class MusicManager : MonoBehaviour
 {
     public static AudioSource[] aud = new AudioSource[2];
 
-    public AudioClip[] CombatSongs;
+    public AudioClip[] Songs;
     public AudioClip VictorySong;
     public AudioClip DefeatSong;
 
@@ -17,7 +17,7 @@ public class MusicManager : MonoBehaviour
     {
         aud[0] = gameObject.AddComponent<AudioSource>();
         aud[1] = gameObject.AddComponent<AudioSource>();
-        song = Random.Range(0, CombatSongs.Length);
+        song = Random.Range(0, Songs.Length);
     }
 
     public void SetVictory()
@@ -56,7 +56,7 @@ public class MusicManager : MonoBehaviour
     {
         if (!gameOver && aud[0].isPlaying == false)
         {
-            aud[0].clip = CombatSongs[song];
+            aud[0].clip = Songs[song];
             aud[0].Play();
         }
     }

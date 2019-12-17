@@ -16,6 +16,12 @@ public class StatusEffect
         BLINDED,
         PETRIFIED,
         POISONED,
+        FROZEN,
+        BURNING,
+        PERFIDY,
+        MOBILITY,
+        BULWARK,
+        SLOWED,
     };
 
     const string LYING_DOWN = "IsLyingDown";
@@ -79,6 +85,22 @@ public class StatusEffect
                 break;
             case EffectType.POISONED:
                 target.ReceivePureDamage(5);
+                break;
+            case EffectType.SLOWED:
+                // -4 AP, but never takes a unit below 2 AP.
+                target.DisplayPopup("Slowed");
+                if (ap > 6) ap -= 4;
+                else if (ap > 0) ap = 2;
+                break;
+            case EffectType.FROZEN:
+                target.DisplayPopup("Frozen");
+                ap = 0;
+                break;
+            case EffectType.MOBILITY:
+                if (ap > 0) ap += 2; // +2 AP, as long as the unit isn't disabled.
+                break;
+            case EffectType.BURNING:
+                target.ReceiveDamage(10);
                 break;
         }
         roundsRemaining--;
