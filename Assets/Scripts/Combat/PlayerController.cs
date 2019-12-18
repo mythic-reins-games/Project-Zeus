@@ -4,7 +4,6 @@ using UnityEngine;
 
 // PlayerControllers are intended to be a fairly thin interface between CombatController and
 // the UI for Player-Controlled characters.
-[RequireComponent(typeof(CreatureMechanics))]
 public class PlayerController : ActionValidator
 {
     private static readonly KeyCode[] KEY_CODES = {
