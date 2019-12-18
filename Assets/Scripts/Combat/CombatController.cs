@@ -4,7 +4,6 @@ using UnityEngine;
 
 // CombatControllers are in charge of determining which moves are valid moves for a unit to take,
 // and initializing the execution of those moves.
-[RequireComponent(typeof(CreatureMechanics))]
 public class CombatController : TileBlockerController
 {
     private HashSet<Tile> visitedTiles = new HashSet<Tile>();

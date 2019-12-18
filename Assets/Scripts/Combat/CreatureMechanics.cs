@@ -5,7 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 // This class implements the high-level game rules for creatures.
-public class CreatureMechanics : ObjectMechanics
+public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
 {
     System.Random rng;
 
@@ -262,7 +262,7 @@ public class CreatureMechanics : ObjectMechanics
     // Bonus damage from a rear attack is 1-5 plus a quarter of agility.
     private int BonusRearDamage()
     {
-        return rng.Next(BonusRearDamageMin(), BonusRearDamageMax()); 
+        return rng.Next(BonusRearDamageMin(), BonusRearDamageMax());
     }
 
     // Returns true if floats are within 15.0f of each other.
@@ -314,7 +314,7 @@ public class CreatureMechanics : ObjectMechanics
 
     public void PerformAttackWithStatusEffect(ObjectMechanics target, StatusEffect.EffectType type, int duration, int powerLevel = -1, float damageMultiplier = 1.0f)
     {
-        if(HitAndDamage(target, false, damageMultiplier))
+        if (HitAndDamage(target, false, damageMultiplier))
         {
             new StatusEffect(type, duration, target, powerLevel);
         }
@@ -346,7 +346,8 @@ public class CreatureMechanics : ObjectMechanics
             BoostConcentration();
         }
         Animate("IsAttacking");
-        if (!PercentRoll(HitChance())) {
+        if (!PercentRoll(HitChance()))
+        {
             target.Animate("IsDodging");
             DisplayPopupAfterDelay(0.2f, "Miss");
             return false;
@@ -361,7 +362,8 @@ public class CreatureMechanics : ObjectMechanics
         bool backstab = false;
         if (IsVulnerable(target))
         {
-            if (isConcentrationEligible) {
+            if (isConcentrationEligible)
+            {
                 BoostConcentration();
             }
             backstab = true;
@@ -394,4 +396,14 @@ public class CreatureMechanics : ObjectMechanics
         get => currentConcentration;
         set => currentConcentration = value;
     }
+
+    public void OnBeforeSerialize()
+    {
+        if (gameSignal == null)
+        {
+            gameSignal = (GameSignalOneObject)Resources.Load("Game Signals/SetConcentration", typeof(GameSignalOneObject));
+        }
+    }
+
+    public void OnAfterDeserialize() { }
 }

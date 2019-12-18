@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // EnemyControllers handle the AI decision-making for creatures on the enemy side.
+[RequireComponent(typeof(CreatureMechanics))]
 public class EnemyController : ActionValidator
 {
 
