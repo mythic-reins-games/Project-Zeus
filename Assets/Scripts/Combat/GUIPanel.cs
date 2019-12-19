@@ -9,6 +9,7 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
 
     [SerializeField] List<Image> actionPointImages;
     [SerializeField] Slider concentrationSlider;
+    [SerializeField] Image concentrationImage;
 
     [SerializeField] private GameSignalOneObject gameSignal;
     private OneObjectEvent gameSignalEvent;
@@ -146,6 +147,13 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
     public void SetConcentrationSlider(object value)
     {
         float? fValue = value as float?;
-        concentrationSlider.value = fValue.HasValue ? fValue.Value : 0f;
+        if (concentrationSlider)
+        {
+            concentrationSlider.value = fValue.HasValue ? fValue.Value : 0f;
+        }
+        if (concentrationImage)
+        {
+            concentrationImage.material.SetFloat("_Value", fValue.HasValue ? fValue.Value : 0f);
+        }
     }
 }

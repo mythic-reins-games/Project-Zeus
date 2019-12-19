@@ -61,7 +61,7 @@ public class ActionValidator : CombatController
             if (displayReason) creatureMechanics.DisplayPopup("Not enough AP");
             return false;
         }
-        if (creatureMechanics.currentConcentration < action.CONCENTRATION_COST)
+        if (creatureMechanics.CurrentConcentration < action.CONCENTRATION_COST)
         {
             if (displayReason) creatureMechanics.DisplayPopup("Not enough concentration");
             return false;

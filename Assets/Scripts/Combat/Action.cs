@@ -88,7 +88,7 @@ public class Action : MonoBehaviour
         Quaternion rot = transform.rotation;
         rot.y = Mathf.Round(rot.y / 0.7071f) * 0.7071f;
         transform.rotation = rot;
-        mechanics.currentConcentration -= CONCENTRATION_COST;
+        mechanics.CurrentConcentration -= CONCENTRATION_COST;
         combatController.EndAction(spentActionPoints);
         inProgress = false;
     }

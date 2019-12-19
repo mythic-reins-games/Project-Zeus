@@ -1785,6 +1785,7 @@ MonoBehaviour:
   - {fileID: 1569683660}
   - {fileID: 1128233911}
   concentrationSlider: {fileID: 1936793900}
+  concentrationImage: {fileID: 0}
   gameSignal: {fileID: 11400000, guid: 2d2568bfd7c28cd41b1c9fb7d263322d, type: 2}
 --- !u!1 &168623222
 GameObject:
