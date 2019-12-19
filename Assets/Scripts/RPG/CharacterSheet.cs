@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define OLD
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,43 +43,41 @@ public class CharacterSheet
         rng = new System.Random();
         characterClass = c;
 
-        // Code without prefab variants - START
-        //switch (c)
-        //{
-        //    case CharacterClass.CLASS_HERO:
-        //        name = "Hero";
-        //        InitStats(2, 2, 2, 2, 2);
-        //        speed = 4;
-        //        break;
-        //    case CharacterClass.CLASS_MEDUSA:
-        //        name = "Medusa";
-        //        InitStats(1, 2, 2, 3, 2);
-        //        break;
-        //    case CharacterClass.CLASS_MINOTAUR:
-        //        name = "Minotaur";
-        //        InitStats(2, 2, 3, 2, 1);
-        //        break;
-        //    case CharacterClass.CLASS_ARCHER:
-        //        name = "Archer";
-        //        InitStats(3, 1, 2, 2, 2);
-        //        break;
-        //    case CharacterClass.CLASS_MYRMADON:
-        //        name = "Myrmadon";
-        //        InitStats(2, 3, 2, 1, 2);
-        //        break;
-        //    case CharacterClass.CLASS_SORCERER:
-        //        name = "Sorcerer";
-        //        InitStats(2, 2, 1, 2, 3);
-        //        break;
-        //    case CharacterClass.CLASS_SLAVE:
-        //        name = "Slave";
-        //        InitStats(1, 1, 1, 1, 1);
-        //        break;
-        //}
-        //InitHealth();
-        // Code without prefab variants - END
-
-        // Code with prefab variants - START
+#if (OLD)
+        switch (c)
+        {
+            case CharacterClass.CLASS_HERO:
+                name = "Hero";
+                InitStats(2, 2, 2, 2, 2);
+                speed = 4;
+                break;
+            case CharacterClass.CLASS_MEDUSA:
+                name = "Medusa";
+                InitStats(1, 2, 2, 3, 2);
+                break;
+            case CharacterClass.CLASS_MINOTAUR:
+                name = "Minotaur";
+                InitStats(2, 2, 3, 2, 1);
+                break;
+            case CharacterClass.CLASS_ARCHER:
+                name = "Archer";
+                InitStats(3, 1, 2, 2, 2);
+                break;
+            case CharacterClass.CLASS_MYRMADON:
+                name = "Myrmadon";
+                InitStats(2, 3, 2, 1, 2);
+                break;
+            case CharacterClass.CLASS_SORCERER:
+                name = "Sorcerer";
+                InitStats(2, 2, 1, 2, 3);
+                break;
+            case CharacterClass.CLASS_SLAVE:
+                name = "Slave";
+                InitStats(1, 1, 1, 1, 1);
+                break;
+        }
+        InitHealth();
+#else
         string prefabName = "";
         switch (characterClass)
         {
@@ -108,7 +108,7 @@ public class CharacterSheet
         name = creatureMechanics.DisplayName;
         InitStats(creatureMechanics.Speed, creatureMechanics.Endurance, creatureMechanics.Strength, creatureMechanics.Agility, creatureMechanics.Intelligence);
         InitHealth();
-        // Code with prefab variants - END
+#endif
     }
 
     private void InitHealth()
@@ -184,65 +184,63 @@ public class CharacterSheet
     // Can create as PC or as enemy.
     public void CreateCombatAvatar(Vector3 location, Quaternion rotation, bool asPC)
     {
-        // Code without prefab variants - START
-        //combatPrefab = (GameObject)Resources.Load("Prefabs/combatant", typeof(GameObject));
-        //GameObject combatant = GameObject.Instantiate(combatPrefab, location, rotation) as GameObject;
-        //if (asPC)
-        //{
-        //    combatant.AddComponent<PlayerController>();
-        //}
-        //else
-        //{
-        //    combatant.AddComponent<EnemyController>();
-        //}
-        //List<Action> specialMoves = new List<Action> { };
-        //switch (characterClass)
-        //{
-        //    case CharacterClass.CLASS_HERO:
-        //        combatant.AddComponent<CreatureMechanics>();
-        //        // At some point we may want to replace this with some sort of 'skill learning' system where the unit can learn new skills? But for now just add all the skills.
-        //        specialMoves.Add(combatant.AddComponent<ActionEmpower>());
-        //        specialMoves.Add(combatant.AddComponent<ActionMultiAttack>());
-        //        specialMoves.Add(combatant.AddComponent<ActionOffhandAttack>());
-        //        specialMoves.Add(combatant.AddComponent<ActionLifeOrDeath>());
-        //        break;
-        //    case CharacterClass.CLASS_MEDUSA:
-        //        combatant.GetComponent<CombatController>().TileSearchType = CombatController.TileSearchTypes.DEFAULT_RANGED;
-        //        combatant.AddComponent<MedusaMechanics>();
-        //        // At some point we may want to replace this with some sort of 'skill learning' system where the unit can learn new skills? But for now just add all the skills.
-        //        specialMoves.Add(combatant.AddComponent<ActionPetrify>());
-        //        specialMoves.Add(combatant.AddComponent<ActionSnakeBite>());
-        //        specialMoves.Add(combatant.AddComponent<ActionTerrify>());
-        //        specialMoves.Add(combatant.AddComponent<ActionTailSweep>());
-        //        break;
-        //    case CharacterClass.CLASS_MINOTAUR:
-        //        combatant.AddComponent<CreatureMechanics>();
-        //        // At some point we may want to replace this with some sort of 'skill learning' system where the unit can learn new skills? But for now just add all the skills.
-        //        specialMoves.Add(combatant.AddComponent<ActionBullRush>());
-        //        specialMoves.Add(combatant.AddComponent<ActionRage>());
-        //        specialMoves.Add(combatant.AddComponent<ActionSlaughter>());
-        //        specialMoves.Add(combatant.AddComponent<ActionRegenerate>());
-        //        break;
-        //    case CharacterClass.CLASS_ARCHER:
-        //        combatant.AddComponent<CreatureMechanics>();
-        //        combatant.GetComponent<CombatController>().TileSearchType = CombatController.TileSearchTypes.DEFAULT_RANGED;
-        //        break;
-        //    case CharacterClass.CLASS_MYRMADON:
-        //        combatant.AddComponent<CreatureMechanics>();
-        //        break;
-        //    case CharacterClass.CLASS_SORCERER:
-        //        combatant.AddComponent<CreatureMechanics>();
-        //        break;
-        //    case CharacterClass.CLASS_SLAVE:
-        //        combatant.AddComponent<CreatureMechanics>();
-        //        break;
-        //}
-        //string displayName = asPC ? name : "Enemy " + name;
-        //combatant.GetComponent<CreatureMechanics>().Init(currentHealth, maxHealth, speed, endurance, strength, agility, intelligence, displayName);
-        //combatant.GetComponent<CombatController>().SpecialMoves = specialMoves;
-        // Code without prefab variants - END
-
-        // Code with prefab variants - START
+#if (OLD)
+        combatPrefab = (GameObject)Resources.Load("Prefabs/combatant", typeof(GameObject));
+        GameObject combatant = GameObject.Instantiate(combatPrefab, location, rotation) as GameObject;
+        if (asPC)
+        {
+            combatant.AddComponent<PlayerController>();
+        }
+        else
+        {
+            combatant.AddComponent<EnemyController>();
+        }
+        List<Action> specialMoves = new List<Action> { };
+        switch (characterClass)
+        {
+            case CharacterClass.CLASS_HERO:
+                combatant.AddComponent<CreatureMechanics>();
+                // At some point we may want to replace this with some sort of 'skill learning' system where the unit can learn new skills? But for now just add all the skills.
+                specialMoves.Add(combatant.AddComponent<ActionEmpower>());
+                specialMoves.Add(combatant.AddComponent<ActionMultiAttack>());
+                specialMoves.Add(combatant.AddComponent<ActionOffhandAttack>());
+                specialMoves.Add(combatant.AddComponent<ActionLifeOrDeath>());
+                break;
+            case CharacterClass.CLASS_MEDUSA:
+                combatant.GetComponent<CombatController>().TileSearchType = CombatController.TileSearchTypes.DEFAULT_RANGED;
+                combatant.AddComponent<MedusaMechanics>();
+                // At some point we may want to replace this with some sort of 'skill learning' system where the unit can learn new skills? But for now just add all the skills.
+                specialMoves.Add(combatant.AddComponent<ActionPetrify>());
+                specialMoves.Add(combatant.AddComponent<ActionSnakeBite>());
+                specialMoves.Add(combatant.AddComponent<ActionTerrify>());
+                specialMoves.Add(combatant.AddComponent<ActionTailSweep>());
+                break;
+            case CharacterClass.CLASS_MINOTAUR:
+                combatant.AddComponent<CreatureMechanics>();
+                // At some point we may want to replace this with some sort of 'skill learning' system where the unit can learn new skills? But for now just add all the skills.
+                specialMoves.Add(combatant.AddComponent<ActionBullRush>());
+                specialMoves.Add(combatant.AddComponent<ActionRage>());
+                specialMoves.Add(combatant.AddComponent<ActionSlaughter>());
+                specialMoves.Add(combatant.AddComponent<ActionRegenerate>());
+                break;
+            case CharacterClass.CLASS_ARCHER:
+                combatant.AddComponent<CreatureMechanics>();
+                combatant.GetComponent<CombatController>().TileSearchType = CombatController.TileSearchTypes.DEFAULT_RANGED;
+                break;
+            case CharacterClass.CLASS_MYRMADON:
+                combatant.AddComponent<CreatureMechanics>();
+                break;
+            case CharacterClass.CLASS_SORCERER:
+                combatant.AddComponent<CreatureMechanics>();
+                break;
+            case CharacterClass.CLASS_SLAVE:
+                combatant.AddComponent<CreatureMechanics>();
+                break;
+        }
+        string displayName = asPC ? name : "Enemy " + name;
+        combatant.GetComponent<CreatureMechanics>().Init(currentHealth, maxHealth, speed, endurance, strength, agility, intelligence, displayName);
+        combatant.GetComponent<CombatController>().SpecialMoves = specialMoves;
+#else
         GameObject combatant = GameObject.Instantiate(combatPrefab, location, rotation) as GameObject;
         CombatController combatController = combatant.GetComponent<CombatController>();
         CreatureMechanics creatureMechanics = combatant.GetComponent<CreatureMechanics>();
@@ -262,6 +260,6 @@ public class CharacterSheet
         combatController.enabled = false;
 
         creatureMechanics.Init(currentHealth, maxHealth);
-        // Code with prefab variants - END
+#endif
     }
 }
