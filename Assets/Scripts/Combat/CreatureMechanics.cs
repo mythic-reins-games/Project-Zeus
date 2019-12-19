@@ -29,7 +29,16 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
 
     private bool firstBlood = false;
 
+    public int Strength => strength;
     public int Speed => speed;
+    public int Endurance => endurance;
+    public int Agility => agility;
+    public int Intelligence => intelligence;
+    public string DisplayName
+    {
+        get => displayName;
+        set => displayName = value;
+    }
 
     override public bool canBeBackstabbed { get { return true; } }
 
@@ -41,6 +50,11 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         strength = str;
         agility = agi;
         intelligence = intel;
+        Init(inputMaxHealth, inputCurrentHealth);
+    }
+
+    public void Init(int inputMaxHealth, int inputCurrentHealth)
+    {
         rng = new System.Random();
         healthBarScript = transform.Find("HealthBar").GetComponent<IndicatorBar>();
         staminaBarScript = transform.Find("StaminaBar").GetComponent<IndicatorBar>();
