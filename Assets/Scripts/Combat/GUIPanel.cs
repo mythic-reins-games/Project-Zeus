@@ -11,7 +11,7 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
     [SerializeField] Slider concentrationSlider;
     [SerializeField] Image concentrationImage;
 
-    [SerializeField] private GameSignalOneObject gameSignal;
+    private GameSignalOneObject gameSignal;
     private OneObjectEvent gameSignalEvent;
 
     int numPoints = 0;
@@ -31,6 +31,7 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
 
     private void OnEnable()
     {
+        gameSignal = SignalRegistry.ConcentrationSignal();
         gameSignal.RegisterListener(this);
     }
 
@@ -58,7 +59,6 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
         button1 = GameObject.Find("Button1").GetComponent<Button>();
         button2 = GameObject.Find("Button2").GetComponent<Button>();
         button3 = GameObject.Find("Button3").GetComponent<Button>();
-
         gameSignalEvent = new OneObjectEvent();
         gameSignalEvent.AddListener(SetConcentrationSlider);
     }

@@ -86,7 +86,7 @@ public class Action : MonoBehaviour
 
     protected void EndAction()
     {
-        mechanics.currentConcentration -= CONCENTRATION_COST;
+        mechanics.CurrentConcentration -= CONCENTRATION_COST;
         combatController.EndAction(spentActionPoints);
         inProgress = false;
 

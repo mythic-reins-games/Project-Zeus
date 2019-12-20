@@ -20,8 +20,6 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
 
     public string displayName;
 
-    [SerializeField] private GameSignalOneObject gameSignal;
-
     protected int maxStamina;
     protected int currentStamina;
     protected int maxConcentration;
@@ -421,22 +419,16 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
     public void UpdateUI(object value = null)
     {
         value = value ?? GetConcentrationPercent();
-        gameSignal?.Raise(value);
+        SignalRegistry.ConcentrationSignal().Raise(value);
     }
 
     public int CurrentConcentration
     {
-        get => currentConcentration;
-        set => currentConcentration = value;
+        get { return currentConcentration; }
+        set { currentConcentration = value; }
     }
 
-    public void OnBeforeSerialize()
-    {
-        if (gameSignal == null)
-        {
-            gameSignal = (GameSignalOneObject)Resources.Load("Game Signals/SetConcentration", typeof(GameSignalOneObject));
-        }
-    }
+    public void OnBeforeSerialize() { }
 
     public void OnAfterDeserialize() { }
 }

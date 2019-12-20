@@ -473,8 +473,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Songs:
   - {fileID: 8300000, guid: 3dbea4e8581e0a6449aa6330372a6317, type: 3}
-  VictorySong: {fileID: 8300000, guid: 747c1f922b782984c91ab9e12a6e89ef, type: 3}
-  DefeatSong: {fileID: 8300000, guid: 472303f044f37b8468424ba1198df094, type: 3}
+  VictorySong: {fileID: 0}
+  DefeatSong: {fileID: 0}
 --- !u!4 &584385707
 Transform:
   m_ObjectHideFlags: 0
