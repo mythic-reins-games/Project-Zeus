@@ -206,7 +206,7 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         return StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.MOBILITY);
     }
 
-    public bool ExertsZoc()
+    virtual public bool ExertsZoc()
     {
         if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.PETRIFIED) ||
             StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.FROZEN) ||

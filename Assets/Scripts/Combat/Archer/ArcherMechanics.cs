@@ -24,4 +24,9 @@ public class ArcherMechanics : CreatureMechanics
     {
         return 2 + GetBackstabModifiers() + GetEffectiveAgility() * 2;
     }
+
+    override public bool ExertsZoc()
+    {
+        return false;
+    }
 }
