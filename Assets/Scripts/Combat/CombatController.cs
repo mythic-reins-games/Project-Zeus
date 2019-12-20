@@ -9,8 +9,6 @@ public class CombatController : TileBlockerController
     private HashSet<Tile> visitedTiles = new HashSet<Tile>();
     protected List<Tile> selectableTiles = new List<Tile>();
 
-    protected List<Action> specialMoves = new List<Action> { };
-
     protected TurnManager manager = null;
 
     protected CreatureMechanics creatureMechanics = null;
@@ -20,10 +18,11 @@ public class CombatController : TileBlockerController
     public bool isActing = false;
     protected int actionPoints = 0;
 
-    [SerializeField]
-    private TileSearchType DEFAULT_ATTACK_TYPE = TileSearchType.DEFAULT;
+    [SerializeField] private TileSearchTypes DEFAULT_ATTACK_TYPE = TileSearchTypes.DEFAULT;
 
-    public enum TileSearchType
+    [SerializeField] protected List<Action> specialMoves = new List<Action> { };
+
+    public enum TileSearchTypes
     {
         // Default means unit can move at normal per-tile costs and melee attack at normal attack cost.
         DEFAULT,
@@ -38,15 +37,17 @@ public class CombatController : TileBlockerController
         // Basic ranged attack or movement.
         DEFAULT_RANGED
     };
-    
-    public void SetSpecialMoves(List<Action> moves)
+
+    public List<Action> SpecialMoves
     {
-        specialMoves = moves;
+        get => specialMoves;
+        set => specialMoves = value;
     }
 
-    public void SetTileSearchType(TileSearchType t)
+    public TileSearchTypes TileSearchType
     {
-        DEFAULT_ATTACK_TYPE = t;
+        get => DEFAULT_ATTACK_TYPE;
+        set => DEFAULT_ATTACK_TYPE = value;
     }
 
     public bool Dead()
@@ -158,7 +159,7 @@ public class CombatController : TileBlockerController
     // Returns true if valid charge tiles were found.
     protected bool FindSelectableChargeTiles(int attackCost)
     {
-        FindSelectableTiles(TileSearchType.CHARGE_ATTACK, attackCost);
+        FindSelectableTiles(TileSearchTypes.CHARGE_ATTACK, attackCost);
         if (selectableTiles.Count == 0)
         {
             FindSelectableBasicTiles();
@@ -169,7 +170,7 @@ public class CombatController : TileBlockerController
 
     protected bool FindSelectableAttackTiles(int attackCost)
     {
-        FindSelectableTiles(TileSearchType.ATTACK_ONLY, attackCost);
+        FindSelectableTiles(TileSearchTypes.ATTACK_ONLY, attackCost);
         if (selectableTiles.Count == 0)
         {
             FindSelectableBasicTiles();
@@ -180,7 +181,7 @@ public class CombatController : TileBlockerController
 
     protected bool FindSelectableRangedAttackTiles(int attackCost)
     {
-        FindSelectableTiles(TileSearchType.RANGED_ATTACK_ONLY, attackCost);
+        FindSelectableTiles(TileSearchTypes.RANGED_ATTACK_ONLY, attackCost);
         if (selectableTiles.Count == 0)
         {
             FindSelectableBasicTiles();
@@ -229,7 +230,7 @@ public class CombatController : TileBlockerController
         }
     }
 
-    private void FindSelectableTiles(TileSearchType searchType, int attackCost = Constants.ATTACK_AP_COST)
+    private void FindSelectableTiles(TileSearchTypes searchType, int attackCost = Constants.ATTACK_AP_COST)
     {
         ClearVisitedTiles();
         AssignCurrentTile();
@@ -237,15 +238,15 @@ public class CombatController : TileBlockerController
         {
             return;
         }
-        if (actionPoints < attackCost && searchType == TileSearchType.ATTACK_ONLY)
+        if (actionPoints < attackCost && searchType == TileSearchTypes.ATTACK_ONLY)
         {
             return;
         }
-        if (actionPoints < attackCost && searchType == TileSearchType.CHARGE_ATTACK)
+        if (actionPoints < attackCost && searchType == TileSearchTypes.CHARGE_ATTACK)
         {
             return;
         }
-        if (actionPoints < attackCost && searchType == TileSearchType.RANGED_ATTACK_ONLY)
+        if (actionPoints < attackCost && searchType == TileSearchTypes.RANGED_ATTACK_ONLY)
         {
             return;
         }
@@ -263,14 +264,14 @@ public class CombatController : TileBlockerController
             queue.RemoveAt(0);
 
             // Only default can select tiles that end in movement.
-            if (tile != currentTile && (searchType == TileSearchType.DEFAULT || searchType == TileSearchType.DEFAULT_RANGED))
+            if (tile != currentTile && (searchType == TileSearchTypes.DEFAULT || searchType == TileSearchTypes.DEFAULT_RANGED))
             {
                 selectableTiles.Add(tile);
                 tile.isSelectable = true;
             }
 
             // Potential ranged attacks
-            if (searchType == TileSearchType.DEFAULT_RANGED || searchType == TileSearchType.RANGED_ATTACK_ONLY)
+            if (searchType == TileSearchTypes.DEFAULT_RANGED || searchType == TileSearchTypes.RANGED_ATTACK_ONLY)
                 AssignRangedAttackTargets(tile, attackCost);
 
             foreach (Tile adjacentTile in tile.adjacentTileList)
@@ -278,9 +279,9 @@ public class CombatController : TileBlockerController
                 if (adjacentTile.isBlocked)
                 {
                     // Potential melee attacks.
-                    if (!adjacentTile.wasVisited && searchType != TileSearchType.DEFAULT_RANGED && searchType != TileSearchType.RANGED_ATTACK_ONLY)
+                    if (!adjacentTile.wasVisited && searchType != TileSearchTypes.DEFAULT_RANGED && searchType != TileSearchTypes.RANGED_ATTACK_ONLY)
                     {
-                        if (searchType == TileSearchType.CHARGE_ATTACK && tile.distance <= actionPoints && ContainsEnemy(adjacentTile))
+                        if (searchType == TileSearchTypes.CHARGE_ATTACK && tile.distance <= actionPoints && ContainsEnemy(adjacentTile))
                         {
                             AttachTile(attackCost > tile.distance ? attackCost : tile.distance, adjacentTile, tile);
                             selectableTiles.Add(adjacentTile);

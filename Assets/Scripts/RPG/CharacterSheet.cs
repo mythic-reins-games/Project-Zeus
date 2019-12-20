@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define OLD
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,6 +42,8 @@ public class CharacterSheet
     {
         rng = new System.Random();
         characterClass = c;
+
+#if (OLD)
         switch (c)
         {
             case CharacterClass.CLASS_HERO:
@@ -72,6 +76,38 @@ public class CharacterSheet
                 break;
         }
         InitHealth();
+#else
+        string prefabName = "";
+        switch (characterClass)
+        {
+            case CharacterClass.CLASS_HERO:
+                prefabName = "Hero";
+                break;
+            case CharacterClass.CLASS_MEDUSA:
+                prefabName = "Medusa";
+                break;
+            case CharacterClass.CLASS_MINOTAUR:
+                prefabName = "Minotaur";
+                break;
+            case CharacterClass.CLASS_ARCHER:
+                prefabName = "Archer";
+                break;
+            case CharacterClass.CLASS_MYRMADON:
+                prefabName = "Myrmadon";
+                break;
+            case CharacterClass.CLASS_SORCERER:
+                prefabName = "Sorcerer";
+                break;
+            case CharacterClass.CLASS_SLAVE:
+                prefabName = "Slave";
+                break;
+        }
+        combatPrefab = (GameObject)Resources.Load("Prefabs/Creatures/" + prefabName, typeof(GameObject));
+        CreatureMechanics creatureMechanics = combatPrefab.GetComponent<CreatureMechanics>();
+        name = creatureMechanics.DisplayName;
+        InitStats(creatureMechanics.Speed, creatureMechanics.Endurance, creatureMechanics.Strength, creatureMechanics.Agility, creatureMechanics.Intelligence);
+        InitHealth();
+#endif
     }
 
     private void InitHealth()
@@ -147,6 +183,7 @@ public class CharacterSheet
     // Can create as PC or as enemy.
     public void CreateCombatAvatar(Vector3 location, Quaternion rotation, bool asPC)
     {
+#if (OLD)
         combatPrefab = (GameObject)Resources.Load("Prefabs/combatant", typeof(GameObject));
         GameObject combatant = GameObject.Instantiate(combatPrefab, location, rotation) as GameObject;
         if (asPC)
@@ -169,7 +206,7 @@ public class CharacterSheet
                 specialMoves.Add(combatant.AddComponent<ActionLifeOrDeath>());
                 break;
             case CharacterClass.CLASS_MEDUSA:
-                combatant.GetComponent<CombatController>().SetTileSearchType(CombatController.TileSearchType.DEFAULT_RANGED);
+                combatant.GetComponent<CombatController>().TileSearchType = CombatController.TileSearchTypes.DEFAULT_RANGED;
                 combatant.AddComponent<MedusaMechanics>();
                 // At some point we may want to replace this with some sort of 'skill learning' system where the unit can learn new skills? But for now just add all the skills.
                 specialMoves.Add(combatant.AddComponent<ActionPetrify>());
@@ -187,7 +224,7 @@ public class CharacterSheet
                 break;
             case CharacterClass.CLASS_ARCHER:
                 combatant.AddComponent<CreatureMechanics>();
-                combatant.GetComponent<CombatController>().SetTileSearchType(CombatController.TileSearchType.DEFAULT_RANGED);
+                combatant.GetComponent<CombatController>().TileSearchType = CombatController.TileSearchTypes.DEFAULT_RANGED;
                 break;
             case CharacterClass.CLASS_MYRMADON:
                 combatant.AddComponent<CreatureMechanics>();
@@ -201,6 +238,40 @@ public class CharacterSheet
         }
         string displayName = asPC ? name : "Enemy " + name;
         combatant.GetComponent<CreatureMechanics>().Init(currentHealth, maxHealth, speed, endurance, strength, agility, intelligence, displayName);
-        combatant.GetComponent<CombatController>().SetSpecialMoves(specialMoves);
+        combatant.GetComponent<CombatController>().SpecialMoves = specialMoves;
+#else
+        GameObject combatant = GameObject.Instantiate(combatPrefab, location, rotation) as GameObject;
+        CombatController combatController = combatant.GetComponent<CombatController>();
+        CreatureMechanics creatureMechanics = combatant.GetComponent<CreatureMechanics>();
+        CombatController newCombatController;
+
+        if (asPC)
+        {
+            newCombatController = combatant.AddComponent<PlayerController>();
+        }
+        else
+        {
+            newCombatController = combatant.AddComponent<EnemyController>();
+            creatureMechanics.DisplayName = "Enemy " + creatureMechanics.DisplayName;
+        }
+        newCombatController.TileSearchType = combatController.TileSearchType;
+        newCombatController.SpecialMoves = combatController.SpecialMoves;
+        SafeDestroy(combatController);
+
+        creatureMechanics.Init(currentHealth, maxHealth);
+#endif
+    }
+
+    // code from: http://answers.unity.com/answers/791421/view.html
+    private void SafeDestroy(UnityEngine.Object target)
+    {
+        if (Application.isEditor)
+        {
+            UnityEngine.Object.DestroyImmediate(target);
+        }
+        else
+        {
+            UnityEngine.Object.Destroy(target);
+        }
     }
 }
