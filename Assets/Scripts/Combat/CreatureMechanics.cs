@@ -18,9 +18,7 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
     [SerializeField] private int agility;
     [SerializeField] private int intelligence;
 
-    [SerializeField] public string displayName;
-
-    [SerializeField] private GameSignalOneObject gameSignal;
+    public string displayName;
 
     protected int maxStamina;
     protected int currentStamina;
@@ -49,6 +47,7 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         currentStamina = maxStamina;
         currentHealth = inputCurrentHealth;
         maxConcentration = 20 + GetEffectiveIntelligence() * 3;
+        healthBarScript.SetPercent(PercentHealth());
     }
 
     public void RegisterStatusEffect(StatusEffect effect)
@@ -59,7 +58,7 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
 
     public int BeginTurnAndGetMaxActionPoints()
     {
-        int ap = 5 + GetEffectiveSpeed();
+        int ap = 4 + GetEffectiveSpeed();
         foreach (StatusEffect effect in statusEffects)
         {
             ap = effect.PerRoundEffect(ap);
@@ -127,6 +126,7 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         }
         else
         {
+            healthBarScript.SetPercent(PercentHealth());
             Animate("IsGettingDamaged");
         }
     }
@@ -189,15 +189,35 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.EMPOWER))
             m += 20;
         if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.BLINDED))
-            m -= 30;
+            m -= 25;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.KNOCKDOWN))
+            m -= 25;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.PETRIFIED))
+            m -= 100;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.FROZEN))
+            m -= 100;
         return m;
+    }
+
+    public bool IgnoresTerrainCosts()
+    {
+        return StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.MOBILITY);
+    }
+
+    virtual public bool ExertsZoc()
+    {
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.PETRIFIED) ||
+            StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.FROZEN) ||
+            StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.KNOCKDOWN))
+            return false;
+        return true;
     }
 
     protected int GetHitModifiers()
     {
         int m = 0;
         if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.BLINDED))
-            m -= 30;
+            m -= 25;
         return m;
     }
 
@@ -214,6 +234,14 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
     private bool PercentRoll(int percent)
     {
         return rng.Next(0, 99) < percent;
+    }
+
+    protected int GetBackstabModifiers()
+    {
+        int m = 0;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.PERFIDY))
+            m += 15;
+        return m;
     }
 
     protected int GetDamageModifiers()
@@ -244,18 +272,19 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
 
     virtual public int BonusRearDamageMin()
     {
-        return 2 + GetEffectiveAgility() * 2;
+        return 2 + GetBackstabModifiers() + GetEffectiveAgility() * 2;
     }
 
     virtual public int BonusRearDamageMax()
     {
-        return 4 + GetEffectiveAgility() * 2;
+        return 4 + GetBackstabModifiers() + GetEffectiveAgility() * 2;
     }
 
     private float DefensiveDamageMultiplier()
     {
         float m = 1.0f;
         if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.PETRIFIED)) m /= 2.0f;
+        if (StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.BULWARK)) m /= 2.0f;
         return m;
     }
 
@@ -266,7 +295,7 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
     }
 
     // Returns true if floats are within 15.0f of each other.
-    // compare Mathf.Approximately, this has a much larger tolerance window.
+    // Compared Mathf.Approximately, this has a much larger tolerance window.
     private bool VeryApproximateMatch(float f1, float f2)
     {
         if (Mathf.Abs(f1 - f2) < 15.0f) return true;
@@ -302,10 +331,10 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         return GetEffectiveIntelligence() * 2;
     }
 
-    private bool IsCrit(ObjectMechanics target)
+    private bool IsCrit(ObjectMechanics target, bool isBackstab)
     {
         int chance = CritChance();
-        if (IsVulnerable(target))
+        if (isBackstab)
         {
             chance *= 2;
         }
@@ -339,6 +368,8 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         return 1.0f;
     }
 
+    // Main attack function. Applies damage and returns true if there is a hit.
+    // Returns false if there is a miss.
     private bool HitAndDamage(ObjectMechanics target, bool isConcentrationEligible, float damageMultiplier)
     {
         if (isConcentrationEligible)
@@ -369,8 +400,8 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
             backstab = true;
             dam += BonusRearDamage();
         }
-        // Critical hits apply a +100% multiplier, after all other modifiers are considered.
-        if (IsCrit(target))
+        // Critical hits apply a +100% multiplier, after all fixed modifiers are considered.
+        if (IsCrit(target, backstab))
         {
             dam += dam;
             DisplayPopupAfterDelay(0.2f, "Crit");
@@ -388,22 +419,16 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
     public void UpdateUI(object value = null)
     {
         value = value ?? GetConcentrationPercent();
-        gameSignal?.Raise(value);
+        SignalRegistry.ConcentrationSignal().Raise(value);
     }
 
     public int CurrentConcentration
     {
-        get => currentConcentration;
-        set => currentConcentration = value;
+        get { return currentConcentration; }
+        set { currentConcentration = value; }
     }
 
-    public void OnBeforeSerialize()
-    {
-        if (gameSignal == null)
-        {
-            gameSignal = (GameSignalOneObject)Resources.Load("Game Signals/SetConcentration", typeof(GameSignalOneObject));
-        }
-    }
+    public void OnBeforeSerialize() { }
 
     public void OnAfterDeserialize() { }
 }

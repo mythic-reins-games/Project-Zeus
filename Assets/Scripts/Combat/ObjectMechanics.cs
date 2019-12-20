@@ -6,7 +6,7 @@ public class ObjectMechanics : MonoBehaviour
 {
 
     protected int maxHealth = 1;
-    protected int currentHealth = 1;
+    public int currentHealth = 1;
 
     public bool dead = false;
 

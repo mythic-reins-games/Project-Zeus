@@ -17,11 +17,11 @@ public class MedusaMechanics : CreatureMechanics
 
     override public int BonusRearDamageMin()
     {
-        return 1 + GetEffectiveAgility() * 2;
+        return 1 + GetBackstabModifiers() + GetEffectiveAgility() * 2;
     }
 
     override public int BonusRearDamageMax()
     {
-        return 2 + GetEffectiveAgility() * 2;
+        return 2 + GetBackstabModifiers() + GetEffectiveAgility() * 2;
     }
 }

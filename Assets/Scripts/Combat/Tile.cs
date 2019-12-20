@@ -57,10 +57,14 @@ public class Tile : MonoBehaviour
         }
         else if (isSelectable)
         {
-            if (tileCostMultiplier == DEFAULT_TILE_COST_MULTIPLIER) {
-                GetComponent<Renderer>().material.color = Color.green;
-            } else {
+            if (tileCostMultiplier != DEFAULT_TILE_COST_MULTIPLIER) {
                 GetComponent<Renderer>().material.color = new Color(0, 0.6f, 0, 1);
+            }
+            else if (isZoneOfControl)
+            {
+                GetComponent<Renderer>().material.color = new Color(0.1f, 0.8f, 0.1f, 1);
+            } else {
+                GetComponent<Renderer>().material.color = Color.green;
             }
         }
         else

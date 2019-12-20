@@ -20,6 +20,8 @@ public class Action : MonoBehaviour
         CHARGE,
         MELEE,
         RANGED,
+        REACH,
+        ALLY_BUFF
     };
 
     // 0 means ready to cast, gets set to COOLDOWN when special ability used; decremented by 1 each turn.
@@ -84,12 +86,13 @@ public class Action : MonoBehaviour
 
     protected void EndAction()
     {
+        mechanics.CurrentConcentration -= CONCENTRATION_COST;
+        combatController.EndAction(spentActionPoints);
+        inProgress = false;
+
         // Round rotation to nearest 90 degrees.
         Quaternion rot = transform.rotation;
         rot.y = Mathf.Round(rot.y / 0.7071f) * 0.7071f;
         transform.rotation = rot;
-        mechanics.CurrentConcentration -= CONCENTRATION_COST;
-        combatController.EndAction(spentActionPoints);
-        inProgress = false;
     }
 }
