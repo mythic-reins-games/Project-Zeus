@@ -42,8 +42,8 @@ public class TurnManager : MonoBehaviour
 
         panel = GameObject.FindObjectOfType<GUIPanel>();
         rng = new System.Random();
-        
-        combatants = GetComponentsInChildren<CombatController>().Where(cc => cc.enabled == true).ToList();
+
+        combatants = GetComponentsInChildren<CombatController>().ToList();
         combatants.Sort(new SortCombatantDescendant());
         OnSetUpPlayers.Invoke(combatants);
     }

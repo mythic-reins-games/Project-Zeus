@@ -68,7 +68,7 @@ public class Action : MonoBehaviour
     // Start is called before the first frame update
     virtual protected void Start()
     {
-        combatController = GetComponents<CombatController>().Where(cc => cc.enabled == true).Single();
+        combatController = GetComponent<CombatController>();
         anim = GetComponentInChildren<Animator>();
         mechanics = GetComponent<CreatureMechanics>();
     }

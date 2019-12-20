@@ -256,9 +256,22 @@ public class CharacterSheet
         }
         newCombatController.TileSearchType = combatController.TileSearchType;
         newCombatController.SpecialMoves = combatController.SpecialMoves;
-        combatController.enabled = false;
+        SafeDestroy(combatController);
 
         creatureMechanics.Init(currentHealth, maxHealth);
 #endif
+    }
+
+    // code from: http://answers.unity.com/answers/791421/view.html
+    private void SafeDestroy(UnityEngine.Object target)
+    {
+        if (Application.isEditor)
+        {
+            UnityEngine.Object.DestroyImmediate(target);
+        }
+        else
+        {
+            UnityEngine.Object.Destroy(target);
+        }
     }
 }
