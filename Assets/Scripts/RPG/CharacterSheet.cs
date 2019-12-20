@@ -1,4 +1,4 @@
-﻿#define OLD
+﻿//#define OLD
 
 using System;
 using System.Collections;
@@ -49,7 +49,6 @@ public class CharacterSheet
             case CharacterClass.CLASS_HERO:
                 name = "Hero";
                 InitStats(2, 2, 2, 2, 2);
-                speed = 4;
                 break;
             case CharacterClass.CLASS_MEDUSA:
                 name = "Medusa";

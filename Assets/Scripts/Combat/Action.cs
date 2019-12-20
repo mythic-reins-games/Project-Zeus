@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // This is a base class that all other types of actions inherit from.
@@ -67,7 +68,7 @@ public class Action : MonoBehaviour
     // Start is called before the first frame update
     virtual protected void Start()
     {
-        combatController = GetComponent<CombatController>();
+        combatController = GetComponents<CombatController>().Where(cc => cc.enabled == true).Single();
         anim = GetComponentInChildren<Animator>();
         mechanics = GetComponent<CreatureMechanics>();
     }
