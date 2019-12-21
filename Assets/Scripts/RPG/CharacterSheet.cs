@@ -229,7 +229,7 @@ public class CharacterSheet
                 specialMoves.Add(combatant.AddComponent<ActionFastShot>());
                 break;
             case CharacterClass.CLASS_MYRMADON:
-                combatant.AddComponent<CreatureMechanics>();
+                combatant.AddComponent<MyrmadonMechanics>();
                 combatant.GetComponent<CombatController>().SetTileSearchType(CombatController.TileSearchType.DEFAULT_REACH);
                 specialMoves.Add(combatant.AddComponent<ActionSweep>());
                 specialMoves.Add(combatant.AddComponent<ActionCrippleStrike>());
@@ -237,7 +237,7 @@ public class CharacterSheet
                 specialMoves.Add(combatant.AddComponent<ActionBulwark>());
                 break;
             case CharacterClass.CLASS_SORCERER:
-                combatant.AddComponent<CreatureMechanics>();
+                combatant.AddComponent<SorcererMechanics>();
                 combatant.GetComponent<CombatController>().SetTileSearchType(CombatController.TileSearchType.DEFAULT_REACH);
                 // At some point we may want to replace this with some sort of 'skill learning' system where the unit can learn new skills? But for now just add all the skills.
                 specialMoves.Add(combatant.AddComponent<ActionFreeze>());
