@@ -221,7 +221,7 @@ public class CharacterSheet
                 specialMoves.Add(combatant.AddComponent<ActionRegenerate>());
                 break;
             case CharacterClass.CLASS_ARCHER:
-                combatant.AddComponent<CreatureMechanics>();
+                combatant.AddComponent<ArcherMechanics>();
                 combatant.GetComponent<CombatController>().SetTileSearchType(CombatController.TileSearchType.DEFAULT_RANGED);
                 specialMoves.Add(combatant.AddComponent<ActionCrippleShot>());
                 specialMoves.Add(combatant.AddComponent<ActionPoisonArrow>());
