@@ -116,9 +116,9 @@ public class CharacterSheet
             case CharacterClass.CLASS_SLAVE:
                 prefabName = "Slave";
                 break;
-			case CharacterClass.CLASS_GOBLIN:
-				prefabName = "Goblin";
-				break;	
+            case CharacterClass.CLASS_GOBLIN:
+                prefabName = "Goblin";
+                break;	
         }
         combatPrefab = (GameObject)Resources.Load("Prefabs/Creatures/" + prefabName, typeof(GameObject));
         CreatureMechanics creatureMechanics = combatPrefab.GetComponent<CreatureMechanics>();
@@ -261,7 +261,7 @@ public class CharacterSheet
                 specialMoves.Add(combatant.AddComponent<ActionRegenerate>());
                 break;
             case CharacterClass.CLASS_ARCHER:
-                combatant.AddComponent<CreatureMechanics>();
+                combatant.AddComponent<ArcherMechanics>();
                 combatant.GetComponent<CombatController>().TileSearchType = CombatController.TileSearchTypes.DEFAULT_RANGED;
                 specialMoves.Add(combatant.AddComponent<ActionCrippleShot>());
                 specialMoves.Add(combatant.AddComponent<ActionPoisonArrow>());
@@ -269,16 +269,16 @@ public class CharacterSheet
                 specialMoves.Add(combatant.AddComponent<ActionFastShot>());
                 break;
             case CharacterClass.CLASS_MYRMADON:
-                combatant.AddComponent<CreatureMechanics>();
-                combatant.GetComponent<CombatController>().SetTileSearchType(CombatController.TileSearchType.DEFAULT_REACH);
+                combatant.AddComponent<MyrmadonMechanics>();
+                combatant.GetComponent<CombatController>().TileSearchType = CombatController.TileSearchTypes.DEFAULT_REACH;
                 specialMoves.Add(combatant.AddComponent<ActionSweep>());
                 specialMoves.Add(combatant.AddComponent<ActionCrippleStrike>());
                 specialMoves.Add(combatant.AddComponent<ActionShieldBash>());
                 specialMoves.Add(combatant.AddComponent<ActionBulwark>());
                 break;
             case CharacterClass.CLASS_SORCERER:
-                combatant.AddComponent<CreatureMechanics>();
-                combatant.GetComponent<CombatController>().SetTileSearchType(CombatController.TileSearchType.DEFAULT_REACH);
+                combatant.AddComponent<SorcererMechanics>();
+                combatant.GetComponent<CombatController>().TileSearchType = CombatController.TileSearchTypes.DEFAULT_REACH;
                 // At some point we may want to replace this with some sort of 'skill learning' system where the unit can learn new skills? But for now just add all the skills.
                 specialMoves.Add(combatant.AddComponent<ActionFreeze>());
                 specialMoves.Add(combatant.AddComponent<ActionIgnite>());

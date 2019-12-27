@@ -16,6 +16,6 @@ public class ActionSweep : ActionBasicAttack
 
     override protected void AttackEffects(ObjectMechanics targetMechanics)
     {
-        mechanics.PerformAttackWithStatusEffect(targetMechanics, StatusEffect.EffectType.KNOCKDOWN, 1, -1, 0.5f);
+        mechanics.PerformAttackWithStatusEffect(targetMechanics, StatusEffect.EffectType.KNOCKDOWN, 1, -1, 1f);
     }
 }
