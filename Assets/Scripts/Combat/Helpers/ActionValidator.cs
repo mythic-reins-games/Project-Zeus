@@ -47,6 +47,28 @@ public class ActionValidator : CombatController
         return false;
     }
 
+    private bool TargetAllyBuffSpecialMove(Action action, bool displayReason)
+    {
+        if (FindSelectableAllyBuffTiles(action.MIN_AP_COST))
+        {
+            selectedAction = action;
+            return true;
+        }
+        if (displayReason) creatureMechanics.DisplayPopup("Nothing in range");
+        return false;
+    }
+
+    private bool TargetReachSpecialMove(Action action, bool displayReason)
+    {
+        if (FindSelectableReachAttackTiles(action.MIN_AP_COST))
+        {
+            selectedAction = action;
+            return true;
+        }
+        if (displayReason) creatureMechanics.DisplayPopup("Nothing in range");
+        return false;
+    }
+
     // Returns false if invalid special action (e.g. not enough concentration).
     // Only call this for special abilities: basic attacks can be assumed to always be valid.
     protected bool IsValid(Action action, bool displayReason)
@@ -82,6 +104,10 @@ public class ActionValidator : CombatController
                 return TargetMeleeSpecialMove(action, displayReason);
             case Action.TargetType.RANGED:
                 return TargetRangedSpecialMove(action, displayReason);
+            case Action.TargetType.ALLY_BUFF:
+                return TargetAllyBuffSpecialMove(action, displayReason);
+            case Action.TargetType.REACH:
+                return TargetReachSpecialMove(action, displayReason);
         }
         return false;
     }

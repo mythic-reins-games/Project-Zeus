@@ -22,6 +22,11 @@ public class EnemyController : ActionValidator
         return manager.AllLivingPCs();
     }
 
+    override protected List<CombatController> AllAllies()
+    {
+        return manager.AllLivingEnemies();
+    }
+
     override public bool IsEnemy()
     {
         return true;

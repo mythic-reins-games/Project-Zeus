@@ -16,11 +16,13 @@ public class CharacterSheet
         CLASS_SLAVE,
         CLASS_ARCHER,
         CLASS_MYRMADON,
-        CLASS_SORCERER
+        CLASS_SORCERER,
+        CLASS_GOBLIN
     };
 
     private static System.Random rng;
     private GameObject combatPrefab;
+    private GameObject avatar;
 
     private CharacterClass characterClass;
 
@@ -36,7 +38,16 @@ public class CharacterSheet
     public int agility;
     public int intelligence;
 
+    public int bonusSpeed = 0;
+    public int bonusEndurance = 0;
+    public int bonusStrength = 0;
+    public int bonusAgility = 0;
+    public int bonusIntelligence = 0;
+
     public bool selected = true;
+
+    public Item ringLeftEquipped;
+    public Item ringRightEquipped;
 
     public CharacterSheet(CharacterClass c)
     {
@@ -74,6 +85,10 @@ public class CharacterSheet
                 name = "Slave";
                 InitStats(1, 1, 1, 1, 1);
                 break;
+            case CharacterClass.CLASS_GOBLIN:
+                name = "Goblin";
+                InitStats(2, 1, 2, 3, 2);
+                break;
         }
         InitHealth();
 #else
@@ -101,6 +116,9 @@ public class CharacterSheet
             case CharacterClass.CLASS_SLAVE:
                 prefabName = "Slave";
                 break;
+			case CharacterClass.CLASS_GOBLIN:
+				prefabName = "Goblin";
+				break;	
         }
         combatPrefab = (GameObject)Resources.Load("Prefabs/Creatures/" + prefabName, typeof(GameObject));
         CreatureMechanics creatureMechanics = combatPrefab.GetComponent<CreatureMechanics>();
@@ -128,6 +146,11 @@ public class CharacterSheet
     public int GetTotalPower()
     {
         return speed + endurance + strength + agility + intelligence;
+    }
+
+    public void Heal(int amount)
+    {
+        currentHealth = currentHealth + amount < maxHealth ? currentHealth + amount : maxHealth;
     }
 
     public void PowerUp()
@@ -178,6 +201,21 @@ public class CharacterSheet
          }
     }
 
+    // If the avatar was injured, register those effects.
+    // Remember that stamina losses are transient - only health losses last past combat.
+    public void HandleCombatEffects()
+    {
+        // Unit fell in combat. Set to one health.
+        if (avatar == null)
+        {
+            currentHealth = 1;
+            return;
+        }
+        // Otherwise, however many health points the avatar has.
+        currentHealth = avatar.GetComponent<CreatureMechanics>().currentHealth;
+        currentHealth = currentHealth < 1 ? 1 : currentHealth;
+    }
+
     // Creates the combat avatar for the character in a combat scene.
     // Gives it the appropriate Model, CreatureMechanics, CombatMechanics, Special Moves, etc.
     // Can create as PC or as enemy.
@@ -225,19 +263,42 @@ public class CharacterSheet
             case CharacterClass.CLASS_ARCHER:
                 combatant.AddComponent<CreatureMechanics>();
                 combatant.GetComponent<CombatController>().TileSearchType = CombatController.TileSearchTypes.DEFAULT_RANGED;
+                specialMoves.Add(combatant.AddComponent<ActionCrippleShot>());
+                specialMoves.Add(combatant.AddComponent<ActionPoisonArrow>());
+                specialMoves.Add(combatant.AddComponent<ActionBurningArrow>());
+                specialMoves.Add(combatant.AddComponent<ActionFastShot>());
                 break;
             case CharacterClass.CLASS_MYRMADON:
                 combatant.AddComponent<CreatureMechanics>();
+                combatant.GetComponent<CombatController>().SetTileSearchType(CombatController.TileSearchType.DEFAULT_REACH);
+                specialMoves.Add(combatant.AddComponent<ActionSweep>());
+                specialMoves.Add(combatant.AddComponent<ActionCrippleStrike>());
+                specialMoves.Add(combatant.AddComponent<ActionShieldBash>());
+                specialMoves.Add(combatant.AddComponent<ActionBulwark>());
                 break;
             case CharacterClass.CLASS_SORCERER:
                 combatant.AddComponent<CreatureMechanics>();
+                combatant.GetComponent<CombatController>().SetTileSearchType(CombatController.TileSearchType.DEFAULT_REACH);
+                // At some point we may want to replace this with some sort of 'skill learning' system where the unit can learn new skills? But for now just add all the skills.
+                specialMoves.Add(combatant.AddComponent<ActionFreeze>());
+                specialMoves.Add(combatant.AddComponent<ActionIgnite>());
+                specialMoves.Add(combatant.AddComponent<ActionBloodlust>());
+                specialMoves.Add(combatant.AddComponent<ActionOffhandAttack>());
+                break;
+            case CharacterClass.CLASS_GOBLIN:
+                combatant.AddComponent<CreatureMechanics>();
+                specialMoves.Add(combatant.AddComponent<ActionPerfidy>());
+                specialMoves.Add(combatant.AddComponent<ActionCausticPowder>());
+                specialMoves.Add(combatant.AddComponent<ActionKneecap>());
+                specialMoves.Add(combatant.AddComponent<ActionMobility>());
                 break;
             case CharacterClass.CLASS_SLAVE:
                 combatant.AddComponent<CreatureMechanics>();
                 break;
         }
         string displayName = asPC ? name : "Enemy " + name;
-        combatant.GetComponent<CreatureMechanics>().Init(currentHealth, maxHealth, speed, endurance, strength, agility, intelligence, displayName);
+        avatar = combatant;
+        combatant.GetComponent<CreatureMechanics>().Init(maxHealth, currentHealth, speed + bonusSpeed, endurance + bonusEndurance, strength + bonusStrength, agility + bonusAgility, intelligence + bonusIntelligence, displayName);
         combatant.GetComponent<CombatController>().SpecialMoves = specialMoves;
 #else
         GameObject combatant = GameObject.Instantiate(combatPrefab, location, rotation) as GameObject;

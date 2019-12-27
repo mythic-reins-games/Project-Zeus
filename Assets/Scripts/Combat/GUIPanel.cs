@@ -11,7 +11,7 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
     [SerializeField] Slider concentrationSlider;
     [SerializeField] Image concentrationImage;
 
-    [SerializeField] private GameSignalOneObject gameSignal;
+    private GameSignalOneObject gameSignal;
     private OneObjectEvent gameSignalEvent;
 
     int numPoints = 0;
@@ -31,6 +31,7 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
 
     private void OnEnable()
     {
+        gameSignal = SignalRegistry.ConcentrationSignal();
         gameSignal.RegisterListener(this);
     }
 
@@ -58,7 +59,6 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
         button1 = GameObject.Find("Button1").GetComponent<Button>();
         button2 = GameObject.Find("Button2").GetComponent<Button>();
         button3 = GameObject.Find("Button3").GetComponent<Button>();
-
         gameSignalEvent = new OneObjectEvent();
         gameSignalEvent.AddListener(SetConcentrationSlider);
     }
@@ -124,14 +124,17 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
 
     public void SetActionPoints(int amount)
     {
-        if (amount > actionPointImages.Count)
+        if (amount > actionPointImages.Count * 2)
         {
             Debug.LogWarning("Warning! Not enough action point images in GUI.");
             return;
         }
         for (numPoints = 0; numPoints < amount; numPoints++)
         {
-            actionPointImages[numPoints].color = new Color32(0, 255, 0, 255);
+            if (numPoints >= actionPointImages.Count)
+                actionPointImages[numPoints - actionPointImages.Count].color = new Color32(60, 0, 200, 255);
+            else
+                actionPointImages[numPoints].color = new Color32(0, 255, 0, 255);
         }
     }
 
@@ -140,7 +143,10 @@ public class GUIPanel : MonoBehaviour, IGameSignalOneObjectListener
         for (int i = 0; i < amount; i++)
         {
             numPoints -= 1;
-            actionPointImages[numPoints].color = new Color32(255, 0, 0, 255);
+            if (numPoints >= actionPointImages.Count)
+                actionPointImages[numPoints - actionPointImages.Count].color = new Color32(0, 255, 0, 255);
+            else
+                actionPointImages[numPoints].color = new Color32(255, 0, 0, 255);
         }
     }
     

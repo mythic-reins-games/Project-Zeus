@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3429315727244364572
+--- !u!114 &927873567732669655
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,9 +9,61 @@ MonoBehaviour:
   m_GameObject: {fileID: 1266311061897454487}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c89537a004adc24bbbf788a02a75297, type: 3}
+  m_Script: {fileID: 11500000, guid: d1339a9e747df6b49b003dbde7d53b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &3203722097884217833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266311061897454487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39844123a0a4d294ca8015cbe14eb905, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &5771281809313368713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266311061897454487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb3c7cc3d3bb1645911191fd92accf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &8047693318048750262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266311061897454487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4362cb08f8f8ea41a434ae66ff65a53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5797115890558141700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266311061897454487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d03cc7f91c23dc41a5f0849777339eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 1
   dead: 0
   strength: 2
   speed: 2
@@ -19,7 +71,6 @@ MonoBehaviour:
   agility: 1
   intelligence: 2
   displayName: Myrmadon
-  gameSignal: {fileID: 11400000, guid: 2d2568bfd7c28cd41b1c9fb7d263322d, type: 2}
 --- !u!1001 &5548001335862063283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90,27 +141,32 @@ PrefabInstance:
     - target: {fileID: 8513442885166955080, guid: 1e282d00501788948ad3a481b3e3f17a,
         type: 3}
       propertyPath: specialMoves.Array.size
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8513442885166955080, guid: 1e282d00501788948ad3a481b3e3f17a,
         type: 3}
       propertyPath: specialMoves.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3203722097884217833}
     - target: {fileID: 8513442885166955080, guid: 1e282d00501788948ad3a481b3e3f17a,
         type: 3}
       propertyPath: specialMoves.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 927873567732669655}
     - target: {fileID: 8513442885166955080, guid: 1e282d00501788948ad3a481b3e3f17a,
         type: 3}
       propertyPath: specialMoves.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5771281809313368713}
     - target: {fileID: 8513442885166955080, guid: 1e282d00501788948ad3a481b3e3f17a,
         type: 3}
       propertyPath: specialMoves.Array.data[3]
       value: 
+      objectReference: {fileID: 8047693318048750262}
+    - target: {fileID: 8513442885166955080, guid: 1e282d00501788948ad3a481b3e3f17a,
+        type: 3}
+      propertyPath: DEFAULT_ATTACK_TYPE
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1800092024450746903, guid: 1e282d00501788948ad3a481b3e3f17a,
         type: 3}

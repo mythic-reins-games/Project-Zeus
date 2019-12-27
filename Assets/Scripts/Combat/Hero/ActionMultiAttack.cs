@@ -6,7 +6,7 @@ using UnityEngine;
 public class ActionMultiAttack : ActionBasicAttack
 {
     override public int COOLDOWN { get { return 2; } }
-    override public int CONCENTRATION_COST { get { return 6; } }
+    override public int CONCENTRATION_COST { get { return 10; } }
     override public int MIN_AP_COST { get { return Constants.ATTACK_AP_COST; } }
     override public TargetType TARGET_TYPE { get { return TargetType.MELEE; } }
     override protected float ATTACK_DURATION { get { return 2.0f; } }

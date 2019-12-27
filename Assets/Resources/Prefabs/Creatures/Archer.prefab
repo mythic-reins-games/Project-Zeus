@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &752777284621488171
+--- !u!114 &-5023357084198992179
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,9 +9,62 @@ MonoBehaviour:
   m_GameObject: {fileID: 1266311061897454487}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c89537a004adc24bbbf788a02a75297, type: 3}
+  m_Script: {fileID: 11500000, guid: cf946dcef10a7be44a9902f2763a9a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &-3241355472951616825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266311061897454487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac8e31b2f869e0e41be3ba5493833c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &1515142283380428771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266311061897454487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 671340c8ee468294fa210c6f7e6ca59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &4517770853143377821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266311061897454487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a3b8d64ba41b843bb2957e594ec7c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+--- !u!114 &4656559707258687821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266311061897454487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5225ab5ddef734442a574dfb173541a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 1
   dead: 0
   strength: 2
   speed: 3
@@ -19,7 +72,6 @@ MonoBehaviour:
   agility: 2
   intelligence: 2
   displayName: Archer
-  gameSignal: {fileID: 11400000, guid: 2d2568bfd7c28cd41b1c9fb7d263322d, type: 2}
 --- !u!1001 &5548001335862063283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90,28 +142,28 @@ PrefabInstance:
     - target: {fileID: 8513442885166955080, guid: 1e282d00501788948ad3a481b3e3f17a,
         type: 3}
       propertyPath: specialMoves.Array.size
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8513442885166955080, guid: 1e282d00501788948ad3a481b3e3f17a,
         type: 3}
       propertyPath: specialMoves.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1515142283380428771}
     - target: {fileID: 8513442885166955080, guid: 1e282d00501788948ad3a481b3e3f17a,
         type: 3}
       propertyPath: specialMoves.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -3241355472951616825}
     - target: {fileID: 8513442885166955080, guid: 1e282d00501788948ad3a481b3e3f17a,
         type: 3}
       propertyPath: specialMoves.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4517770853143377821}
     - target: {fileID: 8513442885166955080, guid: 1e282d00501788948ad3a481b3e3f17a,
         type: 3}
       propertyPath: specialMoves.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -5023357084198992179}
     - target: {fileID: 8513442885166955080, guid: 1e282d00501788948ad3a481b3e3f17a,
         type: 3}
       propertyPath: DEFAULT_ATTACK_TYPE

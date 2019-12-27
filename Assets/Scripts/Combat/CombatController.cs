@@ -35,7 +35,13 @@ public class CombatController : TileBlockerController
         // Ranged attacks wil raycast to the target, and this move MUST end in an attack.
         RANGED_ATTACK_ONLY,
         // Basic ranged attack or movement.
-        DEFAULT_RANGED
+        DEFAULT_RANGED,
+        // Reach attacks can attack up to two tiles away (if unblocked), and this move MUST end in an attack.
+        REACH_ATTACK_ONLY,
+        // Basic reach attack or movement.
+        DEFAULT_REACH,
+        // Works like ranged attack, but only targets allies.
+        ALLY_BUFF
     };
 
     public List<Action> SpecialMoves
@@ -52,6 +58,8 @@ public class CombatController : TileBlockerController
 
     public bool Dead()
     {
+        // Edge case, controller still being initialized.
+        if (creatureMechanics == null) return false;
         return creatureMechanics.dead;
     }
 
@@ -78,9 +86,17 @@ public class CombatController : TileBlockerController
     
     public void AssignZonesOfControl()
     {
+        if (!creatureMechanics.ExertsZoc()) return;
         foreach (Tile adjacentTile in AdjacentTiles())
         {
             adjacentTile.SetIsZoneOfControl(true);
+            if (!adjacentTile.isBlocked && DEFAULT_ATTACK_TYPE == TileSearchTypes.DEFAULT_REACH)
+            {
+                foreach (Tile adjacentAdjacentTile in adjacentTile.adjacentTileList)
+                {
+                    adjacentAdjacentTile.SetIsZoneOfControl(true);
+                }
+            }
         }
     }
 
@@ -120,6 +136,7 @@ public class CombatController : TileBlockerController
         return false;
     }
 
+    // Checks to see if the input tile contains an enemy of this.
     // Defaults to false, but can be overridden by subclasses.
     // Note that 'enemy' is from the perspective of the actor;
     // for player-controlled, enemies are AI and vice versa.
@@ -136,6 +153,11 @@ public class CombatController : TileBlockerController
         return null;
     }
 
+    virtual protected List<CombatController> AllAllies()
+    {
+        return null;
+    }
+
     override public void HandleDeath()
     {
         manager.CheckCombatOver();
@@ -146,13 +168,16 @@ public class CombatController : TileBlockerController
     private void AttachTile(int moveCostOverride, Tile adjacentTile, Tile parent)
     {
         adjacentTile.parent = parent;
-        if (moveCostOverride != -1)
+        if (moveCostOverride != -1) // Move cost for attacks or moves.
         {
             adjacentTile.distance = moveCostOverride + parent.distance;
         }
         else
         {
-            adjacentTile.distance = adjacentTile.GetMoveCost() + parent.distance;
+            if (creatureMechanics.IgnoresTerrainCosts())
+                adjacentTile.distance = 1 + parent.distance;
+            else
+                adjacentTile.distance = adjacentTile.GetMoveCost() + parent.distance;
         }
     }
 
@@ -190,6 +215,28 @@ public class CombatController : TileBlockerController
         return true;
     }
 
+    protected bool FindSelectableAllyBuffTiles(int attackCost)
+    {
+        FindSelectableTiles(TileSearchTypes.ALLY_BUFF, attackCost);
+        if (selectableTiles.Count == 0)
+        {
+            FindSelectableBasicTiles();
+            return false;
+        }
+        return true;
+    }
+
+    protected bool FindSelectableReachAttackTiles(int attackCost)
+    {
+        FindSelectableTiles(TileSearchTypes.REACH_ATTACK_ONLY, attackCost);
+        if (selectableTiles.Count == 0)
+        {
+            FindSelectableBasicTiles();
+            return false;
+        }
+        return true;
+    }
+
     protected void FindSelectableBasicTiles()
     {
         FindSelectableTiles(DEFAULT_ATTACK_TYPE);
@@ -212,11 +259,12 @@ public class CombatController : TileBlockerController
         return false;
     }
 
-    private void AssignRangedAttackTargets(Tile tile, int attackCost)
+    private void AssignRangedAttackTargets(Tile tile, int attackCost, bool targetsFoe)
     {
         if (tile.distance + attackCost > actionPoints) return;
-        if (AllEnemies() == null) return;
-        foreach (CombatController enemy in AllEnemies())
+        List<CombatController> allTargets = targetsFoe ? AllEnemies() : AllAllies();
+        if (allTargets == null) return;
+        foreach (CombatController enemy in allTargets)
         {
             Tile enemyTile = enemy.currentTile;
             if (!enemyTile.wasVisited && RangedAttackValid(tile, enemy.gameObject))
@@ -228,6 +276,43 @@ public class CombatController : TileBlockerController
                 enemyTile.wasVisited = true;
             }
         }
+    }
+
+    private void AssignReachAttackTargets(Tile tile, int attackCost)
+    {
+        if (tile.distance + attackCost > actionPoints) return;
+        foreach (Tile adjacentTile in tile.adjacentTileList)
+        {
+            if (!adjacentTile.wasVisited && ContainsEnemy(adjacentTile))
+            {
+                AttachTile(attackCost, adjacentTile, tile);
+                selectableTiles.Add(adjacentTile);
+                adjacentTile.isSelectable = true;
+                visitedTiles.Add(adjacentTile);
+                adjacentTile.wasVisited = true;
+                continue;
+            }
+            if (adjacentTile.isBlocked) continue;
+            foreach (Tile adjacentAdjacentTile in adjacentTile.adjacentTileList)
+            {
+                if (!adjacentAdjacentTile.wasVisited && ContainsEnemy(adjacentAdjacentTile))
+                {
+                    AttachTile(attackCost, adjacentAdjacentTile, tile);
+                    selectableTiles.Add(adjacentAdjacentTile);
+                    adjacentAdjacentTile.isSelectable = true;
+                    visitedTiles.Add(adjacentAdjacentTile);
+                    adjacentAdjacentTile.wasVisited = true;
+                }
+            }
+        }
+    }
+
+    // Returns true for basic melee types (not reach or ranged).
+    private bool IsMeleeType(TileSearchTypes searchType)
+    {
+        return searchType == TileSearchTypes.DEFAULT ||
+            searchType == TileSearchTypes.ATTACK_ONLY ||
+            searchType == TileSearchTypes.CHARGE_ATTACK;
     }
 
     private void FindSelectableTiles(TileSearchTypes searchType, int attackCost = Constants.ATTACK_AP_COST)
@@ -250,12 +335,27 @@ public class CombatController : TileBlockerController
         {
             return;
         }
+        if (actionPoints < attackCost && searchType == TileSearchTypes.REACH_ATTACK_ONLY)
+        {
+            return;
+        }
+        if (actionPoints < attackCost && searchType == TileSearchTypes.ALLY_BUFF)
+        {
+            return;
+        }
 
         // TODO: Replace with PriorityQueue for performance optimization
         List<Tile> queue = new List<Tile>();
         queue.Add(currentTile);
         visitedTiles.Add(currentTile);
         currentTile.wasVisited = true;
+
+        // Can buff self or ally with ally buff.
+        if (searchType == TileSearchTypes.ALLY_BUFF)
+        {
+            selectableTiles.Add(currentTile);
+            currentTile.isSelectable = true;
+        }
 
         while (queue.Count > 0)
         {
@@ -264,7 +364,7 @@ public class CombatController : TileBlockerController
             queue.RemoveAt(0);
 
             // Only default can select tiles that end in movement.
-            if (tile != currentTile && (searchType == TileSearchTypes.DEFAULT || searchType == TileSearchTypes.DEFAULT_RANGED))
+            if (tile != currentTile && (searchType == TileSearchTypes.DEFAULT || searchType == TileSearchTypes.DEFAULT_RANGED || searchType == TileSearchTypes.DEFAULT_REACH))
             {
                 selectableTiles.Add(tile);
                 tile.isSelectable = true;
@@ -272,14 +372,20 @@ public class CombatController : TileBlockerController
 
             // Potential ranged attacks
             if (searchType == TileSearchTypes.DEFAULT_RANGED || searchType == TileSearchTypes.RANGED_ATTACK_ONLY)
-                AssignRangedAttackTargets(tile, attackCost);
+                AssignRangedAttackTargets(tile, attackCost, true);
+            // Potential reach attacks
+            if (searchType == TileSearchTypes.DEFAULT_REACH || searchType == TileSearchTypes.REACH_ATTACK_ONLY)
+                AssignReachAttackTargets(tile, attackCost);
+            // Potential ally buffs
+            if (searchType == TileSearchTypes.ALLY_BUFF)
+                AssignRangedAttackTargets(tile, attackCost, false);
 
             foreach (Tile adjacentTile in tile.adjacentTileList)
             {
                 if (adjacentTile.isBlocked)
                 {
                     // Potential melee attacks.
-                    if (!adjacentTile.wasVisited && searchType != TileSearchTypes.DEFAULT_RANGED && searchType != TileSearchTypes.RANGED_ATTACK_ONLY)
+                    if (!adjacentTile.wasVisited && IsMeleeType(searchType))
                     {
                         if (searchType == TileSearchTypes.CHARGE_ATTACK && tile.distance <= actionPoints && ContainsEnemy(adjacentTile))
                         {
@@ -298,7 +404,7 @@ public class CombatController : TileBlockerController
                     }
                     continue;
                 }
-                // Potential movement.
+                // Potential children in search tree.
                 if (!adjacentTile.wasVisited || adjacentTile.IsFasterParent(tile))
                 {
                     if (adjacentTile.GetTotalDistanceWithParent(tile) <= actionPoints)
@@ -327,7 +433,7 @@ public class CombatController : TileBlockerController
         if (DoesGUI())
         {
             panel.ClearActionPoints();
-            creatureMechanics.UpdateUI(0);
+            creatureMechanics.UpdateUI();
         }
         isTurn = false;
         currentTile.isCurrent = false;

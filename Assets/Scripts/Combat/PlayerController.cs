@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 // PlayerControllers are intended to be a fairly thin interface between CombatController and
 // the UI for Player-Controlled characters.
@@ -58,8 +59,18 @@ public class PlayerController : ActionValidator
         return manager.AllLivingEnemies();
     }
 
+    override protected List<CombatController> AllAllies()
+    {
+        return manager.AllLivingPCs();
+    }
+
     private Tile GetMouseTile()
     {
+        // IsPointerOverGameObject checks to see if the cursor is over a GUI object
+        // (despite its name).
+        if (EventSystem.current.IsPointerOverGameObject())
+            return null;
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit[] hits;
