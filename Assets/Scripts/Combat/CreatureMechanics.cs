@@ -27,7 +27,7 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
 
     private bool firstBlood = false;
 
-    public int Speed => speed;
+    public int Speed => GetEffectiveSpeed();
 
     override public bool canBeBackstabbed { get { return true; } }
 
