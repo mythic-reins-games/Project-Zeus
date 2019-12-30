@@ -112,11 +112,6 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
     {
         amount = (int)((float)amount * DefensiveDamageMultiplier());
         DisplayPopup(amount + " poison");
-        if (!firstBlood)
-        {
-            firstBlood = true;
-            BoostConcentration();
-        }
         currentHealth -= amount;
         if (currentHealth <= 0 && StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.CANNOT_DIE))
             currentHealth = 1;
