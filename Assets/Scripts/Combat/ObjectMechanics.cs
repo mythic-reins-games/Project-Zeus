@@ -14,6 +14,11 @@ public class ObjectMechanics : MonoBehaviour
 
     virtual public bool canBeBackstabbed { get { return false; } }
 
+    virtual protected string attackSound { get { return ""; } }
+    virtual protected string damagedSound { get { return ""; } }
+    virtual protected string dieSound { get { return ""; } }
+    virtual public string footstepSound { get { return ""; } }
+
     private Animator anim;
 
     // Start is called before the first frame update

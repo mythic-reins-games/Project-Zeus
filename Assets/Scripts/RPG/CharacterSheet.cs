@@ -196,7 +196,7 @@ public class CharacterSheet
         switch (characterClass)
         {
             case CharacterClass.CLASS_HERO:
-                combatant.AddComponent<CreatureMechanics>();
+                combatant.AddComponent<HeroMechanics>();
                 // At some point we may want to replace this with some sort of 'skill learning' system where the unit can learn new skills? But for now just add all the skills.
                 specialMoves.Add(combatant.AddComponent<ActionEmpower>());
                 specialMoves.Add(combatant.AddComponent<ActionMultiAttack>());
@@ -213,7 +213,7 @@ public class CharacterSheet
                 specialMoves.Add(combatant.AddComponent<ActionTailSweep>());
                 break;
             case CharacterClass.CLASS_MINOTAUR:
-                combatant.AddComponent<CreatureMechanics>();
+                combatant.AddComponent<MinotaurMechanics>();
                 // At some point we may want to replace this with some sort of 'skill learning' system where the unit can learn new skills? But for now just add all the skills.
                 specialMoves.Add(combatant.AddComponent<ActionBullRush>());
                 specialMoves.Add(combatant.AddComponent<ActionRage>());
