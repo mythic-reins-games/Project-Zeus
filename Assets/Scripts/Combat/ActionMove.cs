@@ -58,6 +58,7 @@ public class ActionMove : Action
             }
             else
             {
+                SoundManager.PlaySound(GetComponent<CreatureMechanics>().footstepSound);
                 // Center of tile reached
                 transform.position = target;
                 SpendMovePoints(tile);

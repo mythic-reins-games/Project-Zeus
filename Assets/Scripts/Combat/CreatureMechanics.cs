@@ -7,7 +7,7 @@ using System.Collections.Generic;
 // This class implements the high-level game rules for creatures.
 public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
 {
-    System.Random rng;
+    protected System.Random rng;
 
     IndicatorBar staminaBarScript;
     IndicatorBar healthBarScript;
@@ -27,7 +27,7 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
 
     private bool firstBlood = false;
 
-    public int Speed => speed;
+    public int Speed => GetEffectiveSpeed();
 
     override public bool canBeBackstabbed { get { return true; } }
 
@@ -112,20 +112,17 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
     {
         amount = (int)((float)amount * DefensiveDamageMultiplier());
         DisplayPopup(amount + " poison");
-        if (!firstBlood)
-        {
-            firstBlood = true;
-            BoostConcentration();
-        }
         currentHealth -= amount;
         if (currentHealth <= 0 && StatusEffect.HasEffectType(ref statusEffects, StatusEffect.EffectType.CANNOT_DIE))
             currentHealth = 1;
         if (currentHealth <= 0)
         {
+            SoundManager.PlaySound(dieSound);
             Die();
         }
         else
         {
+            SoundManager.PlaySound(damagedSound);
             healthBarScript.SetPercent(PercentHealth());
             Animate("IsGettingDamaged");
         }
@@ -175,10 +172,12 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         staminaBarScript.SetPercent(PercentStamina());
         if (currentHealth <= 0)
         {
+            SoundManager.PlaySound(dieSound);
             Die();
         }
         else
         {
+            SoundManager.PlaySound(damagedSound);
             Animate("IsGettingDamaged");
         }
     }
@@ -379,12 +378,14 @@ public class CreatureMechanics : ObjectMechanics, ISerializationCallbackReceiver
         Animate("IsAttacking");
         if (!PercentRoll(HitChance()))
         {
+            SoundManager.PlaySound(attackSound);
             target.Animate("IsDodging");
             DisplayPopupAfterDelay(0.2f, "Miss");
             return false;
         }
         if (PercentRoll(target.DodgeChance()))
         {
+            SoundManager.PlaySound(attackSound);
             target.Animate("IsDodging");
             target.DisplayPopupAfterDelay(0.2f, "Dodge");
             return false;
