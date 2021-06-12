@@ -9,7 +9,7 @@ public static class CharsheetUIInitializer
 
     public static void DisplayCharacterSheet(CharacterSheet characterToDisplay, bool isPC)
     {
-        GameObject charsheetUIPrefab = (GameObject)Resources.Load("Prefabs/CharsheetUIModal", typeof(GameObject));
+        GameObject charsheetUIPrefab = (GameObject)Resources.Load("Prefabs/UI/CharsheetUIModal", typeof(GameObject));
         characterBeingDisplayed = characterToDisplay;
         GameObject canvas = GameObject.Find("MainUICanvas");
         GameObject instance = GameObject.Instantiate(charsheetUIPrefab, canvas.transform) as GameObject;

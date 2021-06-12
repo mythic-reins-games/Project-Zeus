@@ -45,8 +45,11 @@ public class Action : MonoBehaviour
     protected IEnumerator EndActionAfterDelay(float fDuration)
     {
         yield return new WaitForSeconds(fDuration);
-        currentPhase = Phase.NONE;
-        EndAction();
+        if (inProgress)
+        {
+            currentPhase = Phase.NONE;
+            EndAction();
+        }
         yield break;
     }
 

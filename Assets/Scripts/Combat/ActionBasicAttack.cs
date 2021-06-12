@@ -64,7 +64,6 @@ public class ActionBasicAttack : ActionMove
         }
         else
         {
-            currentPhase = Phase.NONE;
             StartCoroutine(EndActionAfterDelay(ATTACK_DURATION));
         }
     }
